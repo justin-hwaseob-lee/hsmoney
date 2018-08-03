@@ -8,7 +8,7 @@ public class MyCon {
 	
 	@GetMapping("/main")
 	public String func() {
-		System.out.println("called");
+		System.out.println("calledll");
 		return "main";
 	}
 }
