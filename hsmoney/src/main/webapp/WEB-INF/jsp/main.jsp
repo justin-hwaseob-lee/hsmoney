@@ -1,12 +1,17 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/jsp/header.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="true" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<c:import url="header_survey.jsp" />
+	<!-- <%@include file="${pageContext.request.contextPath}/WEB-INF/jsp/header.jsp" %> -->
+	<title>HsMoney</title>
 </head>
 <body>
+<!-- 
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -23,10 +28,10 @@
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">Detail</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
     </nav>
-
+-->
 <br>
 <br>
 <br>
@@ -42,9 +47,9 @@
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <td>한지욱</td>
+      <td>바부</td>
+      <td>@멍총이</td>
     </tr>
     <tr>
       <th scope="row">2</th>
@@ -56,7 +61,7 @@
       <th scope="row">3</th>
       <td>Larry</td>
       <td>the Bird</td>
-      <td>@twitter</td>
+      <td>@사랑해</td>
     </tr>
   </tbody>
 </table>

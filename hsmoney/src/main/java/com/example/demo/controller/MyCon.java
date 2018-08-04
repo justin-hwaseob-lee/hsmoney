@@ -6,9 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MyCon {
 	
-	@GetMapping("/main")
+	@GetMapping("/main.do")
 	public String func() {
-		System.out.println("calledll");
 		return "main";
+	}
+	
+	@GetMapping("/login.do")
+	public String doLogin(){
+		
+		return "login";
 	}
 }
