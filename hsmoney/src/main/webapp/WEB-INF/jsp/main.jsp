@@ -7,7 +7,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<c:import url="header_survey.jsp" />
-	<!-- <%@include file="${pageContext.request.contextPath}/WEB-INF/jsp/header.jsp" %> -->
+	 
 	<title>HsMoney</title>
 </head>
 <body>

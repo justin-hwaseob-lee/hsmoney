@@ -11,13 +11,7 @@ html {
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%
 }
-
-/* 수정 */
-body {
-	padding-top: 70px;
-	margin: 0
-}
-
+ 
 article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary
 	{
 	display: block
@@ -2593,7 +2587,7 @@ td {
 	border-top: 1px solid #ddd
 }
 
-/* 수정 */
+/* �닔�젙 */
 .table>thead>tr>th {
 	align: center;
 	text-align: center;
@@ -2758,7 +2752,7 @@ legend {
 	border-bottom: 1px solid #e5e5e5
 }
 
-/* 수정 */
+/* �닔�젙 */
 label {
 	vertical-align: center;
 	display: inline-block;
@@ -4558,7 +4552,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 	border-width: 1px 0 0
 }
 
-/* 수정 */
+/* �닔�젙 */
 .navbar-brand {
 	float: left;
 	height: 50px;
@@ -4571,7 +4565,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 	text-decoration: none
 }
 
-/* Brand Image 수정 */
+/* Brand Image �닔�젙 */
 .navbar-brand>img {
 	display: block;
 	height: 28px;
@@ -4631,7 +4625,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 	line-height: 20px
 }
 
-/* /* 수정11 */
+/* /* �닔�젙11 */
 .navbar-nav>li .form-control {
 	display: block;
 	width: 100%;
@@ -4933,7 +4927,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 }
 
 
-/* 수정 */
+/* �닔�젙 */
 .navbar-fixed-top .container-fluid {
 	background-color: #287FB6;
 	border-color: transparent
@@ -4950,7 +4944,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .navbar-fixed-top .navbar-nav>li>a:focus,.navbar-fixed-top .navbar-nav>li>a:hover {
 	color: #fff;
 	background-color: #226993
-	/* 네비바에서 엘리먼트에 커서를 댈 경우 */
+	/* �꽕鍮꾨컮�뿉�꽌 �뿕由щ㉫�듃�뿉 而ㅼ꽌瑜� �뙂 寃쎌슦 */
 }
 
 .navbar-fixed-top .navbar-nav>.active>a,.navbar-fixed-top .navbar-nav>.active>a:focus,.navbar-fixed-top .navbar-nav>.active>a:hover
@@ -7298,7 +7292,7 @@ button.close {
 	}
 }
 
-/* 수정 */
+/* �닔�젙 */
 .ui-datepicker-trigger {
 	background-image:none;/* url(https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/calendar-16.png); */
 	background-repeat:no-repeat;
