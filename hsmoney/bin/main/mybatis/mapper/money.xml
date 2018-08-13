@@ -11,9 +11,120 @@
 		  m.price,
 		  m.category,
 		  m.use_date
+		FROM user_tb u, money_tb m
+		WHERE 1=1
+			AND u.user_id=m.user_id
+		ORDER BY use_date DESC;
+	</select>
+	
+	<select id="getMonthTotal" resultType="String">
+	<![CDATA[
+		SELECT 
+		  sum(m.price) monthly_total 
+		FROM user_tb u, money_tb m 
+		WHERE 1=1
+			AND u.user_id=m.user_id 
+            AND u.user_id=1
+            AND (select  
+			case
+				when (SELECT DATE_FORMAT(now(), "%c"))=1 and (SELECT DATE_FORMAT(now(), "%e")) <= start_date then date_format(concat((SELECT DATE_FORMAT(now(), "%y"))-1,'/',12, '/',(SELECT DATE_FORMAT(now(), "%e"))), '%Y%m%d')  
+				when (SELECT DATE_FORMAT(now(), "%e")) <= start_date then date_format(concat((SELECT DATE_FORMAT(now(), "%y")),'/',(SELECT DATE_FORMAT(now(), "%c"))-1, '/',(SELECT DATE_FORMAT(now(), "%e"))), '%Y%m%d') 
+			    when (SELECT DATE_FORMAT(now(), "%e")) > start_date  then date_format(concat((SELECT DATE_FORMAT(now(), "%y")),'/',(SELECT DATE_FORMAT(now(), "%c")), '/',start_date), '%Y%m%d') 
+			    end as real_start_date
+			from user_tb
+			where user_id=1) <= m.use_date
+		GROUP BY u.user_id;
+		]]>
+	</select>
+	
+	<select id="getMainInfo2" resultType="com.example.demo.dto.MainInfoDto">
+	 
+		SET @year := (SELECT DATE_FORMAT(now(), "%y"));
+		SET @month := (SELECT DATE_FORMAT(now(), "%c");
+		SET @day := (SELECT DATE_FORMAT(now(), "%e"));	 
+	<![CDATA[
+		SET @real_start_date := (select  
+			CASE
+				WHEN (@month=1) AND (@day) <= start_date THEN date_format(CONCAT(@year-1,'/',12, '/',@day), '%Y%m%d')  
+				WHEN @day <= start_date THEN date_format(CONCAT(@year,'/',@month-1, '/',@day), '%Y%m%d') 
+			    WHEN @day > start_date  THEN date_format(CONCAT(@year,'/',@month, '/',start_date), '%Y%m%d') 
+			    end as real_start_date
+			from user_tb
+			where user_id=1);
+	]]>
+			 
+		set @daily_use := (select sum(m.price) as daily_use 
+		from money_tb m, user_money_l l 
+		where l.user_id=1
+			and m.money_id=l.money_id
+		    and (@real_start_date)=m.use_date); 
+		
+	<![CDATA[ 
+		   
+		SELECT
+		  u.user_id,
+		  u.user_name, 
+		  u.start_date, 
+		  sum(m.price) monthly_total, 
+          @daily_use as daily_total,
+		  m.use_date
 		FROM user_tb u, money_tb m, user_money_l l
 		WHERE 1=1
 			AND u.user_id=l.user_id 
-			AND l.money_id=m.money_id;
+			AND l.money_id=m.money_id
+            AND u.user_id=1
+            AND (@real_start_date) <= m.use_date
+		GROUP BY u.user_id;
+            ]]>
 	</select>
+	
+	
+	<select id="getMainInfo" resultType="com.example.demo.dto.MainInfoDto">
+	<![CDATA[ 
+		SELECT
+			  u.user_id
+			 ,u.user_name 
+			 ,u.start_date 
+			 ,sum(m.price) monthly_use 
+	         ,(select sum(m.price) as daily_use 
+				from money_tb m
+				where m.user_id=1
+				    and DATE_FORMAT(now(), "%y/%c/%e") = DATE_FORMAT(use_date, "%y/%c/%e") ) daily_use 
+
+
+	FROM user_tb u, money_tb m
+	
+	
+	
+	WHERE 1=1
+		AND u.user_id=m.user_id
+           AND u.user_id=1
+           AND (select  
+			case
+				when (SELECT DATE_FORMAT(now(), "%c"))=1 and (SELECT DATE_FORMAT(now(), "%e")) <= start_date then date_format(concat((SELECT DATE_FORMAT(now(), "%y"))-1,'/',12, '/',(SELECT DATE_FORMAT(now(), "%e"))), '%Y%m%d')  
+				when (SELECT DATE_FORMAT(now(), "%e")) <= start_date then date_format(concat((SELECT DATE_FORMAT(now(), "%y")),'/',(SELECT DATE_FORMAT(now(), "%c"))-1, '/',(SELECT DATE_FORMAT(now(), "%e"))), '%Y%m%d') 
+			    when (SELECT DATE_FORMAT(now(), "%e")) > start_date  then date_format(concat((SELECT DATE_FORMAT(now(), "%y")),'/',(SELECT DATE_FORMAT(now(), "%c")), '/',start_date), '%Y%m%d') 
+			    end as real_start_date
+			from user_tb
+			where user_id=1) <= m.use_date
+			group by u.user_id;
+	]]>
+	</select>
+	
+	<insert id="insertInputMoney" parameterType="String">
+		INSERT INTO money_tb(user_id, category, price, use_date)
+		VALUES
+			(#{user_id}, #{category}, #{inputMoney}, #{use_date});
+	</insert>
+	
+	<delete id="deleteSelected" parameterType="String">
+		DELETE FROM money_tb
+		WHERE money_id=#{money_id};
+	</delete>
+	
+	<update id="updateStartDate" parameterType="String">
+		UPDATE user_tb
+		SET start_date=#{startDate}
+		WHERE user_id=#{user_id};
+	</update>
 </mapper>

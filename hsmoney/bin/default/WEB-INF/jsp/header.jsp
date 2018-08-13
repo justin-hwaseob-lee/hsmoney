@@ -8,36 +8,31 @@
 <!--  jQuery 기본 js파일  
 <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.1.min.js"></script>
 -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
+
+
 <!-- boot strap 부분 -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" >
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-theme.css" >
-<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
-
-<!-- <nav class="navbar navbar-default"> -->
-<nav class="navbar-default navbar-fixed-top" style="z-index:1200; background-color:#f9f9f9;">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-       <!-- <a class="navbar-brand" href="main.do"><img alt="Brand" src="${pageContext.request.contextPath}/resources/images/ico/v3.png"></a> -->
-       <a class="navar-text" href="/"><p style="margin-top: 13px; margin-left: 10px; font-size:150%;">HsMoney</p></a>  
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right"> 
-        <li><a href="survey_target_page.do">Daily</a></li>
-	  	<li><a href="survey_question.do">Monthly<span class="sr-only">(current)</span></a></li>
-	  	<li><a href="SurveyPreview">Annually</a></li>
-	  	<li><a href="logout.do">Log out</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-    
-  </div><!-- /.container-fluid -->
+ 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css"  crossorigin="anonymous">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" >  
+<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.number.js" ></script>
+ 
+ 
+<!--  <nav class="navbar navbar-expand-lg navbar-light "  >-->
+<nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color:#FAFCFC; " > 
+	  <a class="navbar-brand" href="/hsmoney/main.do">HsMoney</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+	    <div class="navbar-nav">
+	      <a class="nav-item nav-link active" href="main.do">Main </a>
+	      <a class="nav-item nav-link" href="daily.do">Daily</a>
+	      <a class="nav-item nav-link" href="monthly.do">Monthly<span class="sr-only">(current)</span></a>
+	      <a class="nav-item nav-link disabled" href="annually.do">Annually</a>
+	      <a class="nav-item nav-link disabled" href="login.do">Log out</a>
+	    </div>
+	  </div> 
 </nav>
+  
