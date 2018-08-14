@@ -33,11 +33,9 @@
 	<!-- 'undefined' 메세지를 숨겨줘 -->
 	<input type="hidden" id="message" value="${message}">
 	
-  
-  
-<div class="container rounded border border-dark p-3 ">
-
-<form method="post" action="updateStartDate.do"> 	  
+<div class="card">
+  <div class="card-header"> 
+    <form method="post" action="updateStartDate.do" style="margin-top:10px;"> 	  
 	  <div class="row"> 
 		    <div class="col">
 		    	<div class="input-group mb-3">
@@ -78,96 +76,104 @@
 			        <option value="31"  ${startDate eq '31' ? "selected" : ""}>31</option>
 			      </select>
 			      <div class="input-group-append">
-				    <input class="btn btn-primary" type="submit" id="updateStartDate" value="시작일 수정">
+				    <input class="btn btn-primary" type="submit" id="updateStartDate" value="월 시작일 수정">
 				  </div>
 				</div>
 			    
 		    </div>
 	  </div>
-</form>	  
+</form>	
+  </div>
+  
+  <div class="card-body">
+    <div class="container rounded border border-dark p-3 " style="margin-top:10px; margin-bottom:10px;">
+
+			  <div class="row">
+				    <div class="col">
+				       <div class="input-group mb-3">
+						  <div class="input-group-prepend">
+						    <span class="input-group-text">Month Total</span> 
+						  </div>
+						  <input type="text"    id="monthTotal" value="${monthlyTotal}" readonly class=" form-control" aria-label="Amount (to the nearest dollar)" >
+						  <div class="input-group-append">
+						    <span class="input-group-text">원</span>
+						  </div>
+						</div>
+				    </div>
+			  </div>
 	  
-	  <div class="row">
-		    <div class="col">
-		       <div class="input-group mb-3">
-				  <div class="input-group-prepend">
-				    <span class="input-group-text">Month Total</span> 
-				  </div>
-				  <input type="text"    id="monthTotal" value="${monthlyTotal}" readonly class=" form-control" aria-label="Amount (to the nearest dollar)" >
-				  <div class="input-group-append">
-				    <span class="input-group-text">원</span>
-				  </div>
-				</div>
-		    </div>
-	  </div>
 	  
 	  
 	  
-	  
-	  <div class="row">
-		    <div class="col">
-		    	<div class="input-group mb-3">
-				  <div class="input-group-prepend" > 
-				    <span class="input-group-text">Daily Total</span> 
-				  </div>
-				  <input type="text"  id="dayTotal" value="${dailyTotal}" readonly class="form-control" aria-label="Amount (to the nearest dollar)">
-				  <div class="input-group-append">
-				    <span class="input-group-text">원</span>
-				  </div>
-				</div>
-		    </div>
-	  </div>  
+			  <div class="row">
+				    <div class="col">
+				    	<div class="input-group mb-3">
+						  <div class="input-group-prepend" > 
+						    <span class="input-group-text">Daily Total</span> 
+						  </div>
+						  <input type="text"  id="dayTotal" value="${dailyTotal}" readonly class="form-control" aria-label="Amount (to the nearest dollar)">
+						  <div class="input-group-append">
+						    <span class="input-group-text">원</span>
+						  </div>
+						</div>
+				    </div>
+			  </div>  
 	  
 	  
 
-<form method="post" id="dailyInputForm" action="inputMoney.do"> 	  
-	  
-	  <div class="row">
-		    <div class="col">
-		    	<div class="input-group mb-3">
-					  <div class="input-group-prepend" > 
-					    <span class="input-group-text">Use Date</span> 
-					  </div> 
-				      <input id="useDate" type="date" name="useDate" class="input-date form-control"/>      
-				</div>
-		    </div>
-	  </div>  
-	  
-	  
-	  <div class="row"> 
-		    <div class="col">
-		    	<div class="input-group mb-3">
-				  <div class="input-group-prepend" >
-				    	<select class="custom-select " id="categorySelect" name="categorySelect"> 
-					        <option value="음식">음식</option>
-					        <option value="쇼핑">쇼핑</option>
-					        <option value="여행">여행</option>
-					        <option value="세금">세금</option>
-					        <option value="주유">주유</option>
-					        <option value="기타" selected >기타</option>
-					      </select> 
+			<form method="post" id="dailyInputForm" action="inputMoney.do"> 	  
+				  
+				  <div class="row">
+					    <div class="col">
+					    	<div class="input-group mb-3">
+								  <div class="input-group-prepend" > 
+								    <span class="input-group-text">Use Date</span> 
+								  </div> 
+							      <input id="useDate" type="date" name="useDate" class="input-date form-control"/>      
+							</div>
+					    </div>
+				  </div>  
+				  
+				  
+				  <div class="row"> 
+					    <div class="col">
+					    	<div class="input-group mb-3">
+							  <div class="input-group-prepend" >
+							    	<select class="custom-select " id="categorySelect" name="categorySelect"> 
+								        <option value="음식">음식</option>
+								        <option value="커피">커피</option>
+								        <option value="쇼핑">쇼핑</option>
+								        <option value="여행">여행</option>
+								        <option value="세금">세금</option>
+								        <option value="주유">주유</option>
+								        <option value="기타" selected >기타</option>
+								      </select> 
+							  </div>
+							  
+							  <input type="number" id="inputMoney" name="inputMoney"  class="form-control" aria-label="Amount (to the nearest dollar)">
+							  <div class="input-group-append">
+							    <span class="input-group-text">원</span>
+							  </div>
+							</div>
+							
+							
+							 
+							
+					    </div> 
 				  </div>
 				  
-				  <input type="number"   id="inputMoney" name="inputMoney"  class="form-control" aria-label="Amount (to the nearest dollar)">
-				  <div class="input-group-append">
-				    <span class="input-group-text">원</span>
-				  </div>
-				</div>
-				
-				
-				 
-				
-		    </div> 
-	  </div>
-	  
-	  <div class="row">
-		    <div class="col" >
-		      <input class="btn btn-primary" type="button" value="초기화" onclick="resetFunc();">
-		      <input class="btn btn-primary" type="submit" id="enter_price" value="입력">
-		    </div>
-	  </div> 
-</form>	   
+				  <div class="row">
+					    <div class="col" >
+					      <input class="btn btn-primary" type="button" value="초기화" onclick="resetFunc();">
+					      <input class="btn btn-primary" type="submit" id="enter_price" value="입력">
+					    </div>
+				  </div> 
+			</form>	   
+	</div>
+  </div>
+  
 </div>
-
+  
  
 
 

@@ -19,7 +19,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.number.js" ></script>
  
  
-<!--  <nav class="navbar navbar-expand-lg navbar-light "  >-->
+<!--  <nav class="navbar navbar-expand-lg navbar-light "  >#FAFCFC-->
 <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color:#FAFCFC; " > 
 	  <a class="navbar-brand" href="/hsmoney/main.do">HsMoney</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,9 +28,9 @@
 	  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 	    <div class="navbar-nav">
 	      <a class="nav-item nav-link active" href="main.do">Main </a>
-	      <a class="nav-item nav-link" href="daily.do">Daily</a>
+	      <a class="nav-item nav-link" href="monthly.do">Daily</a>
 	      <a class="nav-item nav-link" href="monthly.do">Monthly<span class="sr-only">(current)</span></a>
-	      <a class="nav-item nav-link disabled" href="annually.do">Annually</a>
+	      <a class="nav-item nav-link disabled" href="monthly.do">Annually</a>
 	      <a class="nav-item nav-link disabled" href="login.do">Log out</a>
 	    </div>
 	  </div> 
