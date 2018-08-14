@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css"  crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" >  
 <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"  crossorigin="anonymous"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.number.js" ></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.number.js" > </script>
  
  
 <!--  <nav class="navbar navbar-expand-lg navbar-light "  >#FAFCFC-->
