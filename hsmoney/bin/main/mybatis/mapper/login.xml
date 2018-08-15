@@ -5,8 +5,7 @@
 	<![CDATA[
 		SELECT user_id, user_name, user_pw, start_date
 		FROM user_tb
-		WHERE 1=1
-			AND user_name=#{name}
+		WHERE user_name=#{name}
 			AND user_pw=#{pw};
 		]]>
 	</select>

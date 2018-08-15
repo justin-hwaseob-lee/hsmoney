@@ -44,6 +44,15 @@ public class MyController {
 
 	@GetMapping("/")
 	public String rootDir(HttpSession session){ 
+		System.out.println("main called /");
+		if (session.getAttribute("loginInfo") != null)  // LoginInfo exists in session
+			return "main";
+		else
+			return "login";
+	}
+	@GetMapping("main")
+	public String rootMain(HttpSession session){ 
+		System.out.println("main called /");
 		if (session.getAttribute("loginInfo") != null)  // LoginInfo exists in session
 			return "main";
 		else
@@ -51,14 +60,16 @@ public class MyController {
 	}
 	
 	@GetMapping("main.do")
-	public String mainPage(HttpSession session){  
+	public String mainPage(HttpSession session){
+		System.out.println("\n called main.do get");
 		if (session.getAttribute("loginInfo") != null)  // LoginInfo exists in session
 			return "main";
 		else
 			return "login"; 
 	}
 	@GetMapping("getmainpage.do")
-	public ModelAndView doMain(HttpSession session) {   
+	public ModelAndView doMain(HttpSession session) {  
+		System.out.println("\n called getmainpage.do get");
 		if (session.getAttribute("loginInfo") == null)  // LoginInfo exists in session
 			return new ModelAndView("login");
 		
@@ -84,11 +95,13 @@ public class MyController {
 
 	@GetMapping("monthly.do")
 	public String doMonthly(){  
+		System.out.println("called monthly.do");
 		return "monthly";
 	}
   
 	@PostMapping("inputMoney.do")
 	public void doInputMoney(HttpSession session, HttpServletRequest request,  HttpServletResponse response) throws IOException{ 
+		System.out.println("called inputMoney.do");
 		MemberDto userInfo=(MemberDto) session.getAttribute("loginInfo");
 		
 		
@@ -103,57 +116,6 @@ public class MyController {
 		
 		response.sendRedirect("main.do"); 
 	} 
-	/*
-	//form 전송
-	@PostMapping("inputMoney.do")
-	public ModelAndView doInputMoney(HttpSession session, HttpServletRequest request) { 
-		String category=request.getParameter("categorySelect");
-		String inputMoney=request.getParameter("inputMoney");
-		String use_date=request.getParameter("useDate"); 
-		
-		//user_id 나중에 따로
-		String user_id="1";
-		int retV=0;
-		retV=moneyService.insertInputMoney(user_id, category, inputMoney, use_date);
-		System.out.println("retv = "+retV);
-		String message=null;
-		if(retV==0)
-			message="일시적인 시스템 오류가 발생하였습니다. 다시 입력하여 주세요^^"; 
-		
-		//main.do와 동일
-		return MainCommonCode(message);
-	} 
-	*/
-	//ajax처리
-	/*
-	@PostMapping("inputMoney.do")
-	public ModelAndView doInputMoney(@RequestBody String json, HttpServletRequest request) {
-		JSONObject jsonObject = null;
-		try {
-			jsonObject = (JSONObject) new JSONParser().parse(json);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		String category=(String) jsonObject.get("categorySelect"); 
-		String inputMoney=(String) jsonObject.get("inputMoney");
-		String use_date=(String) jsonObject.get("useDate"); 
-		
-
-		//user_id 나중에 따로
-		String user_id="1";
-		int retV=0;
-		retV=moneyService.insertInputMoney(user_id, category, inputMoney, use_date);
-		System.out.println("retv = "+retV);
-		String message=null;
-		if(retV==0)
-			message="일시적인 시스템 오류가 발생하였습니다. 다시 입력하여 주세요^^"; 
-		 
-		 
-		Map<String, Object> map = new HashMap<String, Object>(); 
-		map.put("message", message);	 
-		return new ModelAndView("jsonView", map);
-	}
-	*/
 	
 	@PostMapping("updateStartDate.do")
 	public ModelAndView doUpdateStartDate(@RequestBody String json, HttpServletRequest request, HttpSession session) {
@@ -243,6 +205,7 @@ public class MyController {
 	 
 	@GetMapping(value = "moneyResult.do")
 	public ModelAndView doMoneyResult(HttpSession session){   
+		System.out.println("called moneyResult.do");
 		if (session.getAttribute("loginInfo") == null)  // LoginInfo exists in session
 			return new ModelAndView("login");
 		MemberDto userInfo=(MemberDto) session.getAttribute("loginInfo");
@@ -258,7 +221,8 @@ public class MyController {
 	
 	
 	@GetMapping(value = "monthlyResult.do")
-	public ModelAndView doMonthlyResult(HttpSession session){    
+	public ModelAndView doMonthlyResult(HttpSession session){
+		System.out.println("called monthlyResult.do : "+((MemberDto)session.getAttribute("loginInfo")).getUser_id());
 		if (session.getAttribute("loginInfo") == null)  // LoginInfo exists in session
 			return new ModelAndView("login");
 		MemberDto userInfo=(MemberDto) session.getAttribute("loginInfo");
@@ -268,6 +232,7 @@ public class MyController {
 		if(moneyList!=null){
 			map.put("moneyList", moneyList);	
 		} 
+		System.out.println("moneyList : "+moneyList);
 		return new ModelAndView("jsonView", map);
 	}
 	 

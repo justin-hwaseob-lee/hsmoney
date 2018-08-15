@@ -38,14 +38,15 @@ function fnMoneyResultSearch() {
 		error : whenError
 	});
 
-	function whenSuccess(result) { 
+	function whenSuccess(result) {  
+		// loading image disappeard
 		fnPrintGrid(result);
 		getSum(); //테이블에 보이는 price값 다 더하기
-		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
 
 	function whenError(result) {
+		window.location.href = "main"; 
 		alert("Error");
 		// loading image disappeard
 		$('#LoadingImage').hide();

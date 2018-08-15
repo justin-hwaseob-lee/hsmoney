@@ -36,6 +36,7 @@ function mainPageLoad(){
 		url : "getmainpage.do",
 		dataType : "json",
 		contentType : "application/json; charset=utf-8",
+		async : false,
 		success : whenSuccess,
 		error : whenError
 	});
@@ -78,7 +79,7 @@ function updateStartDate(){
 		type : "post",
 		url : "updateStartDate.do",
 		dataType : "json", 
-		data : objJson,
+		data : objJson, 
 		contentType : "application/json; charset=utf-8",
 		success : whenSuccess,
 		error : whenError
@@ -107,6 +108,7 @@ function inputMainInfoClick(){
 		type : "post",
 		url : "inputMoney.do",
 		dataType : "json", 
+		async : false,
 		data : objJson,
 		contentType : "application/json; charset=utf-8",
 		success : whenSuccess,
