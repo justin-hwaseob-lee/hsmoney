@@ -12,7 +12,14 @@ function fnOnload() {
 		alert(message);
 	}
  
-	/* 전체 소비 결과 조회 */ 
+ 
+	var today = new Date();
+	var year = today.getFullYear(); 
+	var month = today.getMonth();   
+	document.getElementById('month_standard').valueAsDate = new Date(Date.UTC(year,month)); 
+	
+	
+	/* 월 소비 결과 조회 */ 
 	fnMoneyResultSearch();
 }
 
@@ -24,7 +31,7 @@ function fnMoneyResultSearch() {
 	$('#LoadingImage').show(); // loadingImage show
 	$.ajax({
 		type : "get",
-		url : "moneyResult.do",
+		url : "monthlyResult.do",
 		dataType : "json",
 		contentType : "application/json; charset=utf-8",
 		success : whenSuccess,
@@ -33,6 +40,7 @@ function fnMoneyResultSearch() {
 
 	function whenSuccess(result) { 
 		fnPrintGrid(result);
+		getSum(); //테이블에 보이는 price값 다 더하기
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
@@ -66,15 +74,18 @@ function fnPrintGrid(result) {
 			var use_date = result.moneyList[i].use_date;
 			var category = result.moneyList[i].category; 
 			var price = result.moneyList[i].price; 
+			var start_date = result.moneyList[i].start_date;
 			  
 
 			appendData += "<tr class='line'>";
 			appendData += "<td align='center' class='text-center' style='vertical-align: middle'><input type='checkbox' onclick='chkclickevent(this);' name='chk' id='chk' value='"
-					+ money_id + "'>" 
-					+"<input type='hidden' name='user_id"+"' value='" + user_id + "'>"+"</td>";  
+					+ money_id + "'>"
+					+"<input type='hidden' id='start_date' name='start_date' value='"+ start_date + "'>";
+					+"<input type='hidden' name='user_id' value='" + user_id + "'></td>";  
 			appendData += "<td class='text-center' style='vertical-align: middle'>" + use_date +"</td>";
 			appendData += "<td class='text-center' style='vertical-align: middle'>" + category +"</td>";
-			appendData += "<td class='text-center' style='vertical-align: middle '>" + price +"</td>"; 
+			appendData += "<td class='text-center' style='vertical-align: middle'>" + price + " </td>"; 
+			appendData +="</tr>";
 		}
 
 		// Table에 조회 데이터 입력
@@ -103,11 +114,11 @@ function confirmDelete() {
  
 	var selected=$("input[name='chk']:checked").val();
 	if(selected==null){
-		alert("No Item(s) Selected");
+		alert("선택된 항목이 없습니다.");
 		return;
 	} 
 	
-	var del = confirm("Are you sure to delete?");
+	var del = confirm("정말 삭제 하시겠습니까?");
 	if (del == true) {
 		fndeleteSurveyResult();
 	} else {
@@ -115,13 +126,42 @@ function confirmDelete() {
 	}
 }
 
+function monthChange(){
+	$('#search').val(''); 
+	$('#LoadingImage').show(); // loadingImage show
+	var objJson = JSON.stringify(objToJson($(".resultForm")
+			.serializeArray()));
+	$.ajax({
+		type : "post",
+		url : "monthChange.do",
+		dataType : "json",
+		data : objJson,
+		contentType : "application/json; charset=utf-8",
+		success : whenSuccess,
+		error : whenError
+	});
 
+	function whenSuccess(result) {
+		//여기
+		fnPrintGrid(result);
+		getSum(); //테이블에 보이는 price값 다 더하기
+		// loading image disappeard
+		$('#LoadingImage').hide();
+	}
+
+	function whenError(result) {
+		alert("Error");
+
+		// loading image disappeard
+		$('#LoadingImage').hide();
+	}
+}
 
 /*숫자 3글자마다 콤마*/
 $(function(){
-	// Set up the number formatting.
-
-	$('#monthTotal').number( true ); 
+	// Set up the number formatting. 
+	$('#realtimeprice').number( true ); 
+	$('#monthTotal').number( true );  
 }); 
 
 
@@ -149,6 +189,7 @@ function fndeleteSurveyResult() {
 
 	function whenSuccess(result) {
 		fnPrintGrid(result);
+		getSum(); //테이블에 보이는 price값 다 더하기
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
@@ -166,6 +207,24 @@ function fndeleteSurveyResult() {
 
 
 
+/*******************************************************************************
+ * 테이블 4 컬럼 price값 다 더하기
+ ******************************************************************************/
+function getSum(){
+	var table= $('#moneyListBody');
+	var realtimesum=0;
+	table.find('tr').each(function(index, row) {
+		var allCells = $(row).find('td'); 
+		if (allCells.length > 0) {
+			var res1=$(row).find('td:nth-child(4)').text();  //가격란 값들 다 가져와서
+			realtimesum=realtimesum +parseInt(res1,10); //실시간검색결과에 추가
+		}
+	});
+	$('#monthTotal').val(realtimesum);
+}
+
+
+
 
 /*******************************************************************************
  * 실시간 검색결과 추출
@@ -175,25 +234,34 @@ $(document).ready(function() {
 		searchTable($(this).val());
 	});
 });
+
 function searchTable(inputVal) {
 	var table = $('#moneyListBody');
+	var realtimesum=0;
 	table.find('tr').each(function(index, row) {
 		var allCells = $(row).find('td');
+		
 		if (allCells.length > 0) {
 			var found = false;
 			allCells.each(function(index, td) {
+				if(index==3) return false; //가격은 검색하지 않음
 				var regExp = new RegExp(inputVal, 'i');
 				if (regExp.test($(td).text())) {
 					found = true;
 					return false;
 				}
 			});
-			if (found == true)
+			
+			if (found == true){
 				$(row).show();
+				var res1=$(row).find('td:nth-child(4)').text();  //가격란 값들 다 가져와서
+				realtimesum=realtimesum +parseInt(res1,10); //실시간검색결과에 추가
+			}
 			else
 				$(row).hide();
 		}
 	});
+	$('#monthTotal').val(realtimesum);
 }
 
 /* 전체선택 */
@@ -272,4 +340,16 @@ function chkclickevent(chkbox) {
 	}
 }; 
  
-   
+
+/*******************************************************************************
+ * form to Json convert
+ ******************************************************************************/
+function objToJson(formData) {
+	var data = formData;
+	var obj = {};
+
+	$.each(data, function(idx, ele) {
+		obj[ele.name] = ele.value;
+	});
+	return obj;
+}

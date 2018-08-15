@@ -8,6 +8,7 @@
 
 <head>
 
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
 <!-- jQuery UI CSS파일  -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <!--  jQuery 기본 js파일 -->
@@ -47,7 +48,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 	<!-- 'undefined' 메세지를 숨겨줘 -->
 	<input type="hidden" id="message" value="${message}">
 	 
-<!-- 설문 대상 명단 테이블 -->
+<!-- monthly 테이블 -->
 <div class="container-fluid">
 	<div class="table-responsive">
 	<form  id="resultForm" name="resultForm"  class="resultForm"> 
@@ -56,10 +57,10 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 		
 			<thead style="font-size:14px;">
 				<tr>
-					<th class="align-middle"  style="vertical-align: middle"><label><input type="checkbox" id="checkall" name="checkall" ></label></th>
-					<th class="align-middle" align='center' style="vertical-align: middle">Date</th>
-					<th class="align-middle" align='center' style="vertical-align: middle">Category</th>
-					<th class="align-middle" align='center' style="vertical-align: middle">price</th> 
+					<th class="text-center"  style="vertical-align: middle;"><label><input type="checkbox" id="checkall" name="checkall" ></label></th>
+					<th class="text-center" style="vertical-align: middle;">Date</th>
+					<th class="text-center" style="vertical-align: middle;">Category</th>
+					<th class="text-center" style="vertical-align: middle;">price</th> 
 				</tr>
 			</thead>
 			
@@ -72,19 +73,19 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 		 
 		 	<div class="input-group mb-3"  style="padding-top: 10px;">
 				  <div class="input-group-prepend">
-				    <span class="input-group-text">Monthly total</span>
+					    <input type="text" value ="Month Total" class="input-group-text30" readonly> 
 				  </div>
-				  <input type="text" readonly class="form-control" id="monthTotal" name="monthTotal" value="${monthlyTotal}" style="width:100px">
+				  <input type="text" readonly class="form-control input-group-text" id="monthTotal" name="monthTotal" value="${monthlyTotal}" style="width:100px">
 				  <div class="input-group-append">
-				    <span class="input-group-text">원</span>
+				    <span class="input-group-text" style="">원</span>
 				  </div>
 			</div>
-				
+			 
 			<div class="input-group mb-3 " >
+			 <input id="month_standard" name="month_standard"  type="month" style="width:118px;" onchange="monthChange()">
+				<input type="text" class="form-control" id="search" placeholder="Fast Search" name="search" onkeydown="if(event.keyCode == 13) return false;">
 				
-					<input type="text" class="form-control" id="search" placeholder="Fast Search" name="search" onkeydown="if(event.keyCode == 13) return false;">
-				
-				<div class="col-md- text-right"  style="padding-left: 10px;">  
+				<div class="col-md- text-right" >  
 					<input type="button" class="btn btn-primary" id="deleteSurveyResult" value="Delete" onclick="confirmDelete()">
 				</div>
 			</div>

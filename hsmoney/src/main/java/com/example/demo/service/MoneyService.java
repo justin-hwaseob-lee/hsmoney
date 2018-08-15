@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +26,20 @@ public class MoneyService {
 	}
 	
 	@Transactional
-	public MainInfoDto getMainInfo(){
-		return moneyMapper.getMainInfo();
+	public List<MoneyDto> getMonthlyMoneyInfo(String user_id){
+		return moneyMapper.getMonthlyMoneyInfo(user_id).stream()
+				.collect(Collectors.toList());
+	} 
+	
+	@Transactional
+	public List<MoneyDto> getMonthMoneyInfoFromStandard(String search_start, String search_end, String user_id){
+		return moneyMapper.getMonthMoneyInfoFromStandard(search_start, search_end, user_id).stream()
+				.collect(Collectors.toList());
+	}
+	
+	@Transactional
+	public MainInfoDto getMainInfo(String user_id){
+		return moneyMapper.getMainInfo(user_id);
 	}
 	
 	@Transactional
@@ -39,12 +53,17 @@ public class MoneyService {
 	}
 	
 	@Transactional
-	public int deleteSelected(String money_id){
-		return moneyMapper.deleteSelected(money_id);
+	public int deleteSelected(String user_id, Set<String> moneyIds){
+		return moneyMapper.deleteSelected(user_id, moneyIds);
 	}
 
+	//@Transactional
+	//public String getMonthTotal() {
+	//	return moneyMapper.getMonthTotal();
+	//}
+	
 	@Transactional
-	public String getMonthTotal() {
-		return moneyMapper.getMonthTotal();
+	public int getStartDate(String user_id) {
+		return Integer.parseInt(moneyMapper.getStartDate(user_id));
 	}
 }

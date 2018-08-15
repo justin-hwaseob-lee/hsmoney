@@ -11,6 +11,7 @@
 
 <%@include file="/WEB-INF/jsp/header.jsp" %>
 <!-- loading css -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/loading.css">
  
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/main.js" charset="utf-8"></script>
@@ -27,6 +28,11 @@
 
 
  <body class = "bg-transparent "> 
+ 
+  
+ 
+ 
+ 
 	<div class="wrap-loading" id="LoadingImage"> 
    	 <div><img src="<%=request.getContextPath()%>/resources/images/sd_loading.gif" width="51" height="50"/> </div>
 	</div> 
@@ -35,7 +41,7 @@
 	
 <div class="card">
   <div class="card-header"> 
-    <form method="post" action="updateStartDate.do" style="margin-top:10px;"> 	  
+    <form id="monthstartTable" name="monthstartTable" class="monthstartTable" style="margin-top:10px;"> 	  
 	  <div class="row"> 
 		    <div class="col">
 		    	<div class="input-group mb-3">
@@ -76,7 +82,7 @@
 			        <option value="31"  ${startDate eq '31' ? "selected" : ""}>31</option>
 			      </select>
 			      <div class="input-group-append">
-				    <input class="btn btn-primary" type="submit" id="updateStartDate" value="월 시작일 수정">
+					<input type="button" class="btn btn-primary" id="updateStartDateButton" value="월 시작일 수정" onclick="updateStartDate()"> 
 				  </div>
 				</div>
 			    
@@ -92,9 +98,9 @@
 				    <div class="col">
 				       <div class="input-group mb-3">
 						  <div class="input-group-prepend">
-						    <span class="input-group-text">Month Total</span> 
+						    <span class="input-group-text29">Month Total</span> 
 						  </div>
-						  <input type="text"    id="monthTotal" value="${monthlyTotal}" readonly class=" form-control" aria-label="Amount (to the nearest dollar)" >
+						  <input type="text"    id="monthTotal" value="${monthlyTotal}" readonly class=" form-control " aria-label="Amount (to the nearest dollar)" >
 						  <div class="input-group-append">
 						    <span class="input-group-text">원</span>
 						  </div>
@@ -109,9 +115,9 @@
 				    <div class="col">
 				    	<div class="input-group mb-3">
 						  <div class="input-group-prepend" > 
-						    <span class="input-group-text">Daily Total</span> 
+								    <input type="text" value ="Daily Total" class="input-group-text29" readonly>
 						  </div>
-						  <input type="text"  id="dayTotal" value="${dailyTotal}" readonly class="form-control" aria-label="Amount (to the nearest dollar)">
+						  <input type="text"  id="dayTotal" value="${dailyTotal}" readonly class="form-control " aria-label="Amount (to the nearest dollar)">
 						  <div class="input-group-append">
 						    <span class="input-group-text">원</span>
 						  </div>
@@ -121,15 +127,15 @@
 	  
 	  
 
-			<form method="post" id="dailyInputForm" action="inputMoney.do"> 	  
+			<form method="post" id="inputMoneyForm" name="inputMoneyForm" class="inputMoneyForm" action="inputMoney.do"> 	  
 				  
 				  <div class="row">
 					    <div class="col">
 					    	<div class="input-group mb-3">
 								  <div class="input-group-prepend" > 
-								    <span class="input-group-text">Use Date</span> 
+								    <input type="text" value ="Use Date" class="input-group-text29" readonly>
 								  </div> 
-							      <input id="useDate" type="date" name="useDate" class="input-date form-control"/>      
+							      <input id="useDate" type="date" name="useDate" class="form-control input-date"/>      
 							</div>
 					    </div>
 				  </div>  
@@ -139,18 +145,18 @@
 					    <div class="col">
 					    	<div class="input-group mb-3">
 							  <div class="input-group-prepend" >
-							    	<select class="custom-select " id="categorySelect" name="categorySelect"> 
-								        <option value="음식">음식</option>
+							    	<select class="custom-select input-group-text29" id="categorySelect" name="categorySelect"> 
+								        <option  value="음식">음식</option>
 								        <option value="커피">커피</option>
 								        <option value="쇼핑">쇼핑</option>
 								        <option value="여행">여행</option>
 								        <option value="세금">세금</option>
 								        <option value="주유">주유</option>
-								        <option value="기타" selected >기타</option>
+								        <option value="기타" selected > 기타 </option>
 								      </select> 
 							  </div>
 							  
-							  <input type="number" id="inputMoney" name="inputMoney"  class="form-control" aria-label="Amount (to the nearest dollar)">
+							  <input type="number" id="inputMoney" name="inputMoney"  class="form-control" required autocomplete="off">
 							  <div class="input-group-append">
 							    <span class="input-group-text">원</span>
 							  </div>
@@ -164,8 +170,11 @@
 				  
 				  <div class="row">
 					    <div class="col" >
+					    <div align="right">
 					      <input class="btn btn-primary" type="button" value="초기화" onclick="resetFunc();">
-					      <input class="btn btn-primary" type="submit" id="enter_price" value="입력">
+					      <input class="btn btn-primary" type="submit" id="enter_price" value="입력"">
+					     <!--  <input class="btn btn-primary" type="button" id="enter_price" value="입력" onclick="inputMainInfoClick()"> -->
+					      </div>
 					    </div>
 				  </div> 
 			</form>	   
@@ -179,8 +188,8 @@
 
 
 
-<nav class="navbar fixed-bottom sticky " style="background-color:#FAFCFC;">
-     	Copyright © 2018 HsCompany. All Rights Reserved.
+<nav class="navbar fixed-bottom sticky" style="background-color:#FAFCFC; text-align:center; height:40px;">
+     	&copy; Copyright © 2018 HsCompany. All Rights Reserved  
 </nav>
 
 </body>
