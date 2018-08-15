@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,7 +45,7 @@ public class MyController {
 
 	@GetMapping("/")
 	public String rootDir(HttpSession session){ 
-		System.out.println("main called /");
+		System.out.println("main called /"); 
 		if (session.getAttribute("loginInfo") != null)  // LoginInfo exists in session
 			return "main";
 		else
@@ -69,7 +70,8 @@ public class MyController {
 	}
 	@GetMapping("getmainpage.do")
 	public ModelAndView doMain(HttpSession session) {  
-		System.out.println("\n called getmainpage.do get");
+		System.out.println("\n called getmainpage.do get"); 
+		
 		if (session.getAttribute("loginInfo") == null)  // LoginInfo exists in session
 			return new ModelAndView("login");
 		

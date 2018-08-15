@@ -40,7 +40,7 @@ public class LoginController {
 		}
 		return mav;
 	}
-
+/*
 	@GetMapping("login.do")
 	public ModelAndView doLogin( ){  
 		System.out.println("\ncalled login.do get");
@@ -49,39 +49,7 @@ public class LoginController {
 		mav.addObject("logout","true");
 		return mav;
 	}
-	
-	/*
-	@PostMapping("login.do")
-	public ModelAndView login(HttpSession session, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("login");
-
-		if (session.getAttribute("loginInfo") != null) { // LoginInfo exists in
-															// session
-			mav = new ModelAndView("main");
-			return mav;
-		} else {
-
-			String name = request.getParameter("form-username");
-			String pw = request.getParameter("form-password"); 
-			System.out.println("name : "+name+" / pw : "+pw);
-
-			MemberDto loginInfo = null;
-			loginInfo = loginService.getLoginInfo(name,pw);
-			 
-
-			if (loginInfo != null && loginInfo.getUser_name().equals(name)) {
-				// Login  success
-				session.setAttribute("loginInfo", loginInfo);
-				mav = new ModelAndView("main");
-			} else { // Login Failure 
-				mav.addObject("message", "ID/PW를 확인해주세요!");
-			}
-			return mav;
-		}
-	}
-	*/
-
+	 */
 	@PostMapping("login.do")
 	public ModelAndView login(HttpSession session, HttpServletResponse response, @RequestBody String json) throws Exception {
 		System.out.println("\ncalled login.do post"); 
@@ -111,18 +79,20 @@ public class LoginController {
 		} else { // Login Failure 
 			System.out.println("put mesage here");
 			map.put("message", "ID/PW를 확인해주세요!");
-		}
-		System.out.println("success? : "+(String)map.get("message"));
-		ModelAndView mav=new ModelAndView("jsonView", map);
-		return mav;
-		//return new ModelAndView("jsonView", map);
+		} 
+		return new ModelAndView("jsonView", map);
 	}
 	
 	@RequestMapping(value = "logout.do")
-	public void logout(HttpSession session,   HttpServletResponse response) throws IOException{
+	//public void logout(HttpSession session,   HttpServletResponse response) throws IOException{
+	public ModelAndView logout(HttpSession session,  HttpServletResponse response) throws IOException{
+		ModelAndView mav=new ModelAndView();
 		session.setAttribute("loginInfo", null); 
 
-		response.sendRedirect("login.do"); 
+		mav.setViewName("login");
+		mav.addObject("logout","true");
+		//response.sendRedirect("login.do"); 
+		return mav;
 	}
 	
 

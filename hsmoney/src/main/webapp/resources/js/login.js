@@ -15,8 +15,11 @@ function fnOnload() {
 		var autologin = Cookies.get("autologin");
 		if(autologin=='true'){
 	    	Cookies.remove('autologin');  
-		} 
-	}
+		}  
+    	logout='false';
+    	$(location).attr('href', 'main') ;
+    	$('#logout').val(''); 
+	} 
 	
 	/* 메시지가 있을경우 출력부분 */  
 	var message = $('#message').val(); 
@@ -60,7 +63,7 @@ function submitForm() {
 		url : "login.do",
 		dataType : "json",
 		data : objJson,
-		async : false,
+		async : false, 
 		contentType : "application/json; charset=utf-8",
 		success : whenSuccess,
 		error : whenError
@@ -82,21 +85,14 @@ function submitForm() {
 		}
 		else{//성공한 경우에만 설정저장
 			cookisetting();    
-		}
-		window.location.href = "main"; 
-		
+		}  
 		// loading image disappeard
-		$('#LoadingImage').hide();
+		$('#LoadingImage').hide(); 
+    	$(location).attr('href', 'main') ;
 	}
 
 	function whenError(result) { 
-		alert("Error");
-		window.location.href = "main";
-
-		if (result.message != null){
-			//로그인 실패한경우
-			alert(result.message);
-		}
+		alert("Error");  
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}

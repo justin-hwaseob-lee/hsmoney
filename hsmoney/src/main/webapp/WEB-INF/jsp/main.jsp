@@ -16,6 +16,7 @@
  
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/main.js" charset="utf-8"></script>
 
+ 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>HsMoney</title>
  
