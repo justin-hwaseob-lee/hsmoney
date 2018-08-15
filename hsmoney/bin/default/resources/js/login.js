@@ -38,8 +38,10 @@ function fnOnload() {
         	if(autologin=='true'){
         		$('#autologin').prop("checked", true);
         		
-        		//자동로그인
-        		submitForm();
+        		//자동로그인 설정했을시
+       		 	submitForm();
+       		 	post_to_url("main.do","post")
+        		window.location.replace('main');
         	}
         	else
         		$('#autologin').prop("checked", false);
@@ -51,6 +53,44 @@ function fnOnload() {
         	$('#autologin').prop("checked", false);  
         }
 }
+
+function post_to_url(path, method) {
+    method = method || "post"; // 전송 방식 기본값을 POST로
+ 
+    
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+ 
+    //히든으로 값을 주입시킨다. 
+ 
+    document.body.appendChild(form);
+    form.submit();
+}
+/*
+function post_to_url(path, params, method) {
+    method = method || "post"; // 전송 방식 기본값을 POST로
+ 
+    
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+ 
+    //히든으로 값을 주입시킨다.
+    for(var key in params) {
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", key);
+        hiddenField.setAttribute("value", params[key]);
+ 
+        form.appendChild(hiddenField);
+    }
+ 
+    document.body.appendChild(form);
+    form.submit();
+}
+*/
+
 
 function submitForm() {  
 	//cookisetting(); 

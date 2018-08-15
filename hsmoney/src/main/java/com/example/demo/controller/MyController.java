@@ -115,16 +115,15 @@ public class MyController {
 		System.out.println("called inputMoney.do");
 		MemberDto userInfo=(MemberDto) session.getAttribute("loginInfo");
 		
-		
-		String category=request.getParameter("categorySelect");
-		String inputMoney=request.getParameter("inputMoney");
-		String use_date=request.getParameter("useDate"); 
-		
-		//user_id �굹以묒뿉 �뵲濡� 
-		int retV=0;
-		retV=moneyService.insertInputMoney(userInfo.getUser_id(), category, inputMoney, use_date);
-		System.out.println("retv = "+retV);
-		
+		if(userInfo!=null) {
+			String category=request.getParameter("categorySelect");
+			String inputMoney=request.getParameter("inputMoney");
+			String use_date=request.getParameter("useDate"); 
+			
+			int retV=0;
+			retV=moneyService.insertInputMoney(userInfo.getUser_id(), category, inputMoney, use_date);
+			System.out.println("retv = "+retV);
+		}
 		response.sendRedirect("main.do"); 
 	} 
 	
@@ -148,10 +147,11 @@ public class MyController {
 		
 		String message=null;
 		if(retV==0)
-			message="�씪�떆�쟻�씤 �떆�뒪�뀥 �삤瑜섍� 諛쒖깮�븯���뒿�땲�떎. �떎�떆 �엯�젰�븯�뿬 二쇱꽭�슂^^";
+			message="일시적인 시스템 오류가 발생하였습니다. 다시 입력하여 주세요^^";
+		/*
 		else 
 			message="�썡 �떆�옉�씪�씠 �닔�젙�릺�뿀�뒿�땲�떎.";
-
+*/
 		Map<String, Object> map = new HashMap<String, Object>(); 
 		map.put("message", message);	 
 		return new ModelAndView("jsonView", map);
@@ -193,9 +193,9 @@ public class MyController {
 		
 		String message=null;
 		if (result!=0) 
-			message="�꽦怨듭쟻�쑝濡� �궘�젣�릺�뿀�뒿�땲�떎."; 
+			message="성공적으로 삭제되었습니다."; 
 		else 
-			message="�궘�젣瑜� �떎�떆 �떆�룄�빐 二쇱꽭�슂.";
+			message="삭제를 다시 시도해주세요.";
 
 
 		List<MoneyDto> moneyList = null;
@@ -265,8 +265,7 @@ public class MyController {
 
 		String month_standard = (String) jsonObject.get("month_standard");  
 		List<MoneyDto> moneyList = null;
-		
-		//user_id �굹以묒뿉 �꽔湲�
+		 
 		int start_date=moneyService.getStartDate(user_id);
 		Date startDate =null;  
 		try {startDate = new SimpleDateFormat("yyyy-MM").parse(month_standard);	}
@@ -274,30 +273,31 @@ public class MyController {
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(startDate);
-		//2017-8�썡 �꽑�깮�뻽�쓣�떆
+		
+		//2017-8 
 		int select_year = calendar.get(Calendar.YEAR);  //select Year   - 2017
 		int select_month = calendar.get(Calendar.MONTH); //select month - 7
 
 		String search_start=null;
 		String search_end=null;
-		if(start_date <= 15) { //�썡 �떆�옉�씪�씠 15�씪 �씠�쟾�씠硫�
+		if(start_date <= 15) { //시작일이 15일 이전인경우
 			search_start = select_year+"-"+(select_month+1)+"-"+start_date; //2017-7-1
 			
-			if(start_date==1) { //�썡�떆�옉�씪�쓣 1�씪濡� �꽕�젙�븳 寃쎌슦 
+			if(start_date==1) { //시작일이 1인인경우
 				calendar.set(2018, select_month, 1);
 				int dayofMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 				search_end=select_year+"-"+(1+select_month)+"-"+dayofMonth;
 			}
 			
-			else { //�썡�떆�옉�씪�씠 2�씪~15�씪�씤寃쎌슦
+			else { //2~15
 				if(select_month+2 == 13)
 					search_end = (1+select_year)+"-1-"+(start_date-1);
 				else
 						search_end = select_year+"-"+(select_month+2)+"-"+(start_date-1);
 			}
 		}
-		else { //�썡 �떆�옉�씪�씠 15�씪 �씠�썑�씠硫�
-			if(select_month==0) //1�썡�떖�쓣 �꽑�깮�븳 寃쎌슦
+		else { //15일이후
+			if(select_month==0) //1월선택
 				search_start=(select_year-1)+"-12-"+start_date;
 			else 
 				search_start=select_year+"-"+select_month+"-"+start_date;
@@ -315,8 +315,7 @@ public class MyController {
 		}
 		return new ModelAndView("jsonView", map);
 	}
-	
-	//�씠嫄곗븞�빐以섏꽌 �궫吏덊븿 瑗��븘�슂
+	 
 	@Bean
     MappingJackson2JsonView jsonView(){
         return new MappingJackson2JsonView();

@@ -76,8 +76,13 @@ public class LoginController {
 			// Login  success
 			session.setAttribute("loginInfo", loginInfo); 
 			System.out.println("loginid : "+loginInfo.getUser_id());
-		} else { // Login Failure 
-			System.out.println("put mesage here");
+			
+			
+			
+//			session.setMaxInactiveInterval(20*60);// 20분 
+			
+			
+		} else { // Login Failure  
 			map.put("message", "ID/PW를 확인해주세요!");
 		} 
 		return new ModelAndView("jsonView", map);

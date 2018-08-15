@@ -45,9 +45,9 @@
        
       <img class="mb-4" src="<%=request.getContextPath()%>/resources/images/ico/logo_hs.png" alt="" width="130" height="145"> 
       <input type="text" id="form-username" name="form-username" class="form-control" placeholder="Name" required autofocus>
-      <input type="password" id="form-password" name="form-password" class="form-control" placeholder="Password" required>
+      <input type="password" id="form-password" name="form-password" class="form-control" placeholder="Password" required style="margin-top:10px;">
       
-      <div class="checkbox mb-3">
+      <div class="checkbox mb-3" style="margin-top:10px;">
         <label>
           <input type="checkbox" id="remember" name="remember"  > ID/PW 저장
         </label>

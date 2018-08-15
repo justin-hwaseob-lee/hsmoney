@@ -48,7 +48,7 @@ function mainPageLoad(){
 	}
 
 	function whenError(result) {
-		alert("Error");
+		alert("세션이 만료되었습니다.");
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}

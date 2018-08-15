@@ -47,7 +47,7 @@ function fnMoneyResultSearch() {
 
 	function whenError(result) {
 		window.location.href = "main"; 
-		alert("Error");
+		alert("세션이 만료되었습니다.");
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
