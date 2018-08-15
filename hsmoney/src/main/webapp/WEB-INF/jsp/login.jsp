@@ -41,7 +41,7 @@
 	<input type="hidden" id="logout" value="${logout}">
 	 
 	 
-   <form  id="loginForm" name="loginForm" class="loginForm"> 
+   <form  id="loginForm" name="loginForm" class="loginForm" method="post" action='main.do' onsubmit='submitForm()'> 
        
       <img class="mb-4" src="<%=request.getContextPath()%>/resources/images/ico/logo_hs.png" alt="" width="130" height="145"> 
       <input type="text" id="form-username" name="form-username" class="form-control" placeholder="Name" required autofocus>
@@ -50,11 +50,13 @@
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" id="remember" name="remember"  > ID/PW 저장
+        </label>
+        <label>
           <input type="checkbox" id="autologin" name="autologin" style="margin-left:15px;" > 자동로그인
         </label>
       </div>
       
-      <button class="btn btn-lg btn-primary btn-block"  onclick='submitForm()'>Sign in</button>
+      <input type='submit' class="btn btn-lg btn-primary btn-block"  value='Sign in'> 
       
       <p class="mt-5 mb-3 text-muted">&copy; Copyright © 2018 HsCompany.<br>All Rights Reserved.</p>
     </form>

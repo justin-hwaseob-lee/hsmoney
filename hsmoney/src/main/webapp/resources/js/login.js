@@ -16,8 +16,7 @@ function fnOnload() {
 		if(autologin=='true'){
 	    	Cookies.remove('autologin');  
 		}  
-    	logout='false';
-    	$(location).attr('href', 'main') ;
+    	logout='false'; 
     	$('#logout').val(''); 
 	} 
 	
@@ -87,8 +86,7 @@ function submitForm() {
 			cookisetting();    
 		}  
 		// loading image disappeard
-		$('#LoadingImage').hide(); 
-    	$(location).attr('href', 'main') ;
+		$('#LoadingImage').hide();  
 	}
 
 	function whenError(result) { 
