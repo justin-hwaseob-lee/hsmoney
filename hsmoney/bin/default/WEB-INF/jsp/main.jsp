@@ -7,7 +7,6 @@
  
 
 <head>
-  
 
 <%@include file="/WEB-INF/jsp/header.jsp" %>
 <!-- loading css -->

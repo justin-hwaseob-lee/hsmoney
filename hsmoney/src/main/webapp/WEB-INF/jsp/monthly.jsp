@@ -73,7 +73,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 		 
 		 	<div class="input-group mb-3"  style="padding-top: 10px;">
 				  <div class="input-group-prepend">
-					    <input type="text" value ="Month Total" class="input-group-text30" readonly> 
+					    <input type="text" value ="Monthly Total" class="input-group-text30"  style="width:139px; text-align:left;" readonly> 
 				  </div>
 				  <input type="text" readonly class="form-control input-group-text" id="monthTotal" name="monthTotal" value="${monthlyTotal}" style="width:100px">
 				  <div class="input-group-append">
@@ -82,7 +82,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 			</div>
 			 
 			<div class="input-group mb-3 " >
-			 <input id="month_standard" name="month_standard"  type="month" style="width:118px;" onchange="monthChange()">
+			 <input id="month_standard" name="month_standard" class="input-group-text30"  type="month" style="width:139px; text-align:left;" onchange="monthChange()">
 				<input type="text" class="form-control" id="search" placeholder="Fast Search" name="search" onkeydown="if(event.keyCode == 13) return false;">
 				
 				<div class="col-md- text-right" >  

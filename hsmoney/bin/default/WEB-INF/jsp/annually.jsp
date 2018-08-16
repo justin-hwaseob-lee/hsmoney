@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/loading.css">
  
  
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/monthly.js" charset="utf-8"></script>  
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/annually.js" charset="utf-8"></script>  
 
 <style> 
 body{ 
@@ -73,16 +73,40 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 		 
 		 	<div class="input-group mb-3"  style="padding-top: 10px;">
 				  <div class="input-group-prepend">
-					    <input type="text" value ="Monthly Total" class="input-group-text30"  style="width:139px; text-align:left;" readonly> 
+					    <input type="text" value ="Month Total" class="input-group-text30" readonly> 
 				  </div>
 				  <input type="text" readonly class="form-control input-group-text" id="monthTotal" name="monthTotal" value="${monthlyTotal}" style="width:100px">
 				  <div class="input-group-append">
 				    <span class="input-group-text" style="">원</span>
 				  </div>
 			</div>
+			  
 			 
 			<div class="input-group mb-3 " >
-			 <input id="month_standard" name="month_standard" class="input-group-text30"  type="month" style="width:139px; text-align:left;" onchange="monthChange()">
+			    <div class="input-group-prepend" >
+					<select class="custom-select input-group-text29" id="anuall_select" name="anuall_select" style="width:118px;" >
+						<option name="2017" value="2017">2017</option>
+						<option name="2018" value="2018">2018</option>
+						<option name="2019" value="2019">2019</option>
+						<option name="2020" value="2020">2020</option>
+						<option name="2021" value="2021">2021</option>
+						<option name="2022" value="2022">2022</option>
+						<option name="2023" value="2023">2023</option>
+						<option name="2024" value="2024">2024</option>
+						<option name="2025" value="2025">2025</option>
+						<option name="2026" value="2026">2026</option>
+						<option name="2027" value="2027">2027</option>
+						<option name="2028" value="2028">2028</option>
+						<option name="2029" value="2029">2029</option>
+						<option name="2030" value="2030">2030</option>
+						<option name="2031" value="2031">2031</option>
+						<option name="2032" value="2032">2032</option>
+						<option name="2033" value="2033">2033</option>
+						<option name="2034" value="2034">2034</option>
+						<option name="2035" value="2035">2035</option>
+					</select>
+				</div>
+			    <!-- <input id="month_standard" name="month_standard"  type="month" style="width:118px;" onchange="monthChange()"> -->
 				<input type="text" class="form-control" id="search" placeholder="Fast Search" name="search" onkeydown="if(event.keyCode == 13) return false;">
 				
 				<div class="col-md- text-right" >  

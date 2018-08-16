@@ -20,8 +20,8 @@
 			(
 			SELECT
 				(CASE
-					WHEN start_date > @day THEN  date_format(concat(@year,"-", (((@month-1)+11)%12)+1,"-", start_date),'%y-%c-%d')
-			        WHEN start_date <=@day THEN  date_format(concat(@year,"-", @month,"-", start_date),'%y-%c-%d')
+					WHEN cast(start_date as unsigned) > @day THEN  date_format(concat(@year,"-", (((@month-1)+11)%12)+1,"-", start_date),'%y-%c-%d')
+			        WHEN cast(start_date as unsigned) <=@day THEN  date_format(concat(@year,"-", @month,"-", start_date),'%y-%c-%d')
 			        END)
 			FROM user_tb 
 			);
