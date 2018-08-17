@@ -148,13 +148,13 @@
 					    	<div class="input-group mb-3">
 							  <div class="input-group-prepend" >
 							    	<select class="custom-select input-group-text29" id="categorySelect" name="categorySelect"> 
+								        <option value="기타" selected > 기타 </option>
 								        <option  value="음식">음식</option>
 								        <option value="커피">커피</option>
 								        <option value="쇼핑">쇼핑</option>
 								        <option value="여행">여행</option>
 								        <option value="세금">세금</option>
 								        <option value="주유">주유</option>
-								        <option value="기타" selected > 기타 </option>
 								      </select> 
 							  </div>
 							  

@@ -27,7 +27,7 @@
 .ui-datepicker-trigger { position:relative; height:38px;width:40px; }
 
 body{ 
- 	padding-bottom:131px;
+ 	padding-bottom:171px;
 }
 .highlight {
     background-color: #708EA8;
