@@ -7,7 +7,7 @@
  
 
 <head>
-
+<link rel="shortcut icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/ico/hsmoney_ico.png" />
 <c:import url="header.jsp" />
 <!-- loading css -->
 

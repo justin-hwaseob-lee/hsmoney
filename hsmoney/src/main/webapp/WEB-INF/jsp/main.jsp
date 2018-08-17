@@ -7,7 +7,7 @@
  
 
 <head>
-
+<link rel="shortcut icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/ico/hsmoney_ico.png" />
 <%@include file="/WEB-INF/jsp/header.jsp" %>
 <!-- loading css -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
