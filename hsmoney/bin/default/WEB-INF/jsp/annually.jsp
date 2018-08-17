@@ -8,20 +8,17 @@
 
 <head>
 
+<c:import url="header.jsp" />
+<!-- loading css -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/loading.css"> 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
 <!-- jQuery UI CSS파일  -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <!--  jQuery 기본 js파일 -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <!-- jQuery UI 라이브러리 js파일 -->
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-
-  
-<c:import url="header.jsp" />
-<!-- loading css -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/loading.css">
- 
- 
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
+<script src="${pageContext.request.contextPath}/resources/js/jquery.number.js" > </script> 
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/annually.js" charset="utf-8"></script>  
 
 <style> 
@@ -68,16 +65,22 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 			</tbody>  
 		</table> 
 
+	</form>
+	</div> 
+</div>
+
+
+
 		<nav class="navbar fixed-bottom sticky" style="background-color:#FAFCFC;">
 		<hr class="divider" style="margin-top:0px; margin-bottom:15px;"></hr>
 		 
 		 	<div class="input-group mb-3"  style="padding-top: 10px;">
 				  <div class="input-group-prepend">
-					    <input type="text" value ="Annual Total" class="input-group-text30" readonly> 
+					    <input type="text" value ="Annual Sum" class="input-group-text30" style="width:118px; text-align:left;" readonly> 
 				  </div>
 				  <input type="text" readonly class="form-control input-group-text" id="yearTotal" name="yearTotal" value="${yearTotal}" style="width:100px">
 				  <div class="input-group-append">
-				    <span class="input-group-text" style="">원</span>
+				    <span class="input-group-text" style="width:38px; text-align:left;">원</span>
 				  </div>
 			</div>
 			  
@@ -105,8 +108,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 						<option name="2034" value="2034">2034</option>
 						<option name="2035" value="2035">2035</option>
 					</select>
-				</div>
-			    <!-- <input id="month_standard" name="month_standard"  type="month" style="width:118px;" onchange="monthChange()"> -->
+				</div> 
 				<input type="text" class="form-control" id="search" placeholder="Fast Search" name="search" onkeydown="if(event.keyCode == 13) return false;">
 				
 				<div class="col-md- text-right" >  
@@ -114,10 +116,6 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 				</div>
 			</div>
 		</nav>
-	</form>
-	</div> 
-</div>
-
  
 </body>
 </html>

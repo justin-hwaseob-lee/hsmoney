@@ -1,20 +1,31 @@
 window.onload = function() {
 	$('#LoadingImage').hide();
 	fnOnload();
-	
+
+	//datepicker위치 강ㅈ
+	$.extend($.datepicker, {
+	    _checkOffset: function(inst, offset, isFixed) {
+	        offset.top = $("#" + inst.id).offset().top - $(window).scrollTop() + $("#" + inst.id)[0].getBoundingClientRect().height-305;
+	        offset.left = $("#" + inst.id).offset().left   + $("#" + inst.id)[0].getBoundingClientRect().width-260;
+	        return offset;
+	    }
+	});
+
+
 }
 
-
+ 
 /*******************************************************************************
  * datepicker 날짜고르기
  ******************************************************************************/  
 $(function() {
     var startDate;
     var endDate;
-    
+     
     $('#week-picker').datepicker( {
-		buttonImage : "resources/images/calendar_icon2.png", // 표시할이미지
+		buttonImage : "resources/images/calendar_icon2.png", // 표시할이미지 
 
+		  showOptions: { direction: "down" },
 		showOn : "both", // 버튼과 텍스트필드 모두 표시
 		buttonImageOnly : true,
         showOtherMonths: true,
@@ -35,7 +46,7 @@ $(function() {
             
             setTimeout("applyWeeklyHighlight()", 100);
         },
-		  beforeShow : function(textbox, instance) {   
+		  beforeShow : function(input, inst) {    
 		   setTimeout("applyWeeklyHighlight()", 100);
 		  }
     });

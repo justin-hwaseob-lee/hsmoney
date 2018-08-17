@@ -23,9 +23,8 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/weekly.js" charset="utf-8"></script>  
 
    
-<style>  
-.ui-datepicker-trigger { position:relative; height:38px;width:40px; }
-
+<style>     
+.ui-datepicker-trigger { position:relative; height:38px;width:38px; } 
 body{ 
  	padding-bottom:171px;
 }
@@ -69,6 +68,12 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 			</tbody>  
 		</table> 
 
+	</form>
+	
+	
+	</div> 
+</div>
+
 		<nav class="navbar fixed-bottom sticky" style="background-color:#FAFCFC;">
 		<hr class="divider" style="margin-top:0px; margin-bottom:15px;"></hr>
 		 
@@ -78,7 +83,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 			 
 			 <div class="input-group mb-3"  style="padding-top: 10px;">
 				  <div class="input-group-prepend">
-					    <input type="text" value ="Week Select" class="input-group-text30" readonly> 
+					    <input type="text" value ="Week Sel" class="input-group-text30" style="width:102px; text-align:center;" readonly> 
 				  </div>
 				  <input type='text' id="week-picker" name="week-picker" class="form-control input-group-text" placeholder="Select Week" disabled readonly />
 			</div>
@@ -86,11 +91,11 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
              
 		 	<div class="input-group mb-3" >
 				  <div class="input-group-prepend">
-					    <input type="text" value ="Week Total" class="input-group-text30"  readonly> 
+					    <input type="text" value ="Week Sum" class="input-group-text30" style="width:102px;text-align:left;"  readonly> 
 				  </div>
 				  <input type="text" readonly diabled class="form-control input-group-text" id="weekTotal" name="weekTotal" value="${weeklyTotal}" style="width:100px">
 				  <div class="input-group-append">
-				    <span class="input-group-text"  >원</span>
+				    <span class="input-group-text" style="width:38px; text-align:left;" >원</span>
 				  </div>
 			</div>
 			 
@@ -106,10 +111,6 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 			 
 			 
 		</nav>
-	</form>
-	</div> 
-</div>
-
  
 </body>
 </html>

@@ -160,8 +160,7 @@ function monthChange(){
 
 /*숫자 3글자마다 콤마*/
 $(function(){
-	// Set up the number formatting. 
-	$('#realtimeprice').number( true ); 
+	// Set up the number formatting.  
 	$('#monthTotal').number( true );  
 }); 
 
