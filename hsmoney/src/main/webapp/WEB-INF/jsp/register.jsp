@@ -24,19 +24,17 @@
 	<!-- cookie -->
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/js.cookie.js"></script>
     <!-- Custom styles for this template -->
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/login.js" charset="utf-8"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script> 
+	<script src="${pageContext.request.contextPath}/resources/js/register.js"></script> 
   </head>
 
   <body class="text-center">
    
 	<!-- 'undefined' 메세지를 숨겨줘 -->
-	<input type="hidden" id="message" value="${message}">
-	<!-- 'undefined' 메세지를 숨겨줘 -->
-	<input type="hidden" id="logout" value="${logout}">
+	<input type="hidden" id="message" value="${message}"> 
 	 
 	 
-   <form  id="loginForm" name="loginForm" class="loginForm" method="post" action='main.do' onsubmit='submitForm()'> 
+   <form  id="loginForm" name="loginForm" class="loginForm" method="post" action='register.do' > 
        
       <img class="mb-4" src="<%=request.getContextPath()%>/resources/images/ico/logo_hs.png" alt="" width="130" height="145"> 
       
@@ -59,19 +57,10 @@
 		  </div>
 		  <input type="password" id="form-password" name="form-password" class="form-control" placeholder="Password" required   >
 		</div>
-		 
-      
-      <div class="checkbox mb-3" style="margin-top:10px;  ">
-        <label>
-          <input type="checkbox" id="remember" name="remember"  > ID/PW 저장
-        </label>
-        <label>
-          <input type="checkbox" id="autologin" name="autologin" style="margin-left:15px;" onclick="autologinchanged();" > 자동로그인
-        </label>
-      </div>
-      
-      <input type='submit' class="btn btn-lg btn-primary btn-block"  value='로그인'> 
-      <input type='button' class="btn btn-lg   btn-block"  value='회원가입' onclick="window.location.href='register'"> 
+		  
+       
+      <input type='submit' class="btn btn-lg btn-primary btn-block"  value='회원등록'>  
+      <input type='button' class="btn btn-lg  btn-block"  value='로그인' onclick="window.location.href='login'"> 
       
       <p class="mt-5 mb-3 text-muted">&copy; Copyright © 2018 HsCompany.<br>All Rights Reserved.</p>
     </form>

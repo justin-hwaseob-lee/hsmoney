@@ -10,6 +10,22 @@
 		]]>
 	</select>
 	
+
+	<insert id="register" parameterType="String">
+		INSERT INTO USER_TB(user_name, user_pw, start_date)
+		VALUES (#{name}, #{pw}, 1);
+	</insert>	
+
+	
+	<select id="checkName" parameterType="String" resultType="String">
+		select 1 FROM user_tb WHERE user_name=#{name};
+	</select>
+	
+	<update id="updateUserInfo"  parameterType="String" >
+		UPDATE user_tb set user_pw=#{pw} where user_id=#{user_id};
+	</update>
+	
+	
 	<select id="getMonthlyMoneyInfo" resultType="com.example.demo.dto.MoneyDto">
 	<![CDATA[
 		SET @year := (select date_format(now(),'%y'));

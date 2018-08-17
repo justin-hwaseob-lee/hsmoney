@@ -3,10 +3,20 @@ window.onload = function() {
 	
 	fnOnload();
 }
+
+function autologinchanged() { 
+		if ($('#autologin').prop('checked')){ //autologin이 체크되면 remember도 체크 
+        	$('#remember').prop("checked", true);  
+	    } 
+}
+
+
 /*******************************************************************************
  * Form Onload
  ******************************************************************************/
 function fnOnload() {
+	
+	
 	
 	//logout한경우 지워주기
 	var logout = $('#logout').val();
