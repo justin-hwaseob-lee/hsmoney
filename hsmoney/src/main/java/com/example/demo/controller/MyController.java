@@ -70,12 +70,16 @@ public class MyController {
 	}
 	
 	@PostMapping("main.do")
-	public String mainPagePost(HttpSession session){
+	public ModelAndView mainPagePost(HttpSession session){
 		System.out.println("\n called main.do get");
-		if (session.getAttribute("loginInfo") != null)  // LoginInfo exists in session
-			return "main";
+		ModelAndView mav=new ModelAndView();
+		if (session.getAttribute("loginInfo") != null) { // LoginInfo exists in session
+			mav.setViewName("main");
+			mav.addObject("firstlogin", "true");
+		}
 		else
-			return "login"; 
+			mav.setViewName("login"); 
+		return mav;
 	}
 	@GetMapping("getmainpage.do")
 	public ModelAndView doMain(HttpSession session) {  
@@ -233,7 +237,7 @@ public class MyController {
 	
 	@GetMapping(value = "monthlyResult.do")
 	public ModelAndView doMonthlyResult(HttpSession session){
-		System.out.println("called monthlyResult.do : "+((MemberDto)session.getAttribute("loginInfo")).getUser_id());
+ System.out.println("called monthlyResult.do ");
 		if (session.getAttribute("loginInfo") == null)  // LoginInfo exists in session
 			return new ModelAndView("login");
 		MemberDto userInfo=(MemberDto) session.getAttribute("loginInfo");

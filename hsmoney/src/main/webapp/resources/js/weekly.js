@@ -19,11 +19,11 @@ $(function() {
 		buttonImageOnly : true,
         showOtherMonths: true,
         selectOtherMonths: true,
-  selectWeek:true,
+        selectWeek:true,   
         onSelect: function(dateText, inst) { 
             var date = $(this).datepicker('getDate');
             startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 1);
-            endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 5);
+            endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 7);
             var dateFormat = 'yy/mm/dd'
             startDate = $.datepicker.formatDate( dateFormat, startDate, inst.settings );
             endDate = $.datepicker.formatDate( dateFormat, endDate, inst.settings );
@@ -35,16 +35,15 @@ $(function() {
             
             setTimeout("applyWeeklyHighlight()", 100);
         },
-		  beforeShow : function() {
+		  beforeShow : function(textbox, instance) {   
 		   setTimeout("applyWeeklyHighlight()", 100);
 		  }
     });
 });
  
 function applyWeeklyHighlight() {
-
-	 $('.ui-datepicker-calendar tr').each(function() {
-
+	
+	 $('.ui-datepicker-calendar tr').each(function() { 
 	  if ($(this).parent().get(0).tagName == 'TBODY') {
 	   $(this).mouseover(function() {
 	    $(this).find('a').css({
@@ -76,15 +75,8 @@ function fnOnload() {
 	var message = $('#message').val();
 	if (message != "") {
 		alert(message);
-	}
- 
- 
-	var today = new Date();
-	var year = today.getFullYear(); 
-	var month = today.getMonth();    
-	 
-
-	/* 월 소비 결과 조회 */ 
+	} 
+	/* 주간 소비 결과 조회 */ 
 	fnMoneyResultSearch();
 }
  
@@ -92,32 +84,20 @@ function fnOnload() {
 
 
 /*******************************************************************************
- * 전체 설문조사 결과 조회 Ajax 처리
+ * 주간 소비결과 조회 Ajax 처리
  ******************************************************************************/
 function fnMoneyResultSearch() {
-	$('#LoadingImage').show(); // loadingImage show
-	$.ajax({
-		type : "get",
-		url : "monthlyResult.do",
-		dataType : "json",
-		contentType : "application/json; charset=utf-8",
-		success : whenSuccess,
-		error : whenError
-	});
 
-	function whenSuccess(result) {  
-		// loading image disappeard
-		fnPrintGrid(result);
-		getSum(); //테이블에 보이는 price값 다 더하기
-		$('#LoadingImage').hide();
-	}
+	/*이번주 자동으로 선택해서 세팅해놓기*/  
+	var date = new Date(); 
+    startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 1);
+    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 7);
+    var dateFormat = 'yy/mm/dd'
+    startDate = $.datepicker.formatDate( dateFormat, startDate);
+    endDate = $.datepicker.formatDate( dateFormat, endDate );
 
-	function whenError(result) {
-		window.location.href = "main"; 
-		alert("세션이 만료되었습니다.");
-		// loading image disappeard
-		$('#LoadingImage').hide();
-	}
+    $('#week-picker').val(startDate + '~' + endDate); 
+    weekChange(startDate,endDate); 
 }
 
 
@@ -174,7 +154,7 @@ function fnPrintGrid(result) {
 	}
 	
  
-	$('#weekTotal').val(result.monthlyTotal); 
+	//$('#weekTotal').val(result.monthlyTotal); 
 }
 
 
@@ -200,10 +180,14 @@ function weekChange(startDate,endDate){
 	alert(startDate);
 	alert(endDate);
 	*/
+
+	var tmp={};
+	tmp["startDate"]=startDate;
+	tmp["endDate"]=endDate;
+	var objJson = JSON.stringify(tmp); 
+	
 	$('#search').val(''); 
 	$('#LoadingImage').show(); // loadingImage show
-	var objJson = JSON.stringify(objToJson($(".resultForm")
-			.serializeArray()));
 	$.ajax({
 		type : "post",
 		url : "weekChange.do",
@@ -223,8 +207,9 @@ function weekChange(startDate,endDate){
 	}
 
 	function whenError(result) {
-		alert("Error");
+		alert("세션이 만료되었습니다.");
 
+		window.location.href = "main"; 
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
@@ -336,7 +321,7 @@ function searchTable(inputVal) {
 	$('#weekTotal').val(realtimesum);
 }
 
-/* 전체선택 */
+/* 전체선택 */ 
 $(document).ready(function() {
 	// 최상단 체크박스 클릭
 	$("#checkall").click(function() {

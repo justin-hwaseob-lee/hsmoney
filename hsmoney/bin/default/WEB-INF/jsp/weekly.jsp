@@ -23,8 +23,7 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/weekly.js" charset="utf-8"></script>  
 
    
-<style> 
-
+<style>  
 .ui-datepicker-trigger { position:relative; height:38px;width:40px; }
 
 body{ 

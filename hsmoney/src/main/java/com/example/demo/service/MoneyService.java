@@ -38,6 +38,13 @@ public class MoneyService {
 	}
 	
 	@Transactional
+	public List<MoneyDto> getYearMoneyInfoFromStandard(String selectYear, String user_id){
+		return moneyMapper.getYearMoneyInfoFromStandard(selectYear, user_id).stream()
+				.collect(Collectors.toList());
+	}
+	
+	
+	@Transactional
 	public MainInfoDto getMainInfo(String user_id){
 		return moneyMapper.getMainInfo(user_id);
 	}

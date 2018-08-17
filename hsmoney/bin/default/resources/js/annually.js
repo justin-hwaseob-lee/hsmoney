@@ -19,39 +19,11 @@ function fnOnload() {
 	//document.getElementById('month_standard').valueAsDate = new Date(Date.UTC(year,month)); 
 	$("option[name="+year+"]").prop("selected", true);
 	
-	/* 월 소비 결과 조회 */ 
-	fnMoneyResultSearch();
+	/* 년 소비 결과 조회 */ 
+	yearChange(year);
 }
 
-
-/*******************************************************************************
- * 전체 설문조사 결과 조회 Ajax 처리
- ******************************************************************************/
-function fnMoneyResultSearch() {
-	$('#LoadingImage').show(); // loadingImage show
-	$.ajax({
-		type : "get",
-		url : "monthlyResult.do",
-		dataType : "json",
-		contentType : "application/json; charset=utf-8",
-		success : whenSuccess,
-		error : whenError
-	});
-
-	function whenSuccess(result) {  
-		// loading image disappeard
-		fnPrintGrid(result);
-		getSum(); //테이블에 보이는 price값 다 더하기
-		$('#LoadingImage').hide();
-	}
-
-	function whenError(result) {
-		window.location.href = "main"; 
-		alert("세션이 만료되었습니다.");
-		// loading image disappeard
-		$('#LoadingImage').hide();
-	}
-}
+ 
 
 
 /*******************************************************************************
@@ -107,7 +79,7 @@ function fnPrintGrid(result) {
 	}
 	
  
-	$('#monthTotal').val(result.monthlyTotal); 
+	//$('#yearTotal').val(result.yearTotal); 
 }
 
 
@@ -127,14 +99,20 @@ function confirmDelete() {
 	}
 }
 
-function monthChange(){
+/* 년도 선택시 */
+function yearSelect(){
+	yearChange($("#anuall_select option:selected").val());
+}
+
+function yearChange(selectYear){ 
 	$('#search').val(''); 
 	$('#LoadingImage').show(); // loadingImage show
-	var objJson = JSON.stringify(objToJson($(".resultForm")
-			.serializeArray()));
+	var tmp={};
+	tmp["selectYear"]=selectYear; 
+	var objJson = JSON.stringify(tmp); 
 	$.ajax({
 		type : "post",
-		url : "monthChange.do",
+		url : "yearChange.do",
 		dataType : "json",
 		data : objJson,
 		contentType : "application/json; charset=utf-8",
@@ -150,8 +128,9 @@ function monthChange(){
 		$('#LoadingImage').hide();
 	}
 
-	function whenError(result) {
-		alert("Error");
+	function whenError(result) { 
+		alert("세션이 만료되었습니다."); 
+		window.location.href = "main"; 
 
 		// loading image disappeard
 		$('#LoadingImage').hide();
@@ -160,9 +139,8 @@ function monthChange(){
 
 /*숫자 3글자마다 콤마*/
 $(function(){
-	// Set up the number formatting. 
-	$('#realtimeprice').number( true ); 
-	$('#monthTotal').number( true );  
+	// Set up the number formatting.  
+	$('#yearTotal').number( true );  
 }); 
 
 
@@ -221,7 +199,7 @@ function getSum(){
 			realtimesum=realtimesum +parseInt(res1,10); //실시간검색결과에 추가
 		}
 	});
-	$('#monthTotal').val(realtimesum);
+	$('#yearTotal').val(realtimesum);
 }
 
 
@@ -262,7 +240,7 @@ function searchTable(inputVal) {
 				$(row).hide();
 		}
 	});
-	$('#monthTotal').val(realtimesum);
+	$('#yearTotal').val(realtimesum);
 }
 
 /* 전체선택 */

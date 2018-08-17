@@ -19,6 +19,8 @@ public interface MoneyMapper {
 	
 	public List<MoneyDto> getMonthMoneyInfoFromStandard(@Param("search_start")String search_start, @Param("search_end") String search_end, @Param("user_id") String user_id);
 	
+	public List<MoneyDto> getYearMoneyInfoFromStandard(@Param("selectYear") String selectYear, @Param("user_id") String user_id);
+	
 	public int insertInputMoney(@Param("user_id") String user_id,  
 			@Param("category") String category, 
 			@Param("inputMoney") String inputMoney,

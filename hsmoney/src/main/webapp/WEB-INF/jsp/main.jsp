@@ -37,6 +37,8 @@
    	 <div><img src="<%=request.getContextPath()%>/resources/images/sd_loading.gif" width="51" height="50"/> </div>
 	</div> 
 	<!-- 'undefined' 메세지를 숨겨줘 -->
+	<input type="hidden" id="firstlogin" value="${firstlogin}">
+	<!-- 'undefined' 메세지를 숨겨줘 -->
 	<input type="hidden" id="message" value="${message}">
 	
 <div class="card">

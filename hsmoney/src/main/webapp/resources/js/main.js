@@ -1,7 +1,16 @@
 window.onload = function() {
 	$('#LoadingImage').hide(); 
-	fnOnload();
+	fnOnload(); 
+	
+	firstlogin
+
+	var firstlogin = $('#firstlogin').val();
+	if(firstlogin=='true'){  
+		window.location.href = "main";  
+	}
 }
+
+ 
 /*******************************************************************************
  * Form Onload
  ******************************************************************************/

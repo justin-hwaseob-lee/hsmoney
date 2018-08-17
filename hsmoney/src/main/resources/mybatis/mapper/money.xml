@@ -117,7 +117,28 @@
             ]]>
 	</select>
 	
-	<select id="getMonthMoneyInfoFromStandard"  parameterType="String"  resultType="com.example.demo.dto.MoneyDto">
+	<select id="getYearMoneyInfoFromStandard"  parameterType="String"  resultType="com.example.demo.dto.MoneyDto">
+	<![CDATA[
+		SELECT
+		  u.user_id,
+		  u.user_name,
+		  u.user_pw,
+		  u.start_date,
+		  m.money_id,
+		  m.price,
+		  m.category,
+		  m.use_date
+		FROM user_tb u, money_tb m
+		WHERE 1=1
+			and u.user_id=m.user_id
+			and u.user_id= #{user_id} 
+		    and date_format(concat(#{selectYear},"-1-1"),'%y-%c-%d') <= use_date
+		    and date_format(concat(#{selectYear},"-12-31"),'%y-%c-%d') >= use_date 
+		ORDER BY use_date DESC;
+            ]]>
+	</select>
+	
+	<select id="getMonthMoneyInfoFromStandard" parameterType="String" resultType="com.example.demo.dto.MoneyDto">
 	<![CDATA[
 		SELECT
 		  u.user_id,
@@ -137,6 +158,7 @@
 		ORDER BY use_date DESC;
             ]]>
 	</select>
+	
 	
 	<insert id="insertInputMoney" parameterType="String">
 		INSERT INTO money_tb(user_id, category, price, use_date)

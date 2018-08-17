@@ -29,7 +29,7 @@
 	      <a class="nav-item nav-link active" href="main.do">Main </a> 
 	      <a class="nav-item nav-link" href="weekly.do">Weekly<span class="sr-only">(current)</span></a>
 	      <a class="nav-item nav-link" href="monthly.do">Monthly<span class="sr-only">(current)</span></a>
-	 <!--      <a class="nav-item nav-link disabled" href="annually.do">Annually</a>-->
+	       <a class="nav-item nav-link disabled" href="annually.do">Annually</a> 
 	      <a class="nav-item nav-link disabled" href="logout.do">Log out</a>
 	    </div>
 	  </div> 

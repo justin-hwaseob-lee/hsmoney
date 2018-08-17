@@ -73,9 +73,9 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 		 
 		 	<div class="input-group mb-3"  style="padding-top: 10px;">
 				  <div class="input-group-prepend">
-					    <input type="text" value ="Month Total" class="input-group-text30" readonly> 
+					    <input type="text" value ="Annual Total" class="input-group-text30" readonly> 
 				  </div>
-				  <input type="text" readonly class="form-control input-group-text" id="monthTotal" name="monthTotal" value="${monthlyTotal}" style="width:100px">
+				  <input type="text" readonly class="form-control input-group-text" id="yearTotal" name="yearTotal" value="${yearTotal}" style="width:100px">
 				  <div class="input-group-append">
 				    <span class="input-group-text" style="">원</span>
 				  </div>
@@ -84,7 +84,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 			 
 			<div class="input-group mb-3 " >
 			    <div class="input-group-prepend" >
-					<select class="custom-select input-group-text29" id="anuall_select" name="anuall_select" style="width:118px;" >
+					<select class="custom-select input-group-text29" id="anuall_select" name="anuall_select" style="width:118px;" onchange="yearSelect()" >
 						<option name="2017" value="2017">2017</option>
 						<option name="2018" value="2018">2018</option>
 						<option name="2019" value="2019">2019</option>
