@@ -27,12 +27,8 @@
  
 <style>     
 .ui-datepicker-trigger { position:relative; height:38px;width:38px; } 
-body{ 
- 	padding-bottom:171px;
-}
-html, body{
-  margin:0;
-  padding:0;
+ 
+html, body{ 
   height:100%;
 } 
 .highlight {
@@ -56,7 +52,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 	<input type="hidden" id="message" value="${message}">
  
 <!-- weekly 테이블 -->
-<div class="container-fluid">
+<div class="container-fluid"style="margin-bottom:169px;"> 
 	<div class="table-responsive">
 	<form  id="resultForm" name="resultForm"  class="resultForm"> 
 

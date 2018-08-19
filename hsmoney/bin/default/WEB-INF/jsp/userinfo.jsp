@@ -33,15 +33,18 @@
   </head>
 
   
-<body class="text-center" id="mainbody" name="mainbody">
+<body  id="mainbody" name="mainbody">
+
+	<div class="hi text-center">
 	<!-- 'undefined' 메세지를 숨겨줘 -->
 	<div class="wrap-loading" id="LoadingImage"> 
    	 <div><img src="<%=request.getContextPath()%>/resources/images/sd_loading.gif" width="51" height="50"/> </div>
 	</div> 
 	
-	<div class="hi">
+	
 	<input type="hidden" id="message" value="${message}"> 
-	 
+
+ 
 	 
    <form  id="loginForm" name="loginForm" class="loginForm" method="post" action='modifyUser.do' > 
        
@@ -72,6 +75,6 @@
       
       <p class="mt-5 mb-3 text-muted">&copy; Copyright © 2018 HsCompany.<br>All Rights Reserved.</p>
     </form> 
-    </div>
+    </div> 
   </body> 
 </html>

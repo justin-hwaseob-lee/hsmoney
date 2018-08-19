@@ -30,12 +30,18 @@ public class WeekAndYearController {
 	
 	@GetMapping("annually.do")
 	public String doAnuually(HttpSession session){ 
-		return "annually";
+		if (session.getAttribute("loginInfo") != null)  // LoginInfo exists in session
+			return "annually";
+		else
+			return "login"; 
 	}
 
 	@GetMapping("weekly.do")
 	public String doWeekly(HttpSession session){ 
-		return "weekly";
+		if (session.getAttribute("loginInfo") != null)  // LoginInfo exists in session
+			return "weekly";
+		else
+			return "login"; 
 	}
 	 
 

@@ -24,15 +24,10 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/monthly.js" charset="utf-8"></script>  
 
 <style> 
-body{ 
- 	padding-bottom:115px;
-}
-
-html, body{
-  margin:0;
-  padding:0;
+html, body{  
   height:100%;
 } 
+ 
 
 .highlight {
     background-color: #708EA8;
@@ -54,7 +49,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 	<input type="hidden" id="message" value="${message}">
 	 
 <!-- monthly 테이블 -->
-<div class="container-fluid">
+<div class="container-fluid"style="margin-bottom:120px;"> 
 	<div class="table-responsive">
 	<form  id="resultForm" name="resultForm"  class="resultForm"> 
 

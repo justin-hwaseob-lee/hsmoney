@@ -45,18 +45,22 @@ public class LoginController {
 	@GetMapping("userinfo.do")
 	public ModelAndView userInfo(HttpSession session) { 
 		ModelAndView mav=new ModelAndView();
-		if (session.getAttribute("loginInfo") != null)  // LoginInfo exists in session
-			mav.setViewName("userinfo");
-		else
-			mav.setViewName("login");
+		if (session.getAttribute("loginInfo") == null) {  // LoginInfo exists in session
+			mav.setViewName("login"); 
+			return mav;
+		} 
+		mav.setViewName("userinfo"); 
 		MemberDto member=(MemberDto) session.getAttribute("loginInfo");
 		mav.addObject("name",member.getUser_name());
 		return mav;
 	} 
 
 	@GetMapping("register")
-	public String doRegister() {
-		return "register";
+	public String doRegister(HttpSession session) {
+		if (session.getAttribute("loginInfo") != null)  // LoginInfo exists in session
+			return "register";
+		else
+			return "login"; 
 	} 
 	
 	@PostMapping("register.do")

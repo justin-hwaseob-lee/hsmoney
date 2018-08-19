@@ -1,6 +1,8 @@
  
 html,
 body {
+  margin:0 ;
+  padding:0;
   height: 100%;
 }
 
@@ -14,10 +16,10 @@ body {
   align-items: center;
   -webkit-box-pack: center;
   justify-content: center;
-  padding-top: 100px;
-  padding-bottom: 140px;
-  background-color: #f5f5f5;
+  padding-top: 15%;
+  padding-bottom:15%;
 }
+
 
 .form-signin {
   width: 100%;
