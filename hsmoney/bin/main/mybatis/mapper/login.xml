@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.LoginMapper">
+	<select id="getLoginInfo" resultType="com.example.demo.dto.MemberDto" parameterType="String">
+	<![CDATA[
+		SELECT user_id, user_name, user_pw, start_date
+		FROM user_tb
+		WHERE user_name=#{name}
+			AND user_pw=#{pw};
+		]]>
+	</select>
+	
+
+	<insert id="register" parameterType="String">
+		INSERT INTO USER_TB(user_name, user_pw, start_date)
+		VALUES (#{name}, #{pw}, 1);
+	</insert>	
+
+	
+	<select id="checkName" parameterType="String" resultType="String">
+		select 1 FROM user_tb WHERE user_name=#{name};
+	</select>
+	
+	<update id="updateUserInfo"  parameterType="String" >
+		UPDATE user_tb set user_pw=#{pw} where user_id=#{user_id};
+	</update>
+	
+	
+	<select id="getMonthlyMoneyInfo" resultType="com.example.demo.dto.MoneyDto">
+	<![CDATA[
+		SET @year := (select date_format(now(),'%y'));
+		SET @month := (select date_format(now(),'%c'));
+		SET @day := (select date_format(now(),'%d')); 
+			 
+		SET @realstartdate := 
+			(
+			SELECT
+				(CASE
+					WHEN cast(start_date as unsigned) > @day THEN  date_format(concat(@year,"-", (((@month-1)+11)%12)+1,"-", start_date),'%y-%c-%d')
+			        WHEN cast(start_date as unsigned) <=@day THEN  date_format(concat(@year,"-", @month,"-", start_date),'%y-%c-%d')
+			        END)
+			FROM user_tb 
+			);
+		
+		SELECT
+		  u.user_id,
+		  u.user_name,
+		  u.user_pw,
+		  u.start_date,
+		  m.money_id,
+		  m.price,
+		  m.category,
+		  m.use_date
+		FROM user_tb u, money_tb m
+		WHERE 1=1
+			and u.user_id=m.user_id
+		    and @realstartdate <=use_date
+		ORDER BY use_date DESC;
+		]]>
+	</select>
+	 
+</mapper>

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.MoneyMapper">
+	<select id="getStartDate" resultType="String">
+		SELECT start_date FROM user_tb where user_id=#{user_id};
+	</select>
 	<select id="getAllMoneyInfo" resultType="com.example.demo.dto.MoneyDto">
 		SELECT
 		  u.user_id,
@@ -17,99 +20,145 @@
 		ORDER BY use_date DESC;
 	</select>
 	
-	<select id="getMonthTotal" resultType="String">
+	<select id="getMonthlyMoneyInfo" resultType="com.example.demo.dto.MoneyDto" parameterType="String">
 	<![CDATA[
-		SELECT 
-		  sum(m.price) monthly_total 
-		FROM user_tb u, money_tb m 
-		WHERE 1=1
-			AND u.user_id=m.user_id 
-            AND u.user_id=1
-            AND (select  
-			case
-				when (SELECT DATE_FORMAT(now(), "%c"))=1 and (SELECT DATE_FORMAT(now(), "%e")) <= start_date then date_format(concat((SELECT DATE_FORMAT(now(), "%y"))-1,'/',12, '/',(SELECT DATE_FORMAT(now(), "%e"))), '%Y%m%d')  
-				when (SELECT DATE_FORMAT(now(), "%e")) <= start_date then date_format(concat((SELECT DATE_FORMAT(now(), "%y")),'/',(SELECT DATE_FORMAT(now(), "%c"))-1, '/',(SELECT DATE_FORMAT(now(), "%e"))), '%Y%m%d') 
-			    when (SELECT DATE_FORMAT(now(), "%e")) > start_date  then date_format(concat((SELECT DATE_FORMAT(now(), "%y")),'/',(SELECT DATE_FORMAT(now(), "%c")), '/',start_date), '%Y%m%d') 
-			    end as real_start_date
-			from user_tb
-			where user_id=1) <= m.use_date
-		GROUP BY u.user_id;
-		]]>
-	</select>
-	
-	<select id="getMainInfo2" resultType="com.example.demo.dto.MainInfoDto">
-	 
-		SET @year := (SELECT DATE_FORMAT(now(), "%y"));
-		SET @month := (SELECT DATE_FORMAT(now(), "%c");
-		SET @day := (SELECT DATE_FORMAT(now(), "%e"));	 
-	<![CDATA[
-		SET @real_start_date := (select  
-			CASE
-				WHEN (@month=1) AND (@day) <= start_date THEN date_format(CONCAT(@year-1,'/',12, '/',@day), '%Y%m%d')  
-				WHEN @day <= start_date THEN date_format(CONCAT(@year,'/',@month-1, '/',@day), '%Y%m%d') 
-			    WHEN @day > start_date  THEN date_format(CONCAT(@year,'/',@month, '/',start_date), '%Y%m%d') 
-			    end as real_start_date
-			from user_tb
-			where user_id=1);
-	]]>
+		SET @year := (select date_format(now(),'%y'));
+		SET @month := (select date_format(now(),'%c'));
+		SET @day := (select date_format(now(),'%d')); 
 			 
-		set @daily_use := (select sum(m.price) as daily_use 
-		from money_tb m, user_money_l l 
-		where l.user_id=1
-			and m.money_id=l.money_id
-		    and (@real_start_date)=m.use_date); 
+		SET @realstartdate := 
+			(
+			SELECT
+				(CASE
+					WHEN cast(start_date as unsigned) > @day THEN  date_format(concat(@year,"-", (((@month-1)+11)%12)+1,"-", start_date),'%y-%c-%d')
+			        WHEN cast(start_date as unsigned) <=@day THEN  date_format(concat(@year,"-", @month,"-", start_date),'%y-%c-%d')
+			        END)
+			FROM user_tb  
+			WHERE user_id=#{user_id}
+			);
 		
-	<![CDATA[ 
-		   
 		SELECT
 		  u.user_id,
-		  u.user_name, 
-		  u.start_date, 
-		  sum(m.price) monthly_total, 
-          @daily_use as daily_total,
+		  u.user_name,
+		  u.user_pw,
+		  u.start_date,
+		  m.money_id,
+		  m.price,
+		  m.category,
 		  m.use_date
-		FROM user_tb u, money_tb m, user_money_l l
+		FROM user_tb u, money_tb m
 		WHERE 1=1
-			AND u.user_id=l.user_id 
-			AND l.money_id=m.money_id
-            AND u.user_id=1
-            AND (@real_start_date) <= m.use_date
-		GROUP BY u.user_id;
+			and u.user_id=m.user_id
+		    and @realstartdate <=use_date
+		    and u.user_id=#{user_id}
+		ORDER BY use_date DESC;
+		]]>
+	</select>
+	<!-- 
+	<select id="getMonthTotal" resultType="String" parameterType="String">
+	<![CDATA[
+		set @year := (select date_format(now(),'%y'));
+		set @month := (select date_format(now(),'%c'));
+		set @day := (select date_format(now(),'%d')); 
+			 
+		set @realstartdate := 
+			(
+			SELECT
+				(CASE
+					WHEN start_date > @day THEN  date_format(concat(@year,"-", (((@month-1)+11)%12)+1,"-", start_date),'%y-%c-%d')
+			        WHEN start_date <=@day THEN  date_format(concat(@year,"-", @month,"-", start_date),'%y-%c-%d')
+			        END)
+			FROM user_tb  
+			WHERE user_id=#{user_id}
+			);
+		
+		SELECT sum(price) monthly_total 
+		FROM money_tb m
+		WHERE user_id=#{user_id}
+			and @realstartdate <=use_date
+		GROUP BY user_id;
+		]]>
+	</select>
+	 -->
+	 
+	<select id="getMainInfo" resultType="com.example.demo.dto.MainInfoDto" parameterType="String"> 
+	<![CDATA[
+		set @year := (select date_format(now(),'%y'));
+		set @month := (select date_format(now(),'%c'));
+		set @day := (select date_format(now(),'%d')); 
+			 
+		set @realstartdate := 
+			(
+			SELECT
+				(CASE
+					WHEN cast(start_date as unsigned) > @day THEN  date_format(concat(@year,"-", (((@month-1)+11)%12)+1,"-", start_date),'%y-%c-%d')
+			        WHEN cast(start_date as unsigned) <=@day THEN  date_format(concat(@year,"-", @month,"-", start_date),'%y-%c-%d')
+			        END)
+			FROM user_tb 
+			WHERE user_id=#{user_id}
+			);
+			
+		set @tmpdailyTotal :=(select sum(price) from money_tb where user_id=#{user_id} and use_date=date_format(concat(@year,"-", @month,"-", @day),'%y-%c-%d'));
+		
+		set @dailyTotal := (case when @tmpdailyTotal is null THEN 0 ELSE @tmpdailyTotal END);     
+		
+		select 
+			u.user_id
+			,user_name
+		    ,start_date
+		    ,sum(price) monthly_use
+		    ,@dailyTotal daily_use
+		from user_tb u, money_tb m
+		where 1=1
+			and u.user_id=m.user_id
+			and u.user_id=#{user_id}
+		    and @realstartdate <=use_date 
+		group by u.user_id;
             ]]>
 	</select>
 	
-	
-	<select id="getMainInfo" resultType="com.example.demo.dto.MainInfoDto">
-	<![CDATA[ 
+	<select id="getYearMoneyInfoFromStandard"  parameterType="String"  resultType="com.example.demo.dto.MoneyDto">
+	<![CDATA[
 		SELECT
-			  u.user_id
-			 ,u.user_name 
-			 ,u.start_date 
-			 ,sum(m.price) monthly_use 
-	         ,(select sum(m.price) as daily_use 
-				from money_tb m
-				where m.user_id=1
-				    and DATE_FORMAT(now(), "%y/%c/%e") = DATE_FORMAT(use_date, "%y/%c/%e") ) daily_use 
-
-
-	FROM user_tb u, money_tb m
-	
-	
-	
-	WHERE 1=1
-		AND u.user_id=m.user_id
-           AND u.user_id=1
-           AND (select  
-			case
-				when (SELECT DATE_FORMAT(now(), "%c"))=1 and (SELECT DATE_FORMAT(now(), "%e")) <= start_date then date_format(concat((SELECT DATE_FORMAT(now(), "%y"))-1,'/',12, '/',(SELECT DATE_FORMAT(now(), "%e"))), '%Y%m%d')  
-				when (SELECT DATE_FORMAT(now(), "%e")) <= start_date then date_format(concat((SELECT DATE_FORMAT(now(), "%y")),'/',(SELECT DATE_FORMAT(now(), "%c"))-1, '/',(SELECT DATE_FORMAT(now(), "%e"))), '%Y%m%d') 
-			    when (SELECT DATE_FORMAT(now(), "%e")) > start_date  then date_format(concat((SELECT DATE_FORMAT(now(), "%y")),'/',(SELECT DATE_FORMAT(now(), "%c")), '/',start_date), '%Y%m%d') 
-			    end as real_start_date
-			from user_tb
-			where user_id=1) <= m.use_date
-			group by u.user_id;
-	]]>
+		  u.user_id,
+		  u.user_name,
+		  u.user_pw,
+		  u.start_date,
+		  m.money_id,
+		  m.price,
+		  m.category,
+		  m.use_date
+		FROM user_tb u, money_tb m
+		WHERE 1=1
+			and u.user_id=m.user_id
+			and u.user_id= #{user_id} 
+		    and date_format(concat(#{selectYear},"-1-1"),'%y-%c-%d') <= use_date
+		    and date_format(concat(#{selectYear},"-12-31"),'%y-%c-%d') >= use_date 
+		ORDER BY use_date DESC;
+            ]]>
 	</select>
+	
+	<select id="getMonthMoneyInfoFromStandard" parameterType="String" resultType="com.example.demo.dto.MoneyDto">
+	<![CDATA[
+		SELECT
+		  u.user_id,
+		  u.user_name,
+		  u.user_pw,
+		  u.start_date,
+		  m.money_id,
+		  m.price,
+		  m.category,
+		  m.use_date
+		FROM user_tb u, money_tb m
+		WHERE 1=1
+			and u.user_id=m.user_id
+			and u.user_id= #{user_id}
+			and #{search_start} <=use_date 
+		    and use_date <= #{search_end}
+		ORDER BY use_date DESC;
+            ]]>
+	</select>
+	
 	
 	<insert id="insertInputMoney" parameterType="String">
 		INSERT INTO money_tb(user_id, category, price, use_date)
@@ -119,7 +168,7 @@
 	
 	<delete id="deleteSelected" parameterType="String">
 		DELETE FROM money_tb
-		WHERE money_id=#{money_id};
+		WHERE user_id=#{user_id} AND money_id IN (<foreach collection="moneyIds" item="money_id" separator=",">#{money_id}</foreach>);
 	</delete>
 	
 	<update id="updateStartDate" parameterType="String">

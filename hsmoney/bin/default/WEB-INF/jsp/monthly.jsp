@@ -7,26 +7,33 @@
  
 
 <head>
+<link rel="shortcut icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/ico/hsmoney_ico.png" />
+<c:import url="header.jsp" />
 
+<!-- loading css -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/loading.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
 <!-- jQuery UI CSS파일  -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <!--  jQuery 기본 js파일 -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
 <!-- jQuery UI 라이브러리 js파일 -->
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-
-  
-<c:import url="header.jsp" />
-<!-- loading css -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/loading.css">
- 
- 
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
+<script src="${pageContext.request.contextPath}/resources/js/jquery.number.js" > </script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.mobile-events.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/monthly.js" charset="utf-8"></script>  
 
 <style> 
 body{ 
- 	padding-bottom:111px;
+ 	padding-bottom:115px;
 }
+
+html, body{
+  margin:0;
+  padding:0;
+  height:100%;
+} 
+
 .highlight {
     background-color: #708EA8;
 } 
@@ -39,15 +46,14 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 
 
 
-
- <body > 
+ <body class = "bg-transparent "  id="mainbody" name="mainbody"> 
 	<div class="wrap-loading" id="LoadingImage"> 
    	 <div><img src="<%=request.getContextPath()%>/resources/images/sd_loading.gif" width="51" height="50"/> </div>
 	</div> 
 	<!-- 'undefined' 메세지를 숨겨줘 -->
 	<input type="hidden" id="message" value="${message}">
 	 
-<!-- 설문 대상 명단 테이블 -->
+<!-- monthly 테이블 -->
 <div class="container-fluid">
 	<div class="table-responsive">
 	<form  id="resultForm" name="resultForm"  class="resultForm"> 
@@ -56,10 +62,10 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 		
 			<thead style="font-size:14px;">
 				<tr>
-					<th class="align-middle"  style="vertical-align: middle"><label><input type="checkbox" id="checkall" name="checkall" ></label></th>
-					<th class="align-middle" align='center' style="vertical-align: middle">Date</th>
-					<th class="align-middle" align='center' style="vertical-align: middle">Category</th>
-					<th class="align-middle" align='center' style="vertical-align: middle">price</th> 
+					<th class="text-center"  style="vertical-align: middle;"><label><input type="checkbox" id="checkall" name="checkall" ></label></th>
+					<th class="text-center" style="vertical-align: middle;">Date</th>
+					<th class="text-center" style="vertical-align: middle;">Category</th>
+					<th class="text-center" style="vertical-align: middle;">price</th> 
 				</tr>
 			</thead>
 			
@@ -67,32 +73,35 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 			</tbody>  
 		</table> 
 
+	</form>
+	</div> 
+</div>
+
+
+
+
 		<nav class="navbar fixed-bottom sticky" style="background-color:#FAFCFC;">
 		<hr class="divider" style="margin-top:0px; margin-bottom:15px;"></hr>
 		 
 		 	<div class="input-group mb-3"  style="padding-top: 10px;">
 				  <div class="input-group-prepend">
-				    <span class="input-group-text">Monthly total</span>
+					    <input type="text" value ="Monthly Sum" class="input-group-text30"  style="width:139px; text-align:left;" readonly> 
 				  </div>
-				  <input type="text" readonly class="form-control" id="monthTotal" name="monthTotal" value="${monthlyTotal}" style="width:100px">
+				  <input type="text" readonly class="form-control input-group-text" id="monthTotal" name="monthTotal" value="${monthlyTotal}" style="width:100px">
 				  <div class="input-group-append">
-				    <span class="input-group-text">원</span>
+				    <span class="input-group-text" style="width:38px; text-align:left;">원</span>
 				  </div>
 			</div>
-				
+			 
 			<div class="input-group mb-3 " >
+			 <input id="month_standard" name="month_standard" class="input-group-text30"  type="month" style="width:139px; text-align:left;" onchange="monthChange()">
+				<input type="text" class="form-control" id="search" placeholder="Fast Search" name="search" onkeydown="if(event.keyCode == 13) return false;">
 				
-					<input type="text" class="form-control" id="search" placeholder="Fast Search" name="search" onkeydown="if(event.keyCode == 13) return false;">
-				
-				<div class="col-md- text-right"  style="padding-left: 10px;">  
+				<div class="col-md- text-right" >  
 					<input type="button" class="btn btn-primary" id="deleteSurveyResult" value="Delete" onclick="confirmDelete()">
 				</div>
 			</div>
 		</nav>
-	</form>
-	</div> 
-</div>
-
  
-</body>
+</body> 
 </html>
