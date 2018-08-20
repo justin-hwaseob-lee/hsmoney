@@ -87,15 +87,18 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 				    <span class="input-group-text" style="width:38px; text-align:left;">원</span>
 				  </div>
 			</div>
-			 
+			 <form  id="resultForm2" name="resultForm2"  class="resultForm2"> 
 			<div class="input-group mb-3 " >
-			 <input id="month_standard" name="month_standard" class="input-group-text30"  type="month" style="width:139px; text-align:left;" onchange="monthChange()">
-				<input type="text" class="form-control" id="search" placeholder="Fast Search" name="search" onkeydown="if(event.keyCode == 13) return false;">
 				
-				<div class="col-md- text-right" >  
-					<input type="button" class="btn btn-primary" id="deleteSurveyResult" value="Delete" onclick="confirmDelete()">
-				</div>
+				 <input id="month_standard" name="month_standard" class="input-group-text30"  type="month" style="width:139px; text-align:left;" onchange="monthChange()">
+					<input type="text" class="form-control" id="search" placeholder="Fast Search" name="search" onkeydown="if(event.keyCode == 13) return false;">
+					
+					<div class="col-md- text-right" >  
+						<input type="button" class="btn btn-primary" id="deleteSurveyResult" value="Delete" onclick="confirmDelete()">
+					</div>
+				
 			</div>
+			</form>
 		</nav>
  
 </body> 

@@ -32,7 +32,8 @@ function fnOnload() {
 	
 	
 	/* 월 소비 결과 조회 */ 
-	fnMoneyResultSearch();
+	monthChange();
+//	fnMoneyResultSearch();
 }
 
 
@@ -145,7 +146,7 @@ function confirmDelete() {
 function monthChange(){
 	$('#search').val(''); 
 	$('#LoadingImage').show(); // loadingImage show
-	var objJson = JSON.stringify(objToJson($(".resultForm")
+	var objJson = JSON.stringify(objToJson($(".resultForm2")
 			.serializeArray()));
 	$.ajax({
 		type : "post",
