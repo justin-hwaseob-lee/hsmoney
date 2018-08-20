@@ -12,7 +12,7 @@
 	
 
 	<insert id="register" parameterType="String">
-		INSERT INTO USER_TB(user_name, user_pw, start_date)
+		INSERT INTO user_tb(user_name, user_pw, start_date)
 		VALUES (#{name}, #{pw}, 1);
 	</insert>	
 
