@@ -56,11 +56,8 @@ public class LoginController {
 	} 
 
 	@GetMapping("register")
-	public String doRegister(HttpSession session) {
-		if (session.getAttribute("loginInfo") != null)  // LoginInfo exists in session
-			return "register";
-		else
-			return "login"; 
+	public String doRegister(HttpSession session) { 
+		return "register"; 
 	} 
 	
 	@PostMapping("register.do")

@@ -191,7 +191,9 @@ function fnPrintGrid(result) {
 		$("#moneyListBody").append(appendData);
 		
 	}
-	
+
+	$("table tbody tr:odd").addClass("odd");
+	$("table tbody tr:even").addClass("even");
  
 	//$('#weekTotal').val(result.monthlyTotal); 
 }
@@ -394,8 +396,8 @@ function checkAllLine(){
 }
 
 function checkAllLineBack(){
-	$(".line").css('background', 'none');
-	$(".line").css('color', 'black');
+	$("tr:odd").css("background-color", 'rgba(0,0,0,0.05)');
+	$("tr:even").css("background-color", '#FFFFFF');
 }
  
 
@@ -415,9 +417,13 @@ $('body').on('click', '#moneyTable tbody  tr', function (e) {
 			/*$(this).css('color', '#000080');*/
         }
         else{
-			$(this).css('background', 'none');
-			$(this).css('color', 'black');
-        	
+
+        	if( $(e.target.parentElement).attr('class').indexOf('even') > -1) {
+        		$(this).css('background-color', 'rgba(0, 0, 0, 0.05) ');
+        	}
+        	else{
+        		$(this).css("background-color", '#FFFFFF'); 
+        	} 
         }
     }
 });

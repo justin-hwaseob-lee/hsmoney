@@ -12,6 +12,7 @@ window.onload = function() {
 		$('#LoadingImage').show(); // loadingImage show
 		window.location.href = "weekly.do"; 
 	});
+	
 }
 /*******************************************************************************
  * Form Onload
@@ -117,7 +118,9 @@ function fnPrintGrid(result) {
 		$("#moneyListBody").append(appendData);
 		
 	}
-	
+
+	$("table tbody tr:odd").addClass("odd");
+	$("table tbody tr:even").addClass("even");
  
 	$('#monthTotal').val(result.monthlyTotal); 
 }
@@ -309,34 +312,37 @@ function checkAllLine(){
 }
 
 function checkAllLineBack(){
-	$(".line").css('background', 'none');
-	$(".line").css('color', 'black');
+	$("tr:odd").css("background-color", 'rgba(0,0,0,0.05)');
+	$("tr:even").css("background-color", '#FFFFFF');
 }
  
 
 /*******************************************************************************
  *  해당 row 선택시 색깔 변하도록 하기
  ******************************************************************************/ 
+ 
 $('body').on('click', '#moneyTable tbody  tr', function (e) {
     if (e.target.type == "checkbox") {
         // stop the bubbling to prevent firing the row's click event  
         e.stopPropagation(); 
-    } else {
+    } else { 
         var $checkbox = $(this).find(':checkbox');
         $checkbox.attr('checked', !$checkbox.attr('checked'));
 
         if($checkbox.attr('checked')){
-			$(this).css('background', '#C9D7E4'/*'#D9D6FF'*/);
-			/*$(this).css('color', '#000080');*/
+			$(this).css('background', '#C9D7E4'); 
         }
         else{
-			$(this).css('background', 'none');
-			$(this).css('color', 'black');
-        	
+
+        	if( $(e.target.parentElement).attr('class').indexOf('even') > -1) {
+        		$(this).css('background-color', 'rgba(0, 0, 0, 0.05) ');
+        	}
+        	else{
+        		$(this).css("background-color", '#FFFFFF'); 
+        	} 
         }
     }
-});
-
+}); 
 /*******************************************************************************
  * 해당 row대신 체크박스 선택시 색깔 변하도록 하기
  ******************************************************************************/ 
