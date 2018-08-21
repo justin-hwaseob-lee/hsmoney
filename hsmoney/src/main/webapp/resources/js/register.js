@@ -3,7 +3,21 @@ window.onload = function() {
 	$('#LoadingImage').hide(); 
 	var message = $('#message').val(); 
 	 if (message != "") {
-		alert(message);
+		 if(message=="존재하는 이름입니다."){
+		 swal({
+			  title: message, 
+			  icon: "warning",  
+			  timer:1750,
+			  dangerMode: true
+			});
+		 }
+		 else{
+			 swal({
+				  title: message, 
+				  icon: "success",  
+				  timer:1750 
+				});
+		 }
 	}   
 
 		

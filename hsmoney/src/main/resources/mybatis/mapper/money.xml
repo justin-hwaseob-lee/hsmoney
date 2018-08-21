@@ -112,8 +112,9 @@
 		where 1=1
 			and u.user_id=m.user_id
 			and u.user_id=#{user_id}
-		    and @realstartdate <=use_date 
-		group by u.user_id;
+			and #{search_start} <=use_date 
+		    and use_date <= #{search_end}
+		ORDER BY use_date DESC; 
             ]]>
 	</select>
 	

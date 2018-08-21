@@ -75,11 +75,11 @@ public class LoginController {
 		
 		if(res==1) { //성공
 			mav.setViewName("login");
-			mav.addObject("message", "성공적으로 등록되었습니다. 로그인 하세요^^");
+			mav.addObject("message", "등록되었습니다.^^");
 		}
 		else {
 			mav.setViewName("register");
-			mav.addObject("message", "존재하는 이름입니다. 새로운 이름으로 가입하여 	주세요."); 
+			mav.addObject("message", "존재하는 이름입니다."); 
 		} 
 		return mav;
 	}
@@ -129,11 +129,7 @@ public class LoginController {
 			// Login  success
 			session.setAttribute("loginInfo", loginInfo); 
 			System.out.println("loginid : "+loginInfo.getUser_id());
-			
-			
-			
-//			session.setMaxInactiveInterval(20*60);// 20분 
-			
+//			session.setMaxInactiveInterval(20*60);// 20분  
 			
 		} else { // Login Failure  
 			map.put("message", "ID/PW를 확인해주세요!");

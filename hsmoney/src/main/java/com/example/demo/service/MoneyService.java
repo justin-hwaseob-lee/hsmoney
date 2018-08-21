@@ -45,8 +45,8 @@ public class MoneyService {
 	
 	
 	@Transactional
-	public MainInfoDto getMainInfo(String user_id){
-		return moneyMapper.getMainInfo(user_id);
+	public MainInfoDto getMainInfo(String user_id, String search_start, String search_end ){
+		return moneyMapper.getMainInfo(user_id, search_start, search_end);
 	}
 	
 	@Transactional

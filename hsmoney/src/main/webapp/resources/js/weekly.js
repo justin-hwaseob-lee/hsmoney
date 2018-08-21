@@ -57,7 +57,8 @@ $(function() {
             endDate = $.datepicker.formatDate( dateFormat, endDate, inst.settings );
 
             $('#week-picker').val(startDate + '~' + endDate);
-            
+            $('#endDate').val(endDate);
+            $('#startDate').val(startDate);
             //여기에 함수 추가
             weekChange(startDate,endDate);
             
@@ -102,7 +103,7 @@ function fnOnload() {
 	/* 메시지가 있을경우 출력부분 */  
 	var message = $('#message').val();
 	if (message != "") {
-		alert(message);
+		swall(message);
 	} 
 	/* 주간 소비 결과 조회 */ 
 	fnMoneyResultSearch();
@@ -136,6 +137,8 @@ function fnMoneyResultSearch() {
     endDate = $.datepicker.formatDate( dateFormat, endDate );
 
     $('#week-picker').val(startDate + '~' + endDate); 
+    $('#endDate').val(endDate);
+    $('#startDate').val(startDate);
     weekChange(startDate,endDate); 
 }
 
@@ -148,8 +151,24 @@ function fnPrintGrid(result) {
 	$("#moneyListBody").empty();
 	var appendData = "";
 
-	if (result.message != null)
-		alert(result.message);
+	if (result.message != null){
+		//alert(result.message);
+		if(result.message=="성공적으로 삭제되었습니다."){
+			 swal({
+				  title: result.message, 
+				  icon: "success",  
+				  timer:1750 
+				}); 
+		}
+		else{
+			swal({
+				  title: result.message, 
+				  icon: "warning",  
+				  timer:1750,
+				  dangerMode: true
+				});
+		}
+	}
 
 	// 데이터 조회된 길이를 체크하여 데이터 없는 경우 아래와 같은 메시지를 표에 표시
 	// '조회된 데이터가 없습니다.'
@@ -203,16 +222,41 @@ function confirmDelete() {
  
 	var selected=$("input[name='chk']:checked").val();
 	if(selected==null){
-		alert("선택된 항목이 없습니다.");
+		swal({
+			  title: "선택된 항목이 없습니다.",
+			  icon: "warning",  
+			  timer:1750,
+			  dangerMode: true
+			});
+		 
+		//alert("선택된 항목이 없습니다.");
 		return;
 	} 
+
+
+	swal({
+	  title: "정말 삭제 하시겠습니까?",
+	  text: "삭제 후에는 복구되지 않습니다!",
+	  icon: "warning",
+	  buttons: true,
+	  dangerMode: true,
+	})
+	.then((willDelete) => {
+	  if (willDelete) {
+		  fndeleteSurveyResult(); 
+	  } else { 
+	  }
+	});
 	
+	
+	/*
 	var del = confirm("정말 삭제 하시겠습니까?");
 	if (del == true) {
 		fndeleteSurveyResult();
 	} else {
 		return;
 	}
+	*/
 }
 
  
@@ -249,8 +293,13 @@ function weekChange(startDate,endDate){
 	}
 
 	function whenError(result) {
-		alert("세션이 만료되었습니다.");
-
+		//alert("세션이 만료되었습니다.");
+		swal({
+			  title: "세션이 만료되었습니다.", 
+			  icon: "warning",  
+			  timer:1750,
+			  dangerMode: true
+			});
 		window.location.href = "main"; 
 		// loading image disappeard
 		$('#LoadingImage').hide();
@@ -269,6 +318,9 @@ $(function(){
  ******************************************************************************/
 function fndeleteSurveyResult() {
 	var tmp = {}; 
+	tmp["startDate"]=$('#startDate').val();
+	tmp["endDate"]=$('#endDate').val();
+	var objJson = JSON.stringify(tmp); 
 	tmp["chk"] = $("input[name='chk']:checked").map(function() {
 		return this.value;
 	}).get();
@@ -278,7 +330,7 @@ function fndeleteSurveyResult() {
 	$('#LoadingImage').show(); // loadingImage show
 	$.ajax({
 		type : "post",
-		url : "deleteSelected.do",
+		url : "deleteWeekSelected.do",
 		data : objJson,
 		dataType : "json",
 		contentType : "application/json; charset=utf-8",
@@ -294,8 +346,13 @@ function fndeleteSurveyResult() {
 	}
 
 	function whenError(result) {
-		alert("Error");
-
+		//alert("Error");
+		swal({
+			  title: "세션이 만료되었습니다.", 
+			  icon: "warning",  
+			  timer:1750,
+			  dangerMode: true
+			});
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
@@ -383,7 +440,13 @@ $(document).ready(function() {
 			}
 		}
 		else{
-			alert("When you use fast search, you can not use all select\n(please select individually)");
+			swal({
+				  title: "검색중에는 사용불가합니다.", 
+				  icon: "warning",  
+				  timer:1750,
+				  dangerMode: true
+				});
+			//alert("When you use fast search, you can not use all select\n(please select individually)");
 			//$("input[name=checkall]").prop("checked", false);
 			$("#checkall").prop("checked", false);
 		}

@@ -1,6 +1,5 @@
 window.onload = function() {
 	$('#LoadingImage').hide(); 
-	
 	fnOnload();
 }
 
@@ -32,8 +31,13 @@ function fnOnload() {
 	
 	/* 메시지가 있을경우 출력부분 */  
 	var message = $('#message').val(); 
-	 if (message != "") {
-		alert(message);
+	 if (message != "") { 
+		 swal({
+			  title: message, 
+			  icon: "warning",  
+			  timer:1750,
+			  dangerMode: true
+			});
 	}   
 	 var remember = Cookies.get("remember");
 	 var username = Cookies.get("username");
@@ -60,7 +64,7 @@ function fnOnload() {
         	$('#form-username').val('');
         	$('#form-password').val('');
         	$('#remember').prop("checked", false);  
-        	$('#autologin').prop("checked", false);  
+        	$('#autologin').prop("checked", false);   
         }
 }
 
@@ -105,8 +109,11 @@ function post_to_url(path, params, method) {
 function submitForm() {  
 	//cookisetting(); 
 	$('#LoadingImage').show(); // loadingImage show
+ 
 	var objJson = JSON.stringify(objToJson($(".loginForm")
-			.serializeArray()));
+			.serializeArray())); 
+	
+	
 	$.ajax({
 		type : "post",
 		url : "login.do",
@@ -121,18 +128,9 @@ function submitForm() {
 	function whenSuccess(result) { 
 		if (result.message != null){
 			//로그인 실패한경우
-			alert(result.message);
-
-	    	Cookies.remove('username');
-	    	Cookies.remove('password');
-	    	Cookies.remove('remember');
-	    	Cookies.remove('autologin'); 
-
-        	$('#form-username').val('');
-        	$('#form-password').val('');
-        	$('#autologin').prop("checked", false);  
+			$('#message').val(result.message); 
 		}
-		else{//성공한 경우에만 설정저장
+		else{//성공한 경우에만 설정저장 
 			cookisetting();    
 		}  
 		// loading image disappeard
@@ -140,12 +138,20 @@ function submitForm() {
 	}
 
 	function whenError(result) { 
-		alert("Error");  
+		swal({
+			  title: "세션이 만료되었습니다.", 
+			  icon: "warning",  
+			  timer:1750,
+			  dangerMode: true
+			});
+		//aler("세션이 만료되었습니다.");
+		//alert("Error");  
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
-}
-
+	  
+}  
+ 
 function cookisetting(){
 	if ($('#remember').prop('checked')) //remember 체크박스가 체크되어 있으면 쿠키에 저장
     {

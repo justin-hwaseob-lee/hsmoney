@@ -16,6 +16,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"  crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.number.js" > </script> 
+
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.mobile-events.js"></script>
  
  

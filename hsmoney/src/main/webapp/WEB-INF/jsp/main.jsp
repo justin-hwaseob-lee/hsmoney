@@ -18,7 +18,9 @@
 <!-- loading css -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/main.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/loading.css">
+ <!-- alert창 -->  
  
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/sweetalert.min.js"></script>	
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/main.js" charset="utf-8"></script>
 
  
@@ -161,8 +163,9 @@ html, body{
 								        <option value="커피">커피</option>
 								        <option value="쇼핑">쇼핑</option>
 								        <option value="미용">미용</option>
-								        <option value="여행">여행</option>
+								        <option value="여행">여행</option> 
 								        <option value="세금">세금</option>
+								        <option value="선물">선물</option>
 								        <option value="주유">주유</option>
 								      </select> 
 							  </div>

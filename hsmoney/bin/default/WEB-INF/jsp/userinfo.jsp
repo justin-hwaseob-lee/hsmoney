@@ -28,6 +28,7 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/js.cookie.js"></script>
     <!-- Custom styles for this template --> 
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.mobile-events.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/sweetalert.min.js"></script>	
 	<script src="${pageContext.request.contextPath}/resources/js/register.js"></script> 
 	 
   </head>

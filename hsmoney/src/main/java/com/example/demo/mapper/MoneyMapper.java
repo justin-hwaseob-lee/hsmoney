@@ -13,7 +13,7 @@ import com.example.demo.dto.MoneyDto;
 public interface MoneyMapper { 
 	public List<MoneyDto> getAllMoneyInfo();
 	public List<MoneyDto> getMonthlyMoneyInfo(@Param("user_id")String user_id);
-	public MainInfoDto getMainInfo(@Param("user_id")String user_id);
+	public MainInfoDto getMainInfo(@Param("user_id")String user_id,@Param("search_start")String search_start, @Param("search_end") String search_end);
 
 	public String getStartDate(@Param("user_id")String user_id);
 	

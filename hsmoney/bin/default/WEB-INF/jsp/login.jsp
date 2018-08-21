@@ -19,18 +19,19 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css"  crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css"  crossorigin="anonymous">
-	
-	
+ 
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"  crossorigin="anonymous"></script>
 	<!-- cookie -->
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/js.cookie.js"></script>
     <!-- Custom styles for this template -->
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
+ <!-- alert창 --> 
+<script src="${pageContext.request.contextPath}/resources/js/sweetalert.min.js"></script>	
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/login.js" charset="utf-8"></script>
   </head>
 
   <body class="text-center">
-   
+   <iframe id="myIframe" style="display:none;"></iframe>
 	<!-- 'undefined' 메세지를 숨겨줘 -->
 	<input type="hidden" id="message" value="${message}">
 	<!-- 'undefined' 메세지를 숨겨줘 -->

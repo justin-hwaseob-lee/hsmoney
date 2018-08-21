@@ -23,7 +23,9 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery.number.js" > </script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.mobile-events.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/sweetalert.min.js"></script>	
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/weekly.js" charset="utf-8"></script>  
+ 
  
 <style>     
 .ui-datepicker-trigger { position:relative; height:38px;width:38px; } 
@@ -50,7 +52,8 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 	</div> 
 	<!-- 'undefined' 메세지를 숨겨줘 -->
 	<input type="hidden" id="message" value="${message}">
- 
+ <input type="hidden" id="startDate" value="${startDate}">
+ <input type="hidden" id="endDate" value="${endDate}">
 <!-- weekly 테이블 -->
 <div class="container-fluid"style="margin-bottom:169px;"> 
 	<div class="table-responsive">

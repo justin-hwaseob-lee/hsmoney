@@ -18,17 +18,17 @@
 <!--  jQuery 기본 js파일 -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
 <!-- jQuery UI 라이브러리 js파일 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css"  crossorigin="anonymous">
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
 <script src="${pageContext.request.contextPath}/resources/js/jquery.number.js" > </script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.mobile-events.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/sweetalert.min.js"></script>	
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/monthly.js" charset="utf-8"></script>  
 
 <style> 
 html, body{  
   height:100%;
-} 
- 
-
+}  
 .highlight {
     background-color: #708EA8;
 } 
@@ -87,18 +87,26 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 				    <span class="input-group-text" style="width:38px; text-align:left;">원</span>
 				  </div>
 			</div>
-			 <form  id="resultForm2" name="resultForm2"  class="resultForm2"> 
-			<div class="input-group mb-3 " >
-				
-				 <input id="month_standard" name="month_standard" class="input-group-text30"  type="month" style="width:139px; text-align:left;" onchange="monthChange()">
-					<input type="text" class="form-control" id="search" placeholder="Fast Search" name="search" onkeydown="if(event.keyCode == 13) return false;">
-					
-					<div class="col-md- text-right" >  
+			<div class="input-group mb-3 " style="width:100%;">
+					<input id="month_standard" name="month_standard" class="input-group-text30"  type="month" style="width:139px; text-align:left;" onchange="monthChange()">
+				 	<input type="text" class="form-control"   id="search" placeholder="Fast Search" name="search" onkeydown="if(event.keyCode == 13) return false;"> 
+					<div class=" col-md- text-right" >  
 						<input type="button" class="btn btn-primary" id="deleteSurveyResult" value="Delete" onclick="confirmDelete()">
-					</div>
-				
-			</div>
+					</div> 
+					
+				</div>
+				<!-- 
+			 <form  id="resultForm2" name="resultForm2"  class="resultForm2 "> 
+				<div class="input-group mb-3 " style="width:100%;">
+					<input id="month_standard" name="month_standard" class="input-group-text30"  type="month" style="width:139px; text-align:left;" onchange="monthChange()">
+				 	<input type="text" class="form-control"   id="search" placeholder="Fast Search" name="search" onkeydown="if(event.keyCode == 13) return false;"> 
+					<div class=" col-md- text-right" >  
+						<input type="button" class="btn btn-primary" id="deleteSurveyResult" value="Delete" onclick="confirmDelete()">
+					</div> 
+					
+				</div>
 			</form>
+			 -->
 		</nav>
  
 </body> 

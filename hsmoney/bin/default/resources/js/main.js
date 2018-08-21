@@ -28,8 +28,14 @@ function fnOnload() {
 	/* 메시지가 있을경우 출력부분 */  
 	var message = $('#message').val(); 
 	 if (message != "") {
-		alert(message);
-	}  
+		 swal({
+			  title: message, 
+			  icon: "success",  
+			  timer:1500 
+			}); 
+		 $('#message').val(''); 
+	}   
+	 
 	 
 	var week = new Array('일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'); 
 	var today = new Date();
@@ -67,7 +73,13 @@ function mainPageLoad(){
 
 	function whenError(result) {
 		window.location.href = "main"; 
-		alert("세션이 만료되었습니다.");
+		//alert("세션이 만료되었습니다.");
+		swal({
+			  title: "세션이 만료되었습니다.", 
+			  icon: "warning",  
+			  timer:1750,
+			  dangerMode: true
+			});
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
@@ -79,9 +91,7 @@ function mainPageLoad(){
 /*******************************************************************************
  * Result print param : result 결과 Object
  ******************************************************************************/
-function fnPrintGrid(result) { 
-	if (result.message != null){
-		alert(result.message);}
+function fnPrintGrid(result) {  
 	
 	$('#monthlyStartDate').val(result.startDate);
 	$('#monthTotal').val(result.monthlyTotal);
@@ -111,13 +121,18 @@ function updateStartDate(){
 
 	function whenError(result) {
 		window.location.href = "main"; 
-		alert("세션이 만료되었습니다. 다시 입력해 주세요.");
+		swal({
+			  title: "세션이 만료되었습니다. 다시 입력해 주세요.", 
+			  icon: "warning",  
+			  timer:1750,
+			  dangerMode: true
+			}); 
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
 	
 }
-
+/*
 function inputMainInfoClick(){ 
 	$('#LoadingImage').show(); // loadingImage show
 
@@ -134,7 +149,7 @@ function inputMainInfoClick(){
 		error : whenError
 	});
 
-	function whenSuccess(result) { 
+	function whenSuccess(result) {  
 		fnOnload();
 		$('#inputMoney').val('');
 		// loading image disappeard
@@ -142,12 +157,17 @@ function inputMainInfoClick(){
 	}
 
 	function whenError(result) {
-		alert("Error");
+		swal({
+			  title: "세션이 만료되었습니다. 다시 입력해 주세요.", 
+			  icon: "warning",  
+			  timer:1750,
+			  dangerMode: true
+			}); 
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
 }
-
+*/
 
 /*숫자 3글자마다 콤마*/
 $(function(){
