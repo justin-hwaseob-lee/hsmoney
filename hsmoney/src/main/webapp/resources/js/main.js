@@ -95,6 +95,7 @@ function fnPrintGrid(result) {
 	
 	$('#monthlyStartDate').val(result.startDate);
 	$('#monthTotal').val(result.monthlyTotal);
+	$('#weekTotal').val(result.weeklyTotal);
 	$('#dayTotal').val(result.dailyTotal);
 }
 
@@ -174,6 +175,7 @@ $(function(){
 	// Set up the number formatting.
 
 	$('#dayTotal').number( true );
+	$('#weekTotal').number( true );
 	$('#monthTotal').number( true ); 
 }); 
 

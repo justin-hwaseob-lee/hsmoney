@@ -127,7 +127,22 @@ html, body{
 				    <div class="col">
 				    	<div class="input-group mb-3">
 						  <div class="input-group-prepend" > 
-								    <input type="text" value ="Daily Sum" class="input-group-text29" readonly>
+								    <input type="text" value ="Week Sum" class="input-group-text29" readonly>
+						  </div>
+						  <input type="text"  id="weekTotal" value="${weeklyTotal}" readonly class="form-control " aria-label="Amount (to the nearest dollar)">
+						  <div class="input-group-append">
+						    <span class="input-group-text">원</span>
+						  </div>
+						</div>
+				    </div>
+			  </div>  
+	  
+	  
+			  <div class="row">
+				    <div class="col">
+				    	<div class="input-group mb-3">
+						  <div class="input-group-prepend" > 
+								    <input type="text" value ="Day Sum" class="input-group-text29" readonly>
 						  </div>
 						  <input type="text"  id="dayTotal" value="${dailyTotal}" readonly class="form-control " aria-label="Amount (to the nearest dollar)">
 						  <div class="input-group-append">

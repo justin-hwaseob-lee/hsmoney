@@ -145,12 +145,14 @@ public class MyController {
 		if(mainInfo!=null) {  
 			map.put("startDate", mainInfo.getStart_date());
 			map.put("monthlyTotal", mainInfo.getMonthly_use());
+			map.put("weeklyTotal", mainInfo.getWeekly_use());
 			map.put("dailyTotal", mainInfo.getDaily_use());
 		}
 		else { 
 			map.put("monthlyTotal", "0");
 			map.put("dailyTotal", "0");
-			map.put("startDate", moneyService.getStartDate(userInfo.getUser_id())); //user_id媛� �뱾�뼱媛��빞�븿
+			map.put("weeklyTotal", "0");
+			map.put("startDate", moneyService.getStartDate(userInfo.getUser_id())); 
 		} 
 		return new ModelAndView("jsonView", map); 
 	}

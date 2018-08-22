@@ -56,7 +56,7 @@ $(function() {
             startDate = $.datepicker.formatDate( dateFormat, startDate, inst.settings );
             endDate = $.datepicker.formatDate( dateFormat, endDate, inst.settings );
 
-            $('#week-picker').val(startDate + '~' + endDate);
+            $('#week-picker').val(startDate.substring(2, 10) + '~' + endDate.substring(2, 10));
             $('#endDate').val(endDate);
             $('#startDate').val(startDate);
             //여기에 함수 추가
@@ -136,7 +136,7 @@ function fnMoneyResultSearch() {
     startDate = $.datepicker.formatDate( dateFormat, startDate);
     endDate = $.datepicker.formatDate( dateFormat, endDate );
 
-    $('#week-picker').val(startDate + '~' + endDate); 
+    $('#week-picker').val(startDate.substring(2, 10) + '~' + endDate.substring(2, 10)); 
     $('#endDate').val(endDate);
     $('#startDate').val(startDate);
     weekChange(startDate,endDate); 

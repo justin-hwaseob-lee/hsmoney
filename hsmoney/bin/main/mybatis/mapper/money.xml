@@ -102,11 +102,22 @@
 		
 		set @dailyTotal := (case when @tmpdailyTotal is null THEN 0 ELSE @tmpdailyTotal END);     
 		
+		set @weekstart := (SELECT DATE_ADD(CURDATE(), INTERVAL (DAYOFWEEK(CURDATE())-2) * -1 DAY) FROM DUAL);
+		set @weekend := (SELECT DATE_ADD(CURDATE(), INTERVAL (DAYOFWEEK(CURDATE())-8) * -1 DAY) FROM DUAL);
+		
+		set @weeklyTotal := (select sum(price)
+		from user_tb as u, money_tb as m
+		where u.user_id=m.user_id
+			and u.user_id=#{user_id}
+			and @weekstart <= use_date
+		    and use_date <= @weekend);
+		    
 		select 
 			u.user_id
 			,user_name
 		    ,start_date
 		    ,sum(price) monthly_use
+		    ,@weeklyTotal weekly_use
 		    ,@dailyTotal daily_use
 		from user_tb u, money_tb m
 		where 1=1

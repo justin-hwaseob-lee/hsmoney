@@ -10,8 +10,16 @@ public class MainInfoDto {
 	private String user_name;
 	private String start_date;
 	private int monthly_use;
+	private int weekly_use;
 	private int daily_use;
 	private String use_date;
+	 
+	public int getWeekly_use() {
+		return weekly_use;
+	}
+	public void setWeekly_use(int weekly_use) {
+		this.weekly_use = weekly_use;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
