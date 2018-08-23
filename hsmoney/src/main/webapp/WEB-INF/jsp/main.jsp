@@ -182,6 +182,7 @@ html, body{
 								        <option value="세금">세금</option>
 								        <option value="선물">선물</option>
 								        <option value="주유">주유</option>
+								        <option value="포인트">포인트</option>
 								      </select> 
 							  </div>
 							  
@@ -217,8 +218,10 @@ html, body{
 
 
 
-<nav class="navbar fixed-bottom sticky" style="background-color:#FAFCFC; text-align:center; height:40px;">
-     	&copy; Copyright © 2018 HsCompany. All Rights Reserved  
+<nav class="navbar fixed-bottom sticky" style="background-color:#FAFCFC; text-align:center; height:57px;">
+	<div style="width:100%; text-align:center; ">
+     	&copy; Copyright © 2018 HsCompany. <br> All Rights Reserved.
+     	</div>  
 </nav> 
 
 

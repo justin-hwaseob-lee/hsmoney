@@ -192,6 +192,7 @@ function yearChange(selectYear){
 			  timer:1750,
 			  dangerMode: true
 			});
+		window.location.href = "main";
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}

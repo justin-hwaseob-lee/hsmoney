@@ -183,6 +183,7 @@ function monthChange(){
 			  timer:1750,
 			  dangerMode: true
 			});
+		window.location.href = "main";
 		//alert("Error");
 
 		// loading image disappeard

@@ -127,7 +127,8 @@ function submitForm() {
 
 	function whenSuccess(result) { 
 		if (result.message != null){
-			//로그인 실패한경우
+			//로그인 실패한경우 
+	    	Cookies.remove('autologin'); 
 			$('#message').val(result.message); 
 		}
 		else{//성공한 경우에만 설정저장 

@@ -89,7 +89,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 			 
 			 <div class="input-group mb-3"  style="padding-top: 10px;">
 				  <div class="input-group-prepend">
-					    <input type="text" value ="Week Sel" class="input-group-text30" style="width:102px; text-align:center;" readonly> 
+					    <input type="text" value ="Week Sel" class="input-group-text30" style="width:110px; text-align:center;" readonly> 
 				  </div>
 				  <input type='text' id="week-picker" name="week-picker" class="form-control input-group-text" placeholder="Select Week" disabled readonly />
 			</div>
@@ -97,7 +97,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
              
 		 	<div class="input-group mb-3" >
 				  <div class="input-group-prepend">
-					    <input type="text" value ="Week Sum" class="input-group-text30" style="width:102px;text-align:left;"  readonly> 
+					    <input type="text" value ="Week Sum" class="input-group-text30" style="width:110px;text-align:left;"  readonly> 
 				  </div>
 				  <input type="text" readonly diabled class="form-control input-group-text" id="weekTotal" name="weekTotal" value="${weeklyTotal}" style="width:100px">
 				  <div class="input-group-append">
