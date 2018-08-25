@@ -214,7 +214,8 @@ function fnPrintGrid(result) {
 	$("table tbody tr:odd").addClass("odd");
 	$("table tbody tr:even").addClass("even");
  
-	//$('#weekTotal').val(result.monthlyTotal); 
+	var navHeight = $("#navbottom").outerHeight(); 
+	document.getElementById('monthlyclass').style.marginBottom=navHeight+"px"; 
 }
 
 

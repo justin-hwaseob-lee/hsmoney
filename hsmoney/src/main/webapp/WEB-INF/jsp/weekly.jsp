@@ -55,7 +55,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
  <input type="hidden" id="startDate" value="${startDate}">
  <input type="hidden" id="endDate" value="${endDate}">
 <!-- weekly 테이블 -->
-<div class="container-fluid"style="margin-bottom:169px;"> 
+<div class="container-fluid" id="monthlyclass"  style="margin-bottom:169px;"> 
 	<div class="table-responsive">
 	<form  id="resultForm" name="resultForm"  class="resultForm"> 
 
@@ -80,7 +80,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 	</div> 
 </div>
 
-		<nav class="navbar fixed-bottom sticky" style="background-color:#FAFCFC;">
+		<nav class="navbar fixed-bottom sticky" id="navbottom" name="navbottom"  style="background-color:#FAFCFC;">
 		<hr class="divider" style="margin-top:0px; margin-bottom:15px;"></hr>
 		 
 		 

@@ -109,6 +109,11 @@ function fnPrintGrid(result) {
 	$("table tbody tr:even").addClass("even");
  
 	$('#monthTotal').val(result.monthlyTotal); 
+	
+	
+
+	var navHeight = $("#navbottom").outerHeight(); 
+	document.getElementById('monthlyclass').style.marginBottom=navHeight+"px"; 
 }
 
 

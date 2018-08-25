@@ -109,7 +109,10 @@ function fnPrintGrid(result) {
 
 	$("table tbody tr:odd").addClass("odd");
 	$("table tbody tr:even").addClass("even");
-	//$('#yearTotal').val(result.yearTotal); 
+	
+ 
+	var navHeight = $("#navbottom").outerHeight(); 
+	document.getElementById('monthlyclass').style.marginBottom=navHeight+"px"; 
 }
 
 

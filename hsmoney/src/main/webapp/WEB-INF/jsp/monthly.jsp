@@ -46,10 +46,10 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
    	 <div><img src="<%=request.getContextPath()%>/resources/images/sd_loading.gif" width="51" height="50"/> </div>
 	</div> 
 	<!-- 'undefined' 메세지를 숨겨줘 -->
-	<input type="hidden" id="message" value="${message}">
+	<input type="hidden" id="message" value="${message}"> 
 	 
 <!-- monthly 테이블 -->
-<div class="container-fluid"style="margin-bottom:120px;"> 
+<div class="container-fluid" id="monthlyclass" > 
 	<div class="table-responsive">
 	<form  id="resultForm" name="resultForm"  class="resultForm"> 
 
@@ -75,7 +75,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 
 
 
-		<nav class="navbar fixed-bottom sticky" style="background-color:#FAFCFC;">
+		<nav class="navbar fixed-bottom sticky" id="navbottom" name="navbottom" style="background-color:#FAFCFC;">
 		<hr class="divider" style="margin-top:0px; margin-bottom:15px;"></hr>
 		 
 		 	<div class="input-group mb-3"  style="padding-top: 10px;">
