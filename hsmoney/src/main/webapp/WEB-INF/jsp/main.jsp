@@ -35,7 +35,7 @@ html, body{
 }
 
 .plz{
-min-height:92%;
+min-height:92.2%;
 position:relative;
 padding-bottom:57px;
 }
