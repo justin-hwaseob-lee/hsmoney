@@ -30,11 +30,25 @@
  
 <style> 
  
-html, body{
-  margin:0;
-  padding:0;
-  height:100%;
+html, body{ 
+  height:100%; 
 }
+
+.plz{
+min-height:92%;
+position:relative;
+padding-bottom:57px;
+}
+
+.myfooter{
+  width: 100%;
+  background-color: #FAFCFC; 
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  text-align: center;
+  }
+
  </style>
  
 </head>
@@ -42,7 +56,7 @@ html, body{
  
 
 
- <body class = "bg-transparent "  id="mainbody" name="mainbody"> 
+ <body class = "bg-transparent mybody"  id="mainbody" name="mainbody"> 
 	<div class="wrap-loading" id="LoadingImage"> 
    	 <div><img src="<%=request.getContextPath()%>/resources/images/sd_loading.gif" width="51" height="50"/> </div>
 	</div> 
@@ -50,7 +64,7 @@ html, body{
 	<input type="hidden" id="firstlogin" value="${firstlogin}">
 	<!-- 'undefined' 메세지를 숨겨줘 -->
 	<input type="hidden" id="message" value="${message}">
- 
+ <div class="plz">
 <div class="card">
   <div class="card-header"> 
     <form id="monthstartTable" name="monthstartTable" class="monthstartTable" style="margin-top:10px;"> 	  
@@ -212,19 +226,22 @@ html, body{
   </div>
   
 </div>
+
+	<div class="myfooter"  style="background-color:#FAFCFC; text-align:center;  width:100%; bottom:0; position:absolute;   ">
+		<div style="width:100%; text-align:center; ">
+	     	&copy; Copyright © 2018 HsCompany. <br> All Rights Reserved.
+	     	</div>  
+	</div> 
+</div>
   
  
 
 
 
 
-<nav class="navbar fixed-bottom sticky" style="background-color:#FAFCFC; text-align:center; height:57px;">
-	<div style="width:100%; text-align:center; ">
-     	&copy; Copyright © 2018 HsCompany. <br> All Rights Reserved.
-     	</div>  
-</nav> 
+<!-- <nav class="navbar fixed-bottom sticky" style="background-color:#FAFCFC; text-align:center; height:57px;"> -->  
 
+   
 
-</body>
- 
+</body> 
 </html>
