@@ -197,6 +197,7 @@ padding-bottom:57px;
 								        <option value="선물">선물</option>
 								        <option value="주유">주유</option>
 								        <option value="포인트">포인트</option>
+								        <option value="자기계발">자기계발</option>
 								      </select> 
 							  </div>
 							  

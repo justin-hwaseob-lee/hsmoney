@@ -30,7 +30,8 @@
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 	    <div class="navbar-nav">
-	      <a class="nav-item nav-link active" href="main.do">Main </a> 
+	      <a class="nav-item nav-link active" href="main.do">Main </a>
+	      <a class="nav-item nav-link active" href="calendar.do">Calendar </a>  
 	      <a class="nav-item nav-link active" href="weekly.do">Weekly</a>
 	      <a class="nav-item nav-link" href="monthly.do">Monthly</a>
 	       <a class="nav-item nav-link " href="annually.do">Annually<span class="sr-only">(current)</span></a> 

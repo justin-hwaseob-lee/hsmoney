@@ -10,7 +10,7 @@ window.onload = function() {
 	//모바일 화면에서 왼쪽, 오른쪽 스와이프
 	$('#mainbody').swipeleft(function(e, touch) {  //오른쪽이동페이지
 		$('#LoadingImage').show(); // loadingImage show
-		window.location.href = "weekly.do"; 
+		window.location.href = "calendar.do"; 
 	});
 	$('#mainbody').swiperight(function(e, touch) { //왼쪽이동페이지
 		$('#LoadingImage').show(); // loadingImage show

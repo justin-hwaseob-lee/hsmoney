@@ -1,5 +1,6 @@
 window.onload = function() {
 	$('#LoadingImage').hide();
+	var mainResult;
 	fnOnload();
 	
 
@@ -40,6 +41,7 @@ function fnOnload() {
  * Result print param : result 결과 Object
  ******************************************************************************/
 function fnPrintGrid(result) {
+	mainResult=result;
 	var length = result.moneyList.length;
 	$("#moneyListBody").empty();
 	var appendData = "";
@@ -84,7 +86,7 @@ function fnPrintGrid(result) {
 					+"<input type='hidden' name='user_id' value='" + user_id + "'></td>";  
 			appendData += "<td class='text-center' style='vertical-align: middle'>" + use_date +"</td>";
 			appendData += "<td class='text-center' style='vertical-align: middle'>" + category +"</td>";
-			appendData += "<td class='text-center' style='vertical-align: middle'>" + price + " </td>"; 
+			appendData += "<td class='text-center' style='vertical-align: middle'>" + addCommas(price) + " </td>"; 
 			appendData +="</tr>";
 		}
 
@@ -108,9 +110,10 @@ function fnPrintGrid(result) {
 	$("table tbody tr:odd").addClass("odd");
 	$("table tbody tr:even").addClass("even");
  
-	$('#monthTotal').val(result.monthlyTotal); 
+	//$('#monthTotal').val(result.monthlyTotal); 
 	
-	
+
+	getSum(); //테이블에 보이는 price값 다 더하기
 
 	var navHeight = $("#navbottom").outerHeight(); 
 	document.getElementById('monthlyclass').style.marginBottom=navHeight+"px"; 
@@ -176,7 +179,8 @@ function monthChange(){
 	function whenSuccess(result) {
 		//여기
 		fnPrintGrid(result);
-		getSum(); //테이블에 보이는 price값 다 더하기
+
+		refreshCheckStatistic();
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
@@ -196,12 +200,12 @@ function monthChange(){
 	}
 }
 
-/*숫자 3글자마다 콤마*/
+/*숫자 3글자마다 콤마
 $(function(){
-	// Set up the number formatting.  
+	// Set up the number formatting.  	
 	$('#monthTotal').number( true );  
 }); 
-
+*/
 
 /*******************************************************************************
  * 선택항목 삭제
@@ -228,7 +232,7 @@ function fndeleteSurveyResult() {
 
 	function whenSuccess(result) {
 		fnPrintGrid(result);
-		getSum(); //테이블에 보이는 price값 다 더하기
+		refreshCheckStatistic();
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
@@ -262,11 +266,13 @@ function getSum(){
 	table.find('tr').each(function(index, row) {
 		var allCells = $(row).find('td'); 
 		if (allCells.length > 0) {
-			var res1=$(row).find('td:nth-child(4)').text();  //가격란 값들 다 가져와서
-			realtimesum=realtimesum +parseInt(res1,10); //실시간검색결과에 추가
+			//var res1=$(row).find('td:nth-child(4)').text();  //가격란 값들 다 가져와서
+			//realtimesum=realtimesum +parseInt(res1,10); //실시간검색결과에 추가
+			var res1=parseInt($(row).find('td:nth-child(4)').text().replace(/,/g, ''));  //가격란 값들 다 가져와서
+			realtimesum=realtimesum+res1;
 		}
 	});
-	$('#monthTotal').val(realtimesum);
+	$('#monthTotal').val(addCommas(realtimesum));
 }
 
 
@@ -300,14 +306,16 @@ function searchTable(inputVal) {
 			
 			if (found == true){
 				$(row).show();
-				var res1=$(row).find('td:nth-child(4)').text();  //가격란 값들 다 가져와서
-				realtimesum=realtimesum +parseInt(res1,10); //실시간검색결과에 추가
+				//var res1=$(row).find('td:nth-child(4)').text();  //가격란 값들 다 가져와서
+				//realtimesum=realtimesum +parseInt(res1,10); //실시간검색결과에 추가
+				var res1=parseInt($(row).find('td:nth-child(4)').text().replace(/,/g, ''));  //가격란 값들 다 가져와서
+				realtimesum=realtimesum+res1;
 			}
 			else
 				$(row).hide();
 		}
 	});
-	$('#monthTotal').val(realtimesum);
+	$('#monthTotal').val(addCommas(realtimesum));
 }
 
 /* 전체선택 */
@@ -395,6 +403,110 @@ function chkclickevent(chkbox) {
 }; 
  
 
+
+/*******************************************************************************
+ * common works
+ ******************************************************************************/
+function commonwork(){ 
+	var result=mainResult;
+	var length = result.moneyList.length; 
+	var categoryList=[];
+	if (parseInt(length) > 0) 
+		for (var i = 0; i < length; i++) {
+			categoryList.push(result.moneyList[i].category); 
+		}
+	
+	categoryList=categoryList.filter(onlyUnique) 
+	var categorySumList=[]; 
+	for(var j=0; j<categoryList.length; j++)
+		categorySumList.push(0); 
+	
+	
+	if (parseInt(length) > 0) {  
+		for (var i = 0; i < length; i++) { 
+			for(var j=0; j<categoryList.length; j++){
+				if(categoryList[j]==result.moneyList[i].category){
+					categorySumList[j] = categorySumList[j] + parseInt(result.moneyList[i].price);
+					break;
+				}
+			}
+		}
+	} 
+	 
+	 //그래프에 표시할 데이터
+   graphDataRow = [];
+   graphDataRow.push(['Category', 'Amount']);
+	
+   for(var i = 0; i < categoryList.length; i++) //랜덤 데이터 생성
+   	graphDataRow.push([categoryList[i] +" "+ addCommas(categorySumList[i])+"원" , parseInt(categorySumList[i])]); 
+}
+
+
+/*******************************************************************************
+ * 통계정보 보기
+ ******************************************************************************/
+function checkStatistic(){
+
+	$('#collapseOne').toggle(1000); //통계보기 열려있다면 닫기
+	refreshCheckStatistic();
+}
+
+function refreshCheckStatistic(){
+	$('#LoadingImage').show();
+	commonwork(); 
+	
+	//아래는 그리기 
+	google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart); 
+    function drawChart() { 
+      
+      var data = google.visualization.arrayToDataTable(graphDataRow); 
+      data.sort([{column: 1, desc:true}]);
+      var options = {     
+              chartArea:{width:'80%', height:'100%'},
+              legend: {
+                position: 'right' 
+              }, 
+              fontSize : 12,
+              width:380,
+              height:220,  
+              is3D: true,
+          };
+          
+      
+      var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+      google.visualization.events.addListener(chart, 'ready', afterDraw);
+      chart.draw(data, options); 
+    }
+}
+function afterDraw(){ 
+	$('#LoadingImage').hide();
+}
+
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
+
+/**
+ * 검색 조건에 따른 배열 필터링(쿼리)
+ */
+function filterItems(query) {
+  return fruits.filter(function(el) {
+      return el.toLowerCase().indexOf(query.toLowerCase()) > -1;
+  })
+}
+
+function addCommas(nStr){
+	 nStr += '';
+	 var x = nStr.split('.');
+	 var x1 = x[0];
+	 var x2 = x.length > 1 ? '.' + x[1] : '';
+	 var rgx = /(\d+)(\d{3})/;
+	 while (rgx.test(x1)) {
+	  x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	 }
+	 return x1 + x2;
+	}
 /*******************************************************************************
  * form to Json convert
  ******************************************************************************/

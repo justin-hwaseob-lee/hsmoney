@@ -20,15 +20,21 @@
 <!-- jQuery UI 라이브러리 js파일 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css"  crossorigin="anonymous">
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
-<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery.number.js" > </script> --%> 
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.mobile-events.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.number.js" > </script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/sweetalert.min.js"></script>	
 
 <!-- chart js -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+<!-- calendar js -->
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/fullcalendar.css' />
+<script type="text/javascript" src='${pageContext.request.contextPath}/resources/js/jquery.min.js'></script>
+<script type="text/javascript" src='${pageContext.request.contextPath}/resources/js/moment.min.js'></script>
+<script type="text/javascript" src='${pageContext.request.contextPath}/resources/js/fullcalendar.js'></script>
 
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/monthly.js" charset="utf-8"></script>  
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.mobile-events.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/calendar.js" charset="utf-8"></script>  
 
 <style> 
 html, body{  
@@ -37,6 +43,18 @@ html, body{
 .highlight {
     background-color: #708EA8;
 } 
+
+ .fc h2 {
+   font-size: 22px;
+   margin-top:15px;
+ }
+  .fc-right {
+   margin-top:10px;
+ }
+.fc-event-container {
+	font-size: 11px;
+	text-align:center;
+}
 table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8; }  
 </style>
 
@@ -53,6 +71,9 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 	<!-- 'undefined' 메세지를 숨겨줘 -->
 	<input type="hidden" id="message" value="${message}"> 
 	
+
+<!-- calendar -->
+<div id='calendar'  ></div>
 	
 <!-- chart -->	
 <div class="accordion" id="accordionExample">

@@ -231,6 +231,12 @@ public class MyController {
 		System.out.println("called monthly.do");
 		return "monthly";
 	}
+	
+	@GetMapping("calendar.do")
+	public String doCalendar(){  
+		System.out.println("called calendar.do");
+		return "calendar";
+	}
   
 	@PostMapping("inputMoney.do")
 	public void doInputMoney(HttpSession session, HttpServletRequest request,  HttpServletResponse response) throws IOException{ 

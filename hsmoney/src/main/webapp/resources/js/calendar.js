@@ -2,101 +2,19 @@ window.onload = function() {
 	$('#LoadingImage').hide();
 	var mainResult;
 	fnOnload();
-
-	//datepicker위치 강ㅈ
-	$.extend($.datepicker, {
-	    _checkOffset: function(inst, offset, isFixed) {
-	        offset.top = $("#" + inst.id).offset().top - $(window).scrollTop() + $("#" + inst.id)[0].getBoundingClientRect().height-305;
-	        offset.left = $("#" + inst.id).offset().left   + $("#" + inst.id)[0].getBoundingClientRect().width-260;
-	        return offset;
-	    }
-	});
+	
 
 	//모바일 화면에서 왼쪽, 오른쪽 스와이프
 	$('#mainbody').swipeleft(function(e, touch) {  //오른쪽이동페이지
 		$('#LoadingImage').show(); // loadingImage show
-		window.location.href = "monthly.do"; 
+		window.location.href = "weekly.do"; 
 	});
 	$('#mainbody').swiperight(function(e, touch) { //왼쪽이동페이지
 		$('#LoadingImage').show(); // loadingImage show
-		window.location.href = "calendar.do"; 
+		window.location.href = "main.do"; 
 	});
-
-}
-
- 
-/*******************************************************************************
- * datepicker 날짜고르기
- ******************************************************************************/  
-$(function() {
-    var startDate;
-    var endDate;
-     
-    $('#week-picker').datepicker( {
-		buttonImage : "resources/images/calendar_icon2.png", // 표시할이미지 
-
-		  showOptions: { direction: "down" },
-		  firstDay:1,
-		showOn : "both", // 버튼과 텍스트필드 모두 표시
-		buttonImageOnly : true,
-        showOtherMonths: true,
-        selectOtherMonths: true,
-        selectWeek:true,   
-        onSelect: function(dateText, inst) { 
-            var date = $(this).datepicker('getDate'); 
-            if(date.getDay()==0){
-            	startDate=new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() - 6 );
-            	endDate=new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay()  );
-            }
-            else{
-	        	startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() +1 );
-	            endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() +7);
-            }
-        	
-            var dateFormat = 'yy/mm/dd'
-            startDate = $.datepicker.formatDate( dateFormat, startDate, inst.settings );
-            endDate = $.datepicker.formatDate( dateFormat, endDate, inst.settings );
-
-            $('#week-picker').val(startDate.substring(2, 10) + '~' + endDate.substring(2, 10));
-            $('#endDate').val(endDate);
-            $('#startDate').val(startDate);
-            //여기에 함수 추가
-            weekChange(startDate,endDate);
-            
-            setTimeout("applyWeeklyHighlight()", 100);
-        },
-		  beforeShow : function(input, inst) {    
-		   setTimeout("applyWeeklyHighlight()", 100);
-		  }
-    });
-});
- 
-function applyWeeklyHighlight() {
 	
-	 $('.ui-datepicker-calendar tr').each(function() { 
-	  if ($(this).parent().get(0).tagName == 'TBODY') {
-	   $(this).mouseover(function() {
-	    $(this).find('a').css({
-	     'background' : '#ffffcc',
-	     'border' : '1px solid #dddddd'
-	    });
-	    $(this).find('a').removeClass('ui-state-default');
-	    $(this).css('background', '#ffffcc');
-	   });
-	   
-	   $(this).mouseout(function() {
-	    $(this).css('background', '#ffffff');
-	    $(this).find('a').css('background', '');
-	    $(this).find('a').addClass('ui-state-default');
-	   });
-	  }
-
-	 });
-	}
-
-
- 
-
+}
 /*******************************************************************************
  * Form Onload
  ******************************************************************************/
@@ -104,46 +22,21 @@ function fnOnload() {
 	/* 메시지가 있을경우 출력부분 */  
 	var message = $('#message').val();
 	if (message != "") {
-		swall(message);
-	} 
-	/* 주간 소비 결과 조회 */ 
-	fnMoneyResultSearch();
-}
+		alert(message);
+	}
  
-
-
-
-/*******************************************************************************
- * 주간 소비결과 조회 Ajax 처리
- ******************************************************************************/
-function fnMoneyResultSearch() {
-
-	/*이번주 자동으로 선택해서 세팅해놓기*/  
-
-	var date = new Date();
-    if(date.getDay()==0){
-    	startDate=new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() - 6 );
-    	endDate=new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay()  );
-    }
-    else{
-    	startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() +1 );
-        endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() +7);
-    }
-	  
-    var dateFormat = 'yy/mm/dd'
-
-    
-    	
-    startDate = $.datepicker.formatDate( dateFormat, startDate);
-    endDate = $.datepicker.formatDate( dateFormat, endDate );
-
-    $('#week-picker').val(startDate.substring(2, 10) + '~' + endDate.substring(2, 10)); 
-    $('#endDate').val(endDate);
-    $('#startDate').val(startDate);
-    weekChange(startDate,endDate); 
+ 
+	var today = new Date();
+	var year = today.getFullYear(); 
+	var month = today.getMonth();   
+	document.getElementById('month_standard').valueAsDate = new Date(Date.UTC(year,month)); 
+	
+	
+	/* 월 소비 결과 조회 */ 
+	monthChange(); 
 }
 
-
+ 
 /*******************************************************************************
  * Result print param : result 결과 Object
  ******************************************************************************/
@@ -155,6 +48,7 @@ function fnPrintGrid(result) {
 
 	if (result.message != null){
 		//alert(result.message);
+
 		if(result.message=="성공적으로 삭제되었습니다."){
 			 swal({
 				  title: result.message, 
@@ -216,8 +110,14 @@ function fnPrintGrid(result) {
 	$("table tbody tr:odd").addClass("odd");
 	$("table tbody tr:even").addClass("even");
  
+	//$('#monthTotal').val(result.monthlyTotal); 
+	
+	
+
 	var navHeight = $("#navbottom").outerHeight(); 
-	document.getElementById('monthlyclass').style.marginBottom=navHeight+"px"; 
+	document.getElementById('monthlyclass').style.marginBottom=navHeight+"px";
+
+	myCalendar(result);
 }
 
 
@@ -230,13 +130,13 @@ function confirmDelete() {
 			  icon: "warning",  
 			  timer:1750,
 			  dangerMode: true
+			  
 			});
-		 
 		//alert("선택된 항목이 없습니다.");
 		return;
 	} 
 
-
+	
 	swal({
 	  title: "정말 삭제 하시겠습니까?",
 	  text: "삭제 후에는 복구되지 않습니다!",
@@ -250,8 +150,6 @@ function confirmDelete() {
 	  } else { 
 	  }
 	});
-	
-	
 	/*
 	var del = confirm("정말 삭제 하시겠습니까?");
 	if (del == true) {
@@ -262,26 +160,18 @@ function confirmDelete() {
 	*/
 }
 
- 
-function weekChange(startDate,endDate){
-	/*
-	alert(startDate);
-	alert(endDate);
-	*/
-
-	var tmp={};
-	tmp["startDate"]=startDate;
-	tmp["endDate"]=endDate;
-	var objJson = JSON.stringify(tmp); 
-	
+function monthChange(){
 	$('#search').val(''); 
 	$('#LoadingImage').show(); // loadingImage show
+
+	var tmp = {};
+	tmp["month_standard"] = $('#month_standard').val();  
+	var objJson = JSON.stringify(tmp);
 	$.ajax({
 		type : "post",
-		url : "weekChange.do",
+		url : "monthChange.do",
 		dataType : "json",
 		data : objJson,
-		sync:false,
 		contentType : "application/json; charset=utf-8",
 		success : whenSuccess,
 		error : whenError
@@ -291,20 +181,22 @@ function weekChange(startDate,endDate){
 		//여기
 		fnPrintGrid(result);
 		getSum(); //테이블에 보이는 price값 다 더하기
+
 		refreshCheckStatistic();
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
 
 	function whenError(result) {
-		//alert("세션이 만료되었습니다.");
 		swal({
 			  title: "세션이 만료되었습니다.", 
 			  icon: "warning",  
 			  timer:1750,
 			  dangerMode: true
 			});
-		window.location.href = "main"; 
+		window.location.href = "main";
+		//alert("Error");
+
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
@@ -313,7 +205,7 @@ function weekChange(startDate,endDate){
 /*숫자 3글자마다 콤마
 $(function(){
 	// Set up the number formatting.  
-	$('#weekTotal').number( true );  
+	$('#monthTotal').number( true );  
 }); 
 */
 
@@ -322,19 +214,17 @@ $(function(){
  ******************************************************************************/
 function fndeleteSurveyResult() {
 	var tmp = {}; 
-	tmp["startDate"]=$('#startDate').val();
-	tmp["endDate"]=$('#endDate').val();
-	var objJson = JSON.stringify(tmp); 
+	tmp["month_standard"] = $('#month_standard').val(); 
 	tmp["chk"] = $("input[name='chk']:checked").map(function() {
 		return this.value;
 	}).get();
-
+	
 	var objJson = JSON.stringify(tmp);
 
 	$('#LoadingImage').show(); // loadingImage show
 	$.ajax({
 		type : "post",
-		url : "deleteWeekSelected.do",
+		url : "deleteMonthSelected.do",
 		data : objJson,
 		dataType : "json",
 		contentType : "application/json; charset=utf-8",
@@ -352,12 +242,14 @@ function fndeleteSurveyResult() {
 
 	function whenError(result) {
 		//alert("Error");
+
 		swal({
 			  title: "세션이 만료되었습니다.", 
 			  icon: "warning",  
 			  timer:1750,
 			  dangerMode: true
 			});
+
 		// loading image disappeard
 		$('#LoadingImage').hide();
 	}
@@ -383,7 +275,7 @@ function getSum(){
 			realtimesum=realtimesum+res1;
 		}
 	});
-	$('#weekTotal').val(addCommas(realtimesum));
+	$('#monthTotal').val(addCommas(realtimesum));
 }
 
 
@@ -426,10 +318,10 @@ function searchTable(inputVal) {
 				$(row).hide();
 		}
 	});
-	$('#weekTotal').val(addCommas(realtimesum));
+	$('#monthTotal').val(addCommas(realtimesum));
 }
 
-/* 전체선택 */ 
+/* 전체선택 */
 $(document).ready(function() {
 	// 최상단 체크박스 클릭
 	$("#checkall").click(function() {
@@ -454,8 +346,7 @@ $(document).ready(function() {
 				  icon: "warning",  
 				  timer:1750,
 				  dangerMode: true
-				});
-			//alert("When you use fast search, you can not use all select\n(please select individually)");
+				}); 
 			//$("input[name=checkall]").prop("checked", false);
 			$("#checkall").prop("checked", false);
 		}
@@ -476,17 +367,17 @@ function checkAllLineBack(){
 /*******************************************************************************
  *  해당 row 선택시 색깔 변하도록 하기
  ******************************************************************************/ 
+ 
 $('body').on('click', '#moneyTable tbody  tr', function (e) {
     if (e.target.type == "checkbox") {
         // stop the bubbling to prevent firing the row's click event  
         e.stopPropagation(); 
-    } else {
+    } else { 
         var $checkbox = $(this).find(':checkbox');
         $checkbox.attr('checked', !$checkbox.attr('checked'));
 
         if($checkbox.attr('checked')){
-			$(this).css('background', '#C9D7E4'/*'#D9D6FF'*/);
-			/*$(this).css('color', '#000080');*/
+			$(this).css('background', '#C9D7E4'); 
         }
         else{
 
@@ -498,8 +389,7 @@ $('body').on('click', '#moneyTable tbody  tr', function (e) {
         	} 
         }
     }
-});
-
+}); 
 /*******************************************************************************
  * 해당 row대신 체크박스 선택시 색깔 변하도록 하기
  ******************************************************************************/ 
@@ -518,25 +408,96 @@ function chkclickevent(chkbox) {
 
 
 /*******************************************************************************
+ * calendar
+ ******************************************************************************/
+function myCalendar(result){ 
+	commonwork();
+    $('#calendar').fullCalendar('destroy'); 
+	$('#calendar').fullCalendar({
+	    // put your options and callbacks here
+        defaultDate : $('#month_standard').val()+"-2",
+        defaultView: 'month',
+        showNonCurrentDates :false, //이번달 말고는 블록처리 안보이게
+        fixedWeekCount :false, //보일필요 없는 날짜는 달력에서 제거(맨마지막줄)
+        eventLimit : true, 
+        events:calendarList,
+        titleFormat:'YYYY년 MM월',
+	   monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+	   monthNamesShort: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"], 
+        height:470,
+        eventColor: '#C9D7E4'
+	  });
+
+	$('.fc-today-button').click(function(){
+		$('#collapseOne').hide(500); //통계보기 열려있다면 닫기
+		   var date=new Date();
+		   var current = new Date(date.getFullYear(), date.getMonth(), 1);
+		   
+		   $('#month_standard').val(moment(current).format('YYYY-MM'));
+		   monthChange();
+		});
+
+	$('.fc-prev-button').click(function(){ 
+		$('#collapseOne').hide(500); //통계보기 열려있다면 닫기
+		   var date=new Date($('#month_standard').val());
+		   var current = new Date(date.getFullYear(), date.getMonth()-1, 1);
+		   
+		  // $('#month_standard').val(current.getFullYear()+"-"+(current.getMonth()+1));
+		   $('#month_standard').val(moment(current).format('YYYY-MM'));
+		   monthChange();
+		});
+
+	$('.fc-next-button').click(function(){
+		$('#collapseOne').hide(500); //통계보기 열려있다면 닫기
+	   var date=new Date($('#month_standard').val());
+	   var current = new Date(date.getFullYear(), date.getMonth()+1, 1);
+	   
+	  // $('#month_standard').val(current.getFullYear()+"-"+(current.getMonth()+1));
+	   $('#month_standard').val(moment(current).format('YYYY-MM'));
+	   monthChange();
+	});
+
+	
+}
+
+
+/*******************************************************************************
  * common works
  ******************************************************************************/
-function commonwork(){ 
+function commonwork(){
+	/*달력에 들어갈 정보 정보*/
 	var result=mainResult;
-	var length = result.moneyList.length; 
+	var length = result.moneyList.length;
+	var dateList=[];
 	var categoryList=[];
 	if (parseInt(length) > 0) 
 		for (var i = 0; i < length; i++) {
-			categoryList.push(result.moneyList[i].category); 
+			categoryList.push(result.moneyList[i].category);
+			dateList.push(result.moneyList[i].use_date);
 		}
 	
-	categoryList=categoryList.filter(onlyUnique) 
-	var categorySumList=[]; 
+	categoryList=categoryList.filter(onlyUnique)
+	dateList=dateList.filter(onlyUnique)
+	
+	var categorySumList=[];
+	var dateSumList=[];
+	
+
 	for(var j=0; j<categoryList.length; j++)
-		categorySumList.push(0); 
+		categorySumList.push(0);
+	for(var j=0; j<dateList.length; j++)
+		dateSumList.push(0);
 	
 	
-	if (parseInt(length) > 0) {  
-		for (var i = 0; i < length; i++) { 
+	if (parseInt(length) > 0) { 
+		var jj=0;
+		for (var i = 0; i < length; i++) {
+			for(; jj<dateList.length; jj++){
+				if(dateList[jj]==result.moneyList[i].use_date){
+					dateSumList[jj] = dateSumList[jj] + parseInt(result.moneyList[i].price);
+					break;
+				}
+			}
 			for(var j=0; j<categoryList.length; j++){
 				if(categoryList[j]==result.moneyList[i].category){
 					categorySumList[j] = categorySumList[j] + parseInt(result.moneyList[i].price);
@@ -545,7 +506,14 @@ function commonwork(){
 			}
 		}
 	} 
-	 
+	
+	//달력에 표시할 데이터
+    calendarList = [];
+    for(var i=0; i<dateList.length; i++){
+    	calendarList.push({title:addCommas(dateSumList[i]), start:dateList[i]});
+    }
+    
+
 	 //그래프에 표시할 데이터
    graphDataRow = [];
    graphDataRow.push(['Category', 'Amount']);
@@ -553,6 +521,7 @@ function commonwork(){
    for(var i = 0; i < categoryList.length; i++) //랜덤 데이터 생성
    	graphDataRow.push([categoryList[i] +" "+ addCommas(categorySumList[i])+"원" , parseInt(categorySumList[i])]); 
 }
+
 
 
 /*******************************************************************************
@@ -576,16 +545,15 @@ function refreshCheckStatistic(){
       var data = google.visualization.arrayToDataTable(graphDataRow); 
       data.sort([{column: 1, desc:true}]);
       var options = {     
-              chartArea:{width:'80%', height:'100%'},
-              legend: {
-                position: 'right' 
-              }, 
-              fontSize : 12,
-              width:380,
-              height:220,  
-              is3D: true,
-          };
-          
+          chartArea:{width:'80%', height:'100%'},
+          legend: {
+            position: 'right' 
+          }, 
+          fontSize : 12,
+          width:380,
+          height:220,  
+          is3D: true,
+      };
       
       var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
       google.visualization.events.addListener(chart, 'ready', afterDraw);

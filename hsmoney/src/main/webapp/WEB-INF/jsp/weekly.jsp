@@ -23,7 +23,11 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery.number.js" > </script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.mobile-events.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/sweetalert.min.js"></script>	
+<script src="${pageContext.request.contextPath}/resources/js/sweetalert.min.js"></script>
+
+<!-- chart js -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	
 <script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/weekly.js" charset="utf-8"></script>  
  
  
@@ -54,6 +58,32 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 	<input type="hidden" id="message" value="${message}">
  <input type="hidden" id="startDate" value="${startDate}">
  <input type="hidden" id="endDate" value="${endDate}">
+ 
+ 
+	
+<!-- chart -->	
+<div class="accordion" id="accordionExample">
+		  <div class="card" style="background-color:#FAFCFC;">
+		    <div class="card-header col-md- text-right" id="headingOne">
+		      <h5 class="mb-0">
+		        <button class="btn btn-primary text-right" type="button" data-toggle="collapse" data-target="#collapseOnes" aria-expanded="true" aria-controls="collapseOnes" onclick="checkStatistic()">통계보기</button>
+		      </h5>
+		    </div>
+		
+		    <!-- <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"> -->
+		    <!-- <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample"> -->
+		    <div id="collapseOne" class="collapse">
+		    	<center>
+				      <div class="card-body"> 
+				       		<div id="donutchart"></div>
+				      </div>
+			      </center>
+		    </div>
+		  </div>
+  </div> 
+<!-- chart -->	
+	
+ 
 <!-- weekly 테이블 -->
 <div class="container-fluid" id="monthlyclass"  style="margin-bottom:169px;"> 
 	<div class="table-responsive">
