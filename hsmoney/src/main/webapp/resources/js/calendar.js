@@ -40,12 +40,17 @@ function fnOnload() {
 /*******************************************************************************
  * Result print param : result 결과 Object
  ******************************************************************************/
+function checkDateValid(value) {
+	if((new Date(startDate) <= new Date(value.use_date)  &&  new Date(value.use_date) <= new Date(endDate) )){ 
+		return true;
+	}
+	return false;
+} 
 function fnPrintGrid(result) {
-
-	var startDate=result.startDate;
-	var endDate=result.endDate;
+	startDate=result.startDate;
+	endDate=result.endDate;
+	result.moneyList = result.moneyList.filter(checkDateValid)
 	mainResult=result;
-	mainResult.moneyList.filter(use_date => !(   new Date(startDate) <= new Date(use_date)  &&  new Date(use_date) <= new Date(endDate) ) )
 	var length = result.moneyList.length;
 	$("#moneyListBody").empty();
 	var appendData = "";
@@ -82,8 +87,8 @@ function fnPrintGrid(result) {
 			var price = result.moneyList[i].price; 
 			var start_date = result.moneyList[i].start_date; 
 			
-			if(!(   new Date(startDate) <= new Date(use_date)  &&  new Date(use_date) <= new Date(endDate) ))
-				continue;
+			/*if(!(   new Date(startDate) <= new Date(use_date)  &&  new Date(use_date) <= new Date(endDate) ))
+				continue;*/
 			/*
 			if(!(startDate<=use_date && use_date<=endDate)){
 				//alert("실제 검색 결과 "+startDate+" / "+endDate+ " : "+use_date);
@@ -439,7 +444,7 @@ function myCalendar(result){
 	  });
 
 	$('.fc-today-button').click(function(){
-		$('#collapseOne').hide(500); //통계보기 열려있다면 닫기
+		//$('#collapseOne').hide(500); //통계보기 열려있다면 닫기
 		   var date=new Date();
 		   var current = new Date(date.getFullYear(), date.getMonth(), 1);
 		   
@@ -448,7 +453,7 @@ function myCalendar(result){
 		});
 
 	$('.fc-prev-button').click(function(){ 
-		$('#collapseOne').hide(500); //통계보기 열려있다면 닫기
+		//$('#collapseOne').hide(500); //통계보기 열려있다면 닫기
 		   var date=new Date($('#month_standard').val());
 		   var current = new Date(date.getFullYear(), date.getMonth()-1, 1);
 		   
@@ -458,7 +463,7 @@ function myCalendar(result){
 		});
 
 	$('.fc-next-button').click(function(){
-		$('#collapseOne').hide(500); //통계보기 열려있다면 닫기
+		//$('#collapseOne').hide(500); //통계보기 열려있다면 닫기
 	   var date=new Date($('#month_standard').val());
 	   var current = new Date(date.getFullYear(), date.getMonth()+1, 1);
 	   
@@ -555,7 +560,7 @@ function refreshCheckStatistic(){
       var data = google.visualization.arrayToDataTable(graphDataRow); 
       data.sort([{column: 1, desc:true}]);
       var options = {     
-          chartArea:{width:'80%', height:'100%'},
+          chartArea:{width:'100%', height:'100%'},
           legend: {
             position: 'right' 
           }, 

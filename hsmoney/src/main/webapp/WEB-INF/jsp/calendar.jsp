@@ -86,7 +86,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 		
 		    <!-- <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"> -->
 		    <!-- <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample"> -->
-		    <div id="collapseOne" class="collapse">
+		    <div id="collapseOne" class="collapse show">
 		    	<center>
 				      <div class="card-body"> 
 				       		<div id="donutchart"></div>

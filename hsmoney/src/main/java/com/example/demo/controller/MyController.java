@@ -292,18 +292,22 @@ public class MyController {
 			cal_search_end=select_year+"-"+(1+select_month)+"-"+caldayofMonth;
 		}
 		else { //15일이후
-			if(select_month==0) //1월선택
+			if(select_month==0) { //1월선택
 				search_start=(select_year-1)+"-12-"+start_date;
-			else 
+				cal_search_start = select_year+"-12-1"; //2017-7-1
+			}
+			else {
+				cal_search_start = select_year+"-"+select_month+"-1"; //2017-7-1 
 				search_start=select_year+"-"+select_month+"-"+start_date;
-			search_end=select_year+"-"+(select_month+1)+"-"+(start_date-1);
-
-			cal_search_start = select_year+"-"+select_month+"-1"; //2017-7-1
+			}
+			search_end=select_year+"-"+(select_month+1)+"-"+(start_date-1); 
 			calendar.set(select_year, select_month, 1);
 			int dayofMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 			cal_search_end=select_year+"-"+(1+select_month)+"-"+dayofMonth;
 		}
 		  
+		
+		
 		System.out.println("month_standard : "+month_standard);
 		System.out.println("startDate : "+search_start+" / endDate : "+search_end);
 		System.out.println("cal_search_start : "+cal_search_start+" / cal_search_end : "+cal_search_end);

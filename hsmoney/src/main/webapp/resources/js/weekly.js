@@ -576,7 +576,7 @@ function refreshCheckStatistic(){
       var data = google.visualization.arrayToDataTable(graphDataRow); 
       data.sort([{column: 1, desc:true}]);
       var options = {     
-              chartArea:{width:'80%', height:'100%'},
+              chartArea:{width:'100%', height:'100%'},
               legend: {
                 position: 'right' 
               }, 
