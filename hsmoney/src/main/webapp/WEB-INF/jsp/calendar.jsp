@@ -132,7 +132,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 		 
 		 	<div class="input-group mb-3"  style="padding-top: 10px;">
 				  <div class="input-group-prepend">
-					    <input type="text" value ="Monthly Sum" class="input-group-text30"  style="width:139px; text-align:left;" readonly> 
+					    <input type="text" value ="Calendar Sum" class="input-group-text30"  style="width:139px; text-align:left;" readonly> 
 				  </div>
 				  <input type="text" readonly class="form-control input-group-text" id="monthTotal" name="monthTotal" value="${monthlyTotal}" style="width:100px">
 				  <div class="input-group-append">

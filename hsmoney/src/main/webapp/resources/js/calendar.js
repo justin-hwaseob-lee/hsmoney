@@ -40,17 +40,18 @@ function fnOnload() {
 /*******************************************************************************
  * Result print param : result 결과 Object
  ******************************************************************************/
-function checkDateValid(value) {
+/*function checkDateValid(value) {
 	if((new Date(startDate) <= new Date(value.use_date)  &&  new Date(value.use_date) <= new Date(endDate) )){ 
 		return true;
 	}
 	return false;
-} 
+}*/
 function fnPrintGrid(result) {
-	startDate=result.startDate;
-	endDate=result.endDate;
-	result.moneyList = result.moneyList.filter(checkDateValid)
+	//startDate=result.startDate;
+	//endDate=result.endDate;
+	//mainResult=Object.assign({}, result);
 	mainResult=result;
+	//result.moneyList = result.moneyList.filter(checkDateValid)
 	var length = result.moneyList.length;
 	$("#moneyListBody").empty();
 	var appendData = "";
@@ -131,8 +132,8 @@ function fnPrintGrid(result) {
 
 	var navHeight = $("#navbottom").outerHeight(); 
 	document.getElementById('monthlyclass').style.marginBottom=navHeight+"px";
+	myCalendar(); 
 
-	myCalendar(result);
 }
 
 
@@ -425,7 +426,8 @@ function chkclickevent(chkbox) {
 /*******************************************************************************
  * calendar
  ******************************************************************************/
-function myCalendar(result){ 
+function myCalendar(){ 
+	//commonworkCalendar();
 	commonwork();
     $('#calendar').fullCalendar('destroy'); 
 	$('#calendar').fullCalendar({
@@ -480,8 +482,11 @@ function myCalendar(result){
  * common works
  ******************************************************************************/
 function commonwork(){
-	/*달력에 들어갈 정보 정보*/
-	var result=mainResult;
+	
+	
+	//달력에 들어갈 정보 정보
+	var result=mainResult;  
+	
 	var length = result.moneyList.length;
 	var dateList=[];
 	var categoryList=[];
@@ -536,8 +541,95 @@ function commonwork(){
    for(var i = 0; i < categoryList.length; i++) //랜덤 데이터 생성
    	graphDataRow.push([categoryList[i] +" "+ addCommas(categorySumList[i])+"원" , parseInt(categorySumList[i])]); 
 }
+/*function commonwork(){
+	
+	
+	달력에 들어갈 정보 정보
+	var result=mainResult; 
+	
+	var length = result.moneyList.length; 
+	var categoryList=[];
+	if (parseInt(length) > 0) 
+		for (var i = 0; i < length; i++) {
+			categoryList.push(result.moneyList[i].category); 
+		}
+	
+	categoryList=categoryList.filter(onlyUnique) 
+	
+	var categorySumList=[]; 
+	
 
-
+	for(var j=0; j<categoryList.length; j++)
+		categorySumList.push(0); 
+	
+	
+	if (parseInt(length) > 0) {  
+		for (var i = 0; i < length; i++) { 
+			for(var j=0; j<categoryList.length; j++){
+				if(categoryList[j]==result.moneyList[i].category){
+					categorySumList[j] = categorySumList[j] + parseInt(result.moneyList[i].price);
+					break;
+				}
+			}
+		}
+	} 
+	 
+	 //그래프에 표시할 데이터
+   graphDataRow = [];
+   graphDataRow.push(['Category', 'Amount']);
+	
+   for(var i = 0; i < categoryList.length; i++) //랜덤 데이터 생성
+   	graphDataRow.push([categoryList[i] +" "+ addCommas(categorySumList[i])+"원" , parseInt(categorySumList[i])]); 
+}*/
+/*
+function checkDateValidCalendar(value) {
+	if((new Date(startDate) <= new Date(value.use_date))){ 
+		return true;
+	}
+	return false;
+} 
+function commonworkCalendar(){
+	
+	//alert(startDate+" ~ "+endDate);
+	달력에 들어갈 정보 정보
+	var result=mainResult; 
+	result.moneyList = result.moneyList.filter(checkDateValidCalendar)
+	
+	var length = result.moneyList.length;
+	var dateList=[]; 
+	if (parseInt(length) > 0) 
+		for (var i = 0; i < length; i++) { 
+			dateList.push(result.moneyList[i].use_date);
+		}
+	 
+	dateList=dateList.filter(onlyUnique)
+	 
+	var dateSumList=[];
+	 
+	for(var j=0; j<dateList.length; j++)
+		dateSumList.push(0);
+	
+	
+	if (parseInt(length) > 0) { 
+		var jj=0;
+		for (var i = 0; i < length; i++) {
+			for(; jj<dateList.length; jj++){
+				if(dateList[jj]==result.moneyList[i].use_date){
+					dateSumList[jj] = dateSumList[jj] + parseInt(result.moneyList[i].price);
+					break;
+				}
+			} 
+		}
+	} 
+	
+	//달력에 표시할 데이터
+    calendarList = [];
+    for(var i=0; i<dateList.length; i++){
+    	calendarList.push({title:addCommas(dateSumList[i]), start:dateList[i]});
+    }
+    
+}
+*/
 
 /*******************************************************************************
  * 통계정보 보기

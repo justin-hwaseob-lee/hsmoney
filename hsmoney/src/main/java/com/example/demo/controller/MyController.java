@@ -267,12 +267,10 @@ public class MyController {
 		String search_start=null;
 		String search_end=null;
 		
-
-		String cal_search_start=null;
-		String cal_search_end=null;
+ 
 		if(start_date <= 15) { //시작일이 15일 이전인경우
-			search_start = select_year+"-"+(select_month+1)+"-"+start_date; //2017-7-1 
-			if(start_date==1) { //시작일이 1인인경우
+			search_start = select_year+"-"+(select_month+1)+"-"+1; //2017-7-1 
+/*			if(start_date==1) { //시작일이 1인인경우
 				calendar.set(select_year, select_month, 1);
 				int dayofMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 				search_end=select_year+"-"+(1+select_month)+"-"+dayofMonth;
@@ -285,35 +283,38 @@ public class MyController {
 						search_end = select_year+"-"+(select_month+2)+"-"+(start_date-1);
 			}
 			
-			
-			cal_search_start = select_year+"-"+(select_month+1)+"-1"; //2017-7-1
+			 */
 			calendar.set(select_year, select_month, 1);
 			int caldayofMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-			cal_search_end=select_year+"-"+(1+select_month)+"-"+caldayofMonth;
+			search_end=select_year+"-"+(1+select_month)+"-"+caldayofMonth;
 		}
 		else { //15일이후
+
+			search_start = select_year+"-"+(select_month+1)+"-"+1; 
+			/* 
 			if(select_month==0) { //1월선택
-				search_start=(select_year-1)+"-12-"+start_date;
-				cal_search_start = select_year+"-12-1"; //2017-7-1
+				//search_start=(select_year-1)+"-12-"+start_date;
+				search_start = select_year+"-12-1"; //2017-7-1
 			}
 			else {
-				cal_search_start = select_year+"-"+select_month+"-1"; //2017-7-1 
-				search_start=select_year+"-"+select_month+"-"+start_date;
+				//cal_search_start = select_year+"-"+select_month+"-1"; //2017-7-1
+				search_start =  select_year+"-"+select_month+"-1"; //2017-7-1
+				//search_start=select_year+"-"+select_month+"-"+start_date;
 			}
-			search_end=select_year+"-"+(select_month+1)+"-"+(start_date-1); 
+			*/
+			//search_end=select_year+"-"+(select_month+1)+"-"+(start_date-1); 
 			calendar.set(select_year, select_month, 1);
 			int dayofMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-			cal_search_end=select_year+"-"+(1+select_month)+"-"+dayofMonth;
+			search_end=select_year+"-"+(1+select_month)+"-"+dayofMonth;
+			//cal_search_end=select_year+"-"+(1+select_month)+"-"+dayofMonth;
 		}
 		  
 		
-		
-		System.out.println("month_standard : "+month_standard);
+		 
 		System.out.println("startDate : "+search_start+" / endDate : "+search_end);
-		System.out.println("cal_search_start : "+cal_search_start+" / cal_search_end : "+cal_search_end);
+		//System.out.println("cal_search_start : "+cal_search_start+" / cal_search_end : "+cal_search_end);
 		
-		moneyList=moneyService.getMonthMoneyInfoFromStandard(cal_search_start, cal_search_end, user_id);
-		
+		moneyList=moneyService.getMonthMoneyInfoFromStandard(search_start, search_end, user_id); 
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(moneyList!=null){
 			map.put("moneyList", moneyList);	
