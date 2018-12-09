@@ -122,7 +122,7 @@ public class MyController {
 			search_start = select_year+"-"+(select_month+1)+"-"+start_date; //2017-7-1
 			
 			if(start_date==1) { //시작일이 1인인경우
-				calendar.set(2018, select_month, 1);
+				calendar.set(select_year, select_month, 1);
 				int dayofMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 				search_end=select_year+"-"+(1+select_month)+"-"+dayofMonth;
 			}
@@ -194,7 +194,7 @@ public class MyController {
 			search_start = select_year+"-"+(select_month+1)+"-"+start_date; //2017-7-1
 			
 			if(start_date==1) { //시작일이 1인인경우
-				calendar.set(2018, select_month, 1);
+				calendar.set(select_year, select_month, 1);
 				int dayofMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 				search_end=select_year+"-"+(1+select_month)+"-"+dayofMonth;
 			}
@@ -223,6 +223,100 @@ public class MyController {
 		if(moneyList!=null){
 			map.put("moneyList", moneyList);	
 		}
+
+		map.put("startDate", search_start);	
+		map.put("endDate", search_end);	
+		
+		return new ModelAndView("jsonView", map);
+	}
+	
+
+	@PostMapping("calendar.do")
+	public ModelAndView doCalendar(@RequestBody String json, HttpSession session){   
+
+		if (session.getAttribute("loginInfo") == null)  // LoginInfo exists in session
+			return new ModelAndView("login"); 
+		MemberDto userInfo=(MemberDto) session.getAttribute("loginInfo");
+		String user_id=userInfo.getUser_id();
+
+		JSONObject jsonObject = null;
+		try {
+			jsonObject = (JSONObject) new JSONParser().parse(json);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		String month_standard = (String) jsonObject.get("month_standard");   
+		List<MoneyDto> moneyList = null;
+		 
+		int start_date=moneyService.getStartDate(user_id);
+		Date startDate =null;  
+		try {startDate = new SimpleDateFormat("yyyy-MM").parse(month_standard);	}
+		catch(Exception e) {System.out.println("error");}
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(startDate);
+		
+		//2017-8 
+		int select_year = calendar.get(Calendar.YEAR);  //select Year   - 2017
+		int select_month = calendar.get(Calendar.MONTH); //select month - 7
+
+		
+		
+		
+		String search_start=null;
+		String search_end=null;
+		
+
+		String cal_search_start=null;
+		String cal_search_end=null;
+		if(start_date <= 15) { //시작일이 15일 이전인경우
+			search_start = select_year+"-"+(select_month+1)+"-"+start_date; //2017-7-1 
+			if(start_date==1) { //시작일이 1인인경우
+				calendar.set(select_year, select_month, 1);
+				int dayofMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+				search_end=select_year+"-"+(1+select_month)+"-"+dayofMonth;
+			}
+			
+			else { //2~15
+				if(select_month+2 == 13)
+					search_end = (1+select_year)+"-1-"+(start_date-1);
+				else
+						search_end = select_year+"-"+(select_month+2)+"-"+(start_date-1);
+			}
+			
+			
+			cal_search_start = select_year+"-"+(select_month+1)+"-1"; //2017-7-1
+			calendar.set(select_year, select_month, 1);
+			int caldayofMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			cal_search_end=select_year+"-"+(1+select_month)+"-"+caldayofMonth;
+		}
+		else { //15일이후
+			if(select_month==0) //1월선택
+				search_start=(select_year-1)+"-12-"+start_date;
+			else 
+				search_start=select_year+"-"+select_month+"-"+start_date;
+			search_end=select_year+"-"+(select_month+1)+"-"+(start_date-1);
+
+			cal_search_start = select_year+"-"+select_month+"-1"; //2017-7-1
+			calendar.set(select_year, select_month, 1);
+			int dayofMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			cal_search_end=select_year+"-"+(1+select_month)+"-"+dayofMonth;
+		}
+		  
+		System.out.println("month_standard : "+month_standard);
+		System.out.println("startDate : "+search_start+" / endDate : "+search_end);
+		System.out.println("cal_search_start : "+cal_search_start+" / cal_search_end : "+cal_search_end);
+		
+		moneyList=moneyService.getMonthMoneyInfoFromStandard(cal_search_start, cal_search_end, user_id);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(moneyList!=null){
+			map.put("moneyList", moneyList);	
+		}
+
+		map.put("startDate", search_start);	
+		map.put("endDate", search_end);	
 		return new ModelAndView("jsonView", map);
 	}
 
@@ -364,7 +458,7 @@ public class MyController {
 			search_start = select_year+"-"+(select_month+1)+"-"+start_date; //2017-7-1
 			
 			if(start_date==1) { //시작일이 1인인경우
-				calendar.set(2018, select_month, 1);
+				calendar.set(select_year, select_month, 1);
 				int dayofMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 				search_end=select_year+"-"+(1+select_month)+"-"+dayofMonth;
 			}

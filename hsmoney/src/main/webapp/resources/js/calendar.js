@@ -68,6 +68,9 @@ function fnPrintGrid(result) {
 
 	// 데이터 조회된 길이를 체크하여 데이터 없는 경우 아래와 같은 메시지를 표에 표시
 	// '조회된 데이터가 없습니다.'
+	var startDate=result.startDate;
+	var endDate=result.endDate;
+	 
 	if (parseInt(length) > 0) {
 
 		for (var i = 0; i < length; i++) {
@@ -77,7 +80,11 @@ function fnPrintGrid(result) {
 			var category = result.moneyList[i].category; 
 			var price = result.moneyList[i].price; 
 			var start_date = result.moneyList[i].start_date;
-			  
+			
+			if(!(startDate<=use_date && use_date<=endDate)){
+				alert("실제 검색 결과 "+startDate+" / "+endDate+ " : "+use_date);
+				continue;
+			}
 
 			appendData += "<tr class='line'>";
 			appendData += "<td align='center' class='text-center' style='vertical-align: middle'><input type='checkbox' onclick='chkclickevent(this);' name='chk' id='chk' value='"
@@ -169,7 +176,7 @@ function monthChange(){
 	var objJson = JSON.stringify(tmp);
 	$.ajax({
 		type : "post",
-		url : "monthChange.do",
+		url : "calendar.do",
 		dataType : "json",
 		data : objJson,
 		contentType : "application/json; charset=utf-8",
@@ -415,15 +422,15 @@ function myCalendar(result){
     $('#calendar').fullCalendar('destroy'); 
 	$('#calendar').fullCalendar({
 	    // put your options and callbacks here
-        defaultDate : $('#month_standard').val()+"-2",
+        defaultDate : $('#month_standard').val()+"-2", 
         defaultView: 'month',
         showNonCurrentDates :false, //이번달 말고는 블록처리 안보이게
         fixedWeekCount :false, //보일필요 없는 날짜는 달력에서 제거(맨마지막줄)
         eventLimit : true, 
         events:calendarList,
         titleFormat:'YYYY년 MM월',
-	   monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
-	   monthNamesShort: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"], 
+	    monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+	    monthNamesShort: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"], 
         height:470,
         eventColor: '#C9D7E4'
 	  });

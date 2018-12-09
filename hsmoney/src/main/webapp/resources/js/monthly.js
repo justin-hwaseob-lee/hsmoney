@@ -41,7 +41,7 @@ function fnOnload() {
  * Result print param : result 결과 Object
  ******************************************************************************/
 function fnPrintGrid(result) {
-	mainResult=result;
+	mainResult=result; 
 	var length = result.moneyList.length;
 	$("#moneyListBody").empty();
 	var appendData = "";
