@@ -21,7 +21,7 @@
 <!-- jQuery UI 라이브러리 js파일 -->
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
 
-<script src="${pageContext.request.contextPath}/resources/js/jquery.number.js" > </script> 
+<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery.number.js" > </script> --%> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.mobile-events.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/sweetalert.min.js"></script>
 

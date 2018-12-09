@@ -109,7 +109,7 @@ table tr:hover td { border-top-color: #708EA8; border-bottom: 1px solid #708EA8;
 		
 			<thead style="font-size:14px;">
 				<tr>
-					<th class="text-center"  style="vertical-align: middle;"><label><input type="checkbox" id="checkall" name="checkall" ></label></th>
+					<th class="text-center"  style="vertical-align: middle;"> </th>
 					<th class="text-center" style="vertical-align: middle;">Date</th>
 					<th class="text-center" style="vertical-align: middle;">Category</th>
 					<th class="text-center" style="vertical-align: middle;">price</th> 
