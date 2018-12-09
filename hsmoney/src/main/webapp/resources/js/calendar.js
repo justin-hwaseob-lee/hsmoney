@@ -41,7 +41,8 @@ function fnOnload() {
  * Result print param : result 결과 Object
  ******************************************************************************/
 function fnPrintGrid(result) {
-	mainResult=result;
+	//mainResult=result;
+	mainResult=result.moneyList.filter(use_date => !(   new Date(startDate) <= new Date(use_date)  &&  new Date(use_date) <= new Date(endDate) ) )
 	var length = result.moneyList.length;
 	$("#moneyListBody").empty();
 	var appendData = "";
@@ -79,13 +80,15 @@ function fnPrintGrid(result) {
 			var use_date = result.moneyList[i].use_date;
 			var category = result.moneyList[i].category; 
 			var price = result.moneyList[i].price; 
-			var start_date = result.moneyList[i].start_date;
+			var start_date = result.moneyList[i].start_date; 
 			
-			if(!(startDate<=use_date && use_date<=endDate)){
-				alert("실제 검색 결과 "+startDate+" / "+endDate+ " : "+use_date);
+			if(!(   new Date(startDate) <= new Date(use_date)  &&  new Date(use_date) <= new Date(endDate) ))
 				continue;
-			}
-
+			/*
+			if(!(startDate<=use_date && use_date<=endDate)){
+				//alert("실제 검색 결과 "+startDate+" / "+endDate+ " : "+use_date);
+				continue;
+			}*/
 			appendData += "<tr class='line'>";
 			appendData += "<td align='center' class='text-center' style='vertical-align: middle'><input type='checkbox' onclick='chkclickevent(this);' name='chk' id='chk' value='"
 					+ money_id + "'>"
