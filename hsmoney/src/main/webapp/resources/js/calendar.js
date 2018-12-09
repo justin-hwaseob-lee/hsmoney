@@ -41,8 +41,11 @@ function fnOnload() {
  * Result print param : result 결과 Object
  ******************************************************************************/
 function fnPrintGrid(result) {
-	//mainResult=result;
-	mainResult=result.moneyList.filter(use_date => !(   new Date(startDate) <= new Date(use_date)  &&  new Date(use_date) <= new Date(endDate) ) )
+
+	var startDate=result.startDate;
+	var endDate=result.endDate;
+	mainResult=result;
+	mainResult.moneyList.filter(use_date => !(   new Date(startDate) <= new Date(use_date)  &&  new Date(use_date) <= new Date(endDate) ) )
 	var length = result.moneyList.length;
 	$("#moneyListBody").empty();
 	var appendData = "";
@@ -68,10 +71,7 @@ function fnPrintGrid(result) {
 	}
 
 	// 데이터 조회된 길이를 체크하여 데이터 없는 경우 아래와 같은 메시지를 표에 표시
-	// '조회된 데이터가 없습니다.'
-	var startDate=result.startDate;
-	var endDate=result.endDate;
-	 
+	// '조회된 데이터가 없습니다.' 
 	if (parseInt(length) > 0) {
 
 		for (var i = 0; i < length; i++) {
