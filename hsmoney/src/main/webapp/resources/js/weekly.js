@@ -6,7 +6,8 @@ window.onload = function() {
 	//datepicker위치 강ㅈ
 	$.extend($.datepicker, {
 	    _checkOffset: function(inst, offset, isFixed) {
-	        offset.top = $("#" + inst.id).offset().top - $(window).scrollTop() + $("#" + inst.id)[0].getBoundingClientRect().height-305;
+	        //offset.top = $("#" + inst.id).offset().top - $(window).scrollTop() + $("#" + inst.id)[0].getBoundingClientRect().height-305;
+	    	offset.top = $("#" + inst.id).offset().top - $(window).scrollTop() + $("#" + inst.id)[0].getBoundingClientRect().height-335;
 	        offset.left = $("#" + inst.id).offset().left   + $("#" + inst.id)[0].getBoundingClientRect().width-260;
 	        return offset;
 	    }
